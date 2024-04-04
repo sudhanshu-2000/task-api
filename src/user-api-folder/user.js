@@ -38,11 +38,11 @@ app.post("/register", (req, res) => {
   con.query("SELECT * FROM `user_details` WHERE `mobile` = ?;", [req.body.mobile], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.status(302).json(btoa(JSON.stringify({
+      res.status(302).json({
         error: true,
         status: false,
         message: "Mobile Number is Already Exist",
-      })));
+      });
     } else {
       con.query("SELECT (IFNULL(MAX(uid),100000)) as id FROM user_details", (err, ides) => {
         if (err) throw err;
@@ -57,12 +57,12 @@ app.post("/register", (req, res) => {
                 if (err) throw err;
                 if (result) {
                   con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
-                  reffer(codecode, 'GJpQpVEO');
-                  res.status(200).json(btoa(JSON.stringify({
+                  // reffer(codecode, 'GJpQpVEO');
+                  res.status(200).json({
                     error: false,
                     status: true,
                     message: "Registered Successfully",
-                  })));
+                  });
                 }
               }
             );
@@ -76,21 +76,21 @@ app.post("/register", (req, res) => {
                     if (err) throw err;
                     if (result) {
                       con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
-                      reffer(codecode, req.body.reffer_by);
-                      res.status(200).json(btoa(JSON.stringify({
+                      // reffer(codecode, req.body.reffer_by);
+                      res.status(200).json({
                         error: false,
                         status: true,
                         message: "Registered Successfully",
-                      })));
+                      });
                     }
                   }
                 );
               } else {
-                res.status(404).json(btoa(JSON.stringify({
+                res.status(404).json({
                   error: false,
                   status: true,
                   message: "This refferal Code is not valid.",
-                })));
+                });
               }
             })
           }
@@ -125,24 +125,24 @@ app.post("/login", (req, res) => {
                 error: false,
                 status: true,
                 ID: result[0].uid,
-                username: result[0].mobile,
+                username: result[0].username,
                 message: "Login Successfully",
                 token,
               });
             }
           })
         } else {
-          res.status(404).json(btoa(JSON.stringify({
+          res.status(404).json({
             error: true,
             status: false,
             message: "Mobile Or Password is Wrong",
-          })));
+          });
         }
       } else {
-        res.status(404).json(btoa(JSON.stringify({
+        res.status(404).json({
           error: true,
           message: "Mobile Number is Not Exist",
-        })));
+        });
       }
     }
   );
@@ -152,7 +152,7 @@ app.post("/logout", (req, res) => {
   con.query("UPDATE `user_details` SET `is_active` = 'N' WHERE `mobile` = ?", [req.body.mobile], (err, result) => {
     if (err) { throw err; }
     if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true })));
+      res.status(200).json({ error: false, status: true });
     }
   })
 });
@@ -164,10 +164,10 @@ app.post('/choose-plan', verifytoken, (req, res) => {
     (err, result) => {
       if (err) throw err;
       if (result) {
-        res.status(200).json(btoa(JSON.stringify({
+        res.status(200).json({
           error: false,
           status: true
-        })));
+        });
       }
     }
   );
@@ -179,11 +179,11 @@ app.post("/get-plans", (req, res) => {
       throw err;
     }
     if (result) {
-      res.status(200).json(btoa(JSON.stringify({
+      res.status(200).json({
         error: false,
         status: true,
         data: result
-      })));
+      });
     }
   })
 })
@@ -207,19 +207,19 @@ app.post("/change", verifytoken, (req, res) => {
           (err, result) => {
             if (err) throw err;
             if (result) {
-              res.status(200).json(btoa(JSON.stringify({
+              res.status(200).json({
                 error: false,
                 status: true,
                 message: "Reset Password Successfully",
-              })));
+              });
             }
           }
         );
       } else {
-        res.status(200).json(btoa(JSON.stringify({
+        res.status(200).json({
           error: true,
           message: "Password is Wrong",
-        })));
+        });
       }
     }
   }
@@ -234,11 +234,11 @@ app.post("/wallet-balance", verifytoken, (req, res) => {
     (err, result) => {
       if (err) throw err;
       if (result) {
-        res.status(200).json(btoa(JSON.stringify({
+        res.status(200).json({
           error: false,
           status: "Success",
           data: result
-        })));
+        });
       }
     }
   );
@@ -260,32 +260,23 @@ app.post("/withdrawal-balace", verifytoken, (req, res) => {
               throw err;
             }
             if (result.length > 0) {
-              res.status(200).json(btoa(JSON.stringify({
+              res.status(200).json({
                 error: false,
                 status: true,
                 msg: "your wallet is update",
-              })));
+              });
             } else {
-              res.status(403).json(btoa(JSON.stringify({
+              res.status(403).json({
                 error: false,
                 status: true,
                 msg: "your wallet is not a update",
-              })));
+              });
             }
           }
         );
       }
     }
   );
-});
-app.post("/get-game-type", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("select * from `game_type`", (err, result) => {
-    if (err) throw err;
-    else {
-      res.status(200).json(btoa(JSON.stringify({ data: result })));
-    }
-  });
 });
 app.post("/get-otp", (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
@@ -360,112 +351,6 @@ app.post("/verify-otp", (req, res) => {
     }
   );
 });
-app.post("/get-record-complete", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  let limit = 20;
-  let offset = limit * req.body.page - limit;
-  con.query(
-    "SELECT r.*, (SELECT COUNT(*)  FROM `record` WHERE `status` = 'Y' and `game_type` = ?) as count, (SELECT code from game_color WHERE id = gm.color_id) as color_code FROM `record` as r  INNER JOIN game_number as gn on r.number = gn.number INNER join game_mapping as gm on gm.number_id = gn.id and gm.game_type_id = r.game_type WHERE r.`status` = 'Y' and r.`game_type` = ?  GROUP by r.period ORDER BY id DESC LIMIT ? OFFSET ?",
-    [req.body.id, req.body.id, limit, offset],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res.status(200).json(btoa(JSON.stringify({
-          error: false,
-          status: true,
-          data: result,
-        })));
-      }
-    }
-  );
-});
-app.post("/get-record-complete-details", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  // if(req.body.page === 0){
-  let limit = 10;
-  let offset = limit * req.body.page - limit;
-  con.query(
-    "SELECT r.*, (SELECT COUNT(*)  FROM `record` WHERE `status` = 'Y' and `game_type` = ?) as count, (SELECT code from game_color WHERE id= gm.color_id) as color_code FROM `record` as r  INNER JOIN game_number as gn on r.number = gn.number INNER join game_mapping as gm on gm.number_id = gn.id and gm.game_type_id = r.game_type WHERE r.`status` = 'Y' and r.`game_type` = ?  GROUP by r.period ORDER BY id DESC LIMIT ? OFFSET ?",
-    [req.body.id, req.body.id, limit, offset],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res.status(200).json(btoa(JSON.stringify({
-          error: false,
-          status: true,
-          data: result,
-        })));
-      }
-    }
-  );
-});
-app.post("/get-record-not-complete", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query(
-    "SELECT `period`, `game_type`, `start_date`, `end_date` FROM `record` WHERE `status` = 'N' and `game_type` = ?",
-    [req.body.id],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res.status(200).json(btoa(JSON.stringify({
-          error: false,
-          status: true,
-          data: result,
-        })));
-      }
-    }
-  );
-});
-app.post("/get-game-mapping-number", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query(
-    "SELECT gm.id, gt.id as game_type, gc.code as color_code, gn.number as number FROM game_mapping gm INNER JOIN game_color gc ON gc.id = gm.color_id INNER JOIN game_number gn ON gn.id = gm.number_id INNER JOIN game_type gt ON gt.id = gm.game_type_id where game_type_id= ? ORDER BY CAST(number AS UNSIGNED INTEGER);",
-    [req.body.id],
-    (err, result_data) => {
-      if (err) throw err;
-      if (result_data) orders = result_data;
-      const grouped = {};
-      for (const {
-        color_code,
-        color_name,
-        date,
-        for_color_or_number,
-        game_type,
-        id,
-        number,
-        status,
-      } of orders) {
-        const userGroup = (grouped[number] ??= {
-          number,
-          color_name,
-          date,
-          for_color_or_number,
-          game_type,
-          id,
-          status,
-          orders: {},
-        });
-        const bookGroup = (userGroup.orders[color_code] ??= { color_code });
-      }
-      newdata = Object.values(grouped).map(({ orders, ...rest }) => ({
-        ...rest,
-        orders: Object.values(orders),
-      }));
-      res.status(200).json(btoa(JSON.stringify({ data: newdata })));
-    }
-  );
-});
-app.post("/get-game-mapping-color", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query(
-    "SELECT gm.id, gm.for_color_or_number, gt.id as game_type,gc.name as color_name, gc.code as color_code ,gm.status, gm.date FROM game_mapping gm INNER JOIN game_color gc ON gc.id = gm.color_id INNER JOIN game_type gt ON gt.id = gm.game_type_id where gm.for_color_or_number= 'only_color' and game_type_id = ?",
-    [req.body.id],
-    (err, result) => {
-      if (err) throw err;
-      if (result) res.status(200).json(btoa(JSON.stringify({ data: result })));
-    }
-  );
-});
 app.post("/get-pay-method", verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query(
@@ -534,264 +419,6 @@ app.post("/add-check", (req, res) => {
       res.status(200).json(btoa(JSON.stringify({ data: result })));
     }
   });
-});
-
-// bet-record
-app.post("/get-bet-record", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  let limit = 10;
-  let offset = limit * req.body.page - limit;
-  con.query(
-    "SELECT bt.`id`, bt.`Period`, bt.`game-type`, bt.`price`, bt.`type`, bt.`value`, bt.if_open_zero, (SELECT code from game_color where id = gm.color_id)as color, (SELECT COUNT(*) FROM `bet-table` WHERE `username` = ? and `game-type` = ?) as count, (SELECT `number` FROM `record` WHERE `period` = bt.`Period` and `game_type` = bt.`game-type` LIMIT 1 OFFSET 0) as number, (SELECT (SELECT (SELECT (SELECT gc.name FROM game_color as gc WHERE gc.id = gmin.color_id) FROM game_mapping as gmin WHERE gmin.number_id = gnum.id AND gmin.game_type_id = r.game_type ORDER BY gmin.id ASC LIMIT 1) from game_number as gnum WHERE gnum.number = r.number) FROM `record` as r WHERE r.`period` = bt.`Period` and r.`game_type` = bt.`game-type` LIMIT 1 OFFSET 0) as open_color,(SELECT `winning-amount` FROM `record` WHERE `period` = bt.`Period` and `game_type` = bt.`game-type` LIMIT 1 OFFSET 0) as winning_amount FROM `bet-table` as bt INNER JOIN game_mapping as gm on bt.value_id = gm.id WHERE bt.`username` = ? and bt.`game-type` = ? ORDER by id DESC LIMIT ? OFFSET ?;",
-    [req.body.mobile, req.body.id, req.body.mobile, req.body.id, limit, offset],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res.status(200).json(btoa(JSON.stringify({
-          error: false,
-          status: true,
-          data: result,
-        })));
-      }
-    }
-  );
-});
-app.post("/add-bet-details", (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  if (req.body.bonuscheck == true) {
-    let value = parseInt(req.body.total_amount) - (parseInt(req.body.total_amount) / 10);
-    con.query("SELECT IF(`wallet_balance` + `Winning_wallet` + (IF(`Bonus_wallet` >= ?, ?, 0)) >= ?, IF(wallet_balance >= ?, 'true', wallet_balance), 'wfalse') AS result FROM wallet WHERE `user_name` = ?;",
-      [(parseInt(req.body.total_amount) / 10), (parseInt(req.body.total_amount) / 10), parseInt(req.body.total_amount), value, req.body.mobile], (error, result) => {
-        if (error) {
-          throw error;
-        }
-        if (result[0].result === "wfalse") {
-          res.status(302).json(btoa(JSON.stringify({
-            error: true,
-            status: false,
-            massage: "Insufficient Balance in your Account",
-          })));
-        } else if (result[0].result === "true") {
-          con.query("UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ?, `Bonus_wallet` = `Bonus_wallet` - ? WHERE `user_name` = ?",
-            [value, (parseInt(req.body.total_amount) / 10), req.body.mobile],
-            (err, resultt) => {
-              if (err) throw err;
-              if (resultt) {
-                con.query("INSERT INTO `bet-table`(`Period`, `username`, `price`, `type`, `winning-amount`, `if_open_zero`, `value`, `value_id`, `game-type`, `term_condition`) VALUES (?,?,?,?,(SELECT `multiple` FROM `game_mapping` WHERE `id` = ?) * ?, (SELECT `if_open_zero` FROM `game_mapping` WHERE `id` = ?) * ?, ?, ?, ?, 'Y')",
-                  [
-                    req.body.period,
-                    req.body.mobile,
-                    req.body.total_amount,
-                    req.body.method,
-                    req.body.id,
-                    req.body.total_amount,
-                    req.body.id,
-                    req.body.total_amount,
-                    req.body.select,
-                    req.body.id,
-                    req.body.game_type,
-                  ],
-                  (err, resultt) => {
-                    if (err) throw err;
-                    if (resultt) {
-                      con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `period`, `Select`, `bet_from`, `bet_balance`, `total_balance`, `status`) VALUES (?, (SELECT `name` FROM `game_type` WHERE `id` = ?), ?, ?, 'Deposit Wallet & Bonus Wallet', ?, (SELECT (`wallet_balance` + `Winning_wallet` + `Bonus_wallet`) as balance FROM `wallet` WHERE `user_name` = ?), 'Bet Add')",
-                        [
-                          req.body.mobile,
-                          req.body.game_type,
-                          req.body.period,
-                          req.body.select,
-                          req.body.total_amount,
-                          req.body.mobile
-                        ],
-                        (errr, resu) => {
-                          if (errr) {
-                            throw errr;
-                          }
-                          if (resu) {
-                            res.status(200).json(btoa(JSON.stringify({
-                              error: false,
-                              status: true,
-                            })));
-                          }
-                        })
-                    }
-                  }
-                );
-              }
-            }
-          );
-        } else {
-          let WB = value - result[0].result;
-          con.query("UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ?, `Winning_wallet` = `Winning_wallet` - ?, `Bonus_wallet` = `Bonus_wallet` - ? WHERE `user_name` = ?",
-            [parseInt(result[0].result), WB, (parseInt(req.body.total_amount) / 10), req.body.mobile],
-            (err, resultt) => {
-              if (err) throw err;
-              if (resultt) {
-                con.query("INSERT INTO `bet-table`(`Period`, `username`, `price`, `type`, `winning-amount`, `if_open_zero`, `value`, `value_id`, `game-type`, `term_condition`) VALUES (?, ?, ?, ?, (SELECT `multiple` FROM `game_mapping` WHERE `id` = ?) * ?, (SELECT `if_open_zero` FROM `game_mapping` WHERE `id` = ?) * ?, ?, ?, ?, 'Y')",
-                  [
-                    req.body.period,
-                    req.body.mobile,
-                    req.body.total_amount,
-                    req.body.method,
-                    req.body.id,
-                    req.body.total_amount,
-                    req.body.id,
-                    req.body.total_amount,
-                    req.body.select,
-                    req.body.id,
-                    req.body.game_type,
-                  ],
-                  (err, resultt) => {
-                    if (err) throw err;
-                    if (resultt) {
-                      con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `period`, `Select`, `bet_from`, `bet_balance`, `total_balance`, `status`) VALUES (?, (SELECT `name` FROM `game_type` WHERE `id` = ?), ?, ?, 'Deposit Wallet & Bonus Wallet', ?, (SELECT (`wallet_balance` + `Winning_wallet` + `Bonus_wallet`) as balance FROM `wallet` WHERE `user_name` = ?), 'Bet Add')",
-                        [
-                          req.body.mobile,
-                          req.body.game_type,
-                          req.body.period,
-                          req.body.select,
-                          req.body.total_amount,
-                          req.body.mobile
-                        ],
-                        (errr, resu) => {
-                          if (errr) {
-                            throw errr;
-                          }
-                          if (resu) {
-                            res.status(200).json(btoa(JSON.stringify({
-                              error: false,
-                              status: true,
-                            })));
-                          }
-                        })
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      }
-    )
-  } else {
-    con.query("SELECT IF(`wallet_balance` + `Winning_wallet` >= ?, IF(wallet_balance >= ?, 'true', wallet_balance), 'wfalse') AS result FROM wallet WHERE `user_name` = ?;",
-      [parseInt(req.body.total_amount), parseInt(req.body.total_amount), req.body.mobile], (error, result) => {
-        if (error) {
-          throw error;
-        }
-        if (result[0].result === "wfalse") {
-          res.status(302).json(btoa(JSON.stringify({
-            error: true,
-            status: false,
-            massage: "Insufficient Balance in your Account",
-          })));
-        } else if (result[0].result === "true") {
-          const percentage2 = ((2 / 100) * parseFloat(req.body.total_amount));
-          const total_amount = parseFloat(req.body.total_amount) - percentage2;
-          agent(percentage2, req.body.mobile);
-          con.query("UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ? WHERE `user_name` = ?",
-            [parseInt(total_amount), req.body.mobile], (err, resultt) => {
-              if (err) throw err;
-              if (resultt) {
-                con.query("INSERT INTO `bet-table`(`Period`, `username`, `price`, `type`, `winning-amount`, `if_open_zero`, `value`, `value_id`, `game-type`, `term_condition`) VALUES (?, ?, ?, ?, (SELECT `multiple` FROM `game_mapping` WHERE `id` = ? ) * ?, (SELECT `if_open_zero` FROM `game_mapping` WHERE `id` = ?) * ?, ?, ?, ?, 'Y')",
-                  [
-                    req.body.period,
-                    req.body.mobile,
-                    total_amount,
-                    req.body.method,
-                    req.body.id,
-                    total_amount,
-                    req.body.id,
-                    total_amount,
-                    req.body.select,
-                    req.body.id,
-                    req.body.game_type,
-                  ],
-                  (err, resultt) => {
-                    if (err) throw err;
-                    if (resultt) {
-                      con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `period`, `Select`, `bet_from`, `bet_balance`, `total_balance`, `status`) VALUES (?, (SELECT `name` FROM `game_type` WHERE `id` = ?), ?, ?, 'Deposit Wallet & Bonus Wallet', ?, (SELECT (`wallet_balance` + `Winning_wallet` + `Bonus_wallet`) as balance FROM `wallet` WHERE `user_name` = ?), 'Bet Add')",
-                        [
-                          req.body.mobile,
-                          req.body.game_type,
-                          req.body.period,
-                          req.body.select,
-                          total_amount,
-                          req.body.mobile
-                        ],
-                        (errr, resu) => {
-                          if (errr) {
-                            throw errr;
-                          }
-                          if (resu) {
-                            res.status(200).json(btoa(JSON.stringify({
-                              error: false,
-                              status: true,
-                            })));
-                          }
-                        })
-                    }
-                  }
-                );
-              }
-            }
-          );
-        } else {
-          const percentage = ((2 / 100) * parseFloat(req.body.total_amount));
-          const total_amount = parseFloat(req.body.total_amount) - percentage;
-          agent(percentage, req.body.mobile);
-          con.query("UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ?, `Winning_wallet` = `Winning_wallet` - ? WHERE `user_name` = ?",
-            [parseInt(result[0].result), (parseInt(total_amount) - parseInt(result[0].result)), req.body.mobile],
-            (err, resultt) => {
-              if (err) throw err;
-              if (resultt) {
-                con.query("INSERT INTO `bet-table`(`Period`, `username`, `price`, `type`, `winning-amount`, `if_open_zero`, `value`, `value_id`, `game-type`, `term_condition`) VALUES (?, ?, ?, ?, (SELECT `multiple` FROM `game_mapping` WHERE `id` = ?) * ?, (SELECT `if_open_zero` FROM `game_mapping` WHERE `id` = ?) * ?, ?, ?, ?, 'Y')",
-                  [
-                    req.body.period,
-                    req.body.mobile,
-                    total_amount,
-                    req.body.method,
-                    req.body.id,
-                    total_amount,
-                    req.body.id,
-                    total_amount,
-                    req.body.select,
-                    req.body.id,
-                    req.body.game_type,
-                  ],
-                  (err, resultt) => {
-                    if (err) throw err;
-                    if (resultt) {
-                      con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `period`, `Select`, `bet_from`, `bet_balance`, `total_balance`, `status`) VALUES (?, (SELECT `name` FROM `game_type` WHERE `id` = ?), ?, ?, 'Deposit Wallet & Bonus Wallet', ?, (SELECT (`wallet_balance` + `Winning_wallet` + `Bonus_wallet`) as balance FROM `wallet` WHERE `user_name` = ?), 'Bet Add')",
-                        [
-                          req.body.mobile,
-                          req.body.game_type,
-                          req.body.period,
-                          req.body.select,
-                          total_amount,
-                          req.body.mobile
-                        ],
-                        (errr, resu) => {
-                          if (errr) {
-                            throw errr;
-                          }
-                          if (resu) {
-                            res.status(200).json(btoa(JSON.stringify({
-                              error: false,
-                              status: true,
-                            })));
-                          }
-                        })
-                    }
-                  }
-                );
-              }
-            }
-          );
-        }
-      }
-    )
-  }
 });
 
 app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) => {
@@ -1282,118 +909,6 @@ app.post('/get-shopping-details', (req, res) => {
   })
 });
 
-app.post('/add-to-cart', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT * FROM `cart` WHERE `username` = ? and `item_id` = ?;", [req.body.mobile, req.body.i_id], (err, result) => {
-    if (err) throw err;
-    if (result.length > 0) {
-      con.query("UPDATE `cart` SET `total_item` = (? + 1) WHERE `item_id` = ? and `username` = ?", [result[0].total_item, req.body.i_id, req.body.mobile], (error, resultt) => {
-        if (error) throw error;
-        if (result) {
-          res.status(201).json(btoa(JSON.stringify({ error: false, status: true })))
-        }
-      })
-    } else {
-      con.query("INSERT INTO `cart`(`username`, `item_id`, `total_item`) VALUES (?,?,?)", [req.body.mobile, req.body.i_id, 1], (error, resultt) => {
-        if (error) throw error;
-        if (result) {
-          res.status(201).json(btoa(JSON.stringify({ error: false, status: true })))
-        }
-      })
-    }
-  })
-});
-app.post('/update-cart-item', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT * FROM `cart` WHERE `username` = ? and `item_id` = ?;", [req.body.mobile, req.body.i_id], (err, result) => {
-    if (err) throw err;
-    if (result.length > 0) {
-      if (req.body.type == "max") {
-        con.query("UPDATE `cart` SET `total_item` = (? + 1) WHERE `item_id` = ? and `username` = ?", [result[0].total_item, req.body.i_id, req.body.mobile], (error, resultt) => {
-          if (error) throw error;
-          if (resultt) {
-            res.status(201).json(btoa(JSON.stringify({ error: false, status: true })))
-          }
-        })
-      }
-      if (req.body.type == "min") {
-        if (result[0].total_item >= 1) {
-          con.query("UPDATE `cart` SET `total_item` = (? - 1) WHERE `item_id` = ? and `username` = ?", [result[0].total_item, req.body.i_id, req.body.mobile], (error, resultt) => {
-            if (error) throw error;
-            if (resultt) {
-              res.status(201).json(btoa(JSON.stringify({ error: false, status: true })));
-            }
-          })
-        }
-      }
-    }
-  })
-});
-app.post("/del-cart-item", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query(
-    "DELETE FROM `cart` WHERE `username` = ? and `id` = ?",
-    [req.body.mobile, req.body.id],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res
-          .status(200)
-          .json(btoa(JSON.stringify({ error: false, status: true })));
-      }
-    }
-  );
-});
-app.post('/get-total-cart-item', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT sum(total_item) as total_item FROM `cart` WHERE `username` = ? and `status` = 'C'", [req.body.mobile], (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result[0].total_item })))
-    }
-  })
-});
-app.post('/get-cart-item', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT c.id, c.item_id, c.username, i.item_name, i.item_discription, i.item_image, i.item_oprice, i.item_dprice, c.total_item FROM `cart` as c INNER join items as i on c.item_id = i.id WHERE `username` = ? and c.`status` = 'C'", [req.body.mobile], (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result })))
-    }
-  })
-});
-
-app.post('/get-order-item', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT c.id, c.item_id, c.username, i.item_name, i.item_discription, i.item_image, i.item_oprice, i.item_dprice, c.total_item, c.order_status, c.order_date, CASE WHEN DATEDIFF(`order_date`, CURDATE()) = 0 THEN 'T' WHEN DATEDIFF(`order_date`, CURDATE()) > 0 THEN 'U' WHEN DATEDIFF(`order_date`, CURDATE()) < 0 THEN 'P' ELSE 'not yet' END AS date_da FROM `cart` as c INNER join items as i on c.item_id = i.id WHERE `username` = ? and c.`status` = 'O' ORDER BY `c`.`order_date` DESC", [req.body.mobile], (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result })))
-    }
-  })
-});
-app.post('/add-order', verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  date = new Date((new Date()).getFullYear(), (new Date()).getMonth(), (new Date()).getDate() + 7);
-  con.query(
-    "UPDATE `cart` SET `status` = 'O', `order_date` = ? WHERE `username` = ? and `status` = 'C'",
-    [date, req.body.mobile],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res
-          .status(200)
-          .json(btoa(JSON.stringify({ error: false, status: true })));
-      }
-    }
-  );
-});
-
-app.post("/get-current-time", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  res.json(btoa(JSON.stringify({ error: false, status: true, currentTime: new Date() })));
-});
-
 app.post('/get-current-offer', verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query("SELECT  COUNT(`coupan`) as count FROM `deposit` WHERE `user_name` = ? and `coupan` = 'First' and (`status` = 'Success' OR `status` = 'Pending')", [req.body.mobile], (err, result) => {
@@ -1573,27 +1088,6 @@ app.post('/check-first-deposit', verifytoken, (req, res) => {
   })
 });
 
-
-
-// sco-content
-app.post('/get-page-title', (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT * FROM `page_name` WHERE `name` = ?;", [req.body.name], (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result })))
-    }
-  })
-});
-app.post('/get-page-sco-content', (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT * FROM `sco_content` WHERE `page_id` =  ?;", [req.body.id], (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result })))
-    }
-  })
-});
 
 function verifytoken(req, res, next) {
   const bearerHeader = req.headers["authorization"];

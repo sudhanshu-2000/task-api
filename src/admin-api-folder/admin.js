@@ -87,7 +87,6 @@ app.post("/login", (req, res) => {
                     res.status(200).json({
                       status: true,
                       username: result[0].username,
-                      play: role_result[0].playbtn,
                       token,
                     });
                   }
@@ -192,15 +191,6 @@ app.post("/change", verifytoken, (req, res) => {
       }
     }
   );
-});
-app.get("/get-activity_maping", (req, res) => {
-  con.query("SELECT * FROM `activity_maping`", (error, result) => {
-    if (result) {
-      res.status(200).send(result);
-    } else {
-      res.sendStatus(403);
-    }
-  });
 });
 app.get("/get-map", (req, res) => {
   var sql =
