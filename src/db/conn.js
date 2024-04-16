@@ -1,11 +1,11 @@
 var mysql = require("mysql");
 const con = mysql.createPool({
   connectionLimit: 10,
-  host: "dpg-coci26gl5elc739t5ei0-a",
-  port: 5432,
-  user: "taskwebappsql_user",
-  password: "GDpYUPWSAqoNLH2CgeWhSdxiWI6sZ8oS",
-  database: "postgres://taskwebappsql_user:GDpYUPWSAqoNLH2CgeWhSdxiWI6sZ8oS@dpg-coci26gl5elc739t5ei0-a/taskwebappsql",
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "",
+  database: "sparrow_task",
   multipleStatements:true
 });
 con.getConnection((err) => {
