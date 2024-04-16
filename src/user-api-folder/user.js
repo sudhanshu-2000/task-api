@@ -387,6 +387,33 @@ app.post("/wallet-balance", verifytoken, (req, res) => {
   );
 });
 
+app.post("/get-statement", verifytoken, (req, res) => {
+  con.query(
+    "SELECT s.mobile, s.type, s.amount, s.total_balance,s.date FROM `statement` as s WHERE `mobile` = ?", [req.body.mobile],
+    (err, result) => {
+      if (err) throw err;
+      if (result)
+        res.status(200).json({
+          error: false,
+          status: true,
+          data: result,
+        });
+    }
+  );
+})
+app.post("/get-statement-date", verifytoken, (req, res) => {
+  con.query('select (SELECT IFNULL(sum(`amount`), 0) as today FROM `statement` WHERE date(`date`)= CURRENT_DATE() and `mobile`= ?) as today, (SELECT IFNULL(sum(`amount`), 0) as yesterday FROM `statement` WHERE date(`date`)= CURRENT_DATE()-1  and `mobile`= ?) as yesterday, (SELECT IFNULL(sum(`amount`), 0) as week FROM `statement` WHERE date(`date`)  BETWEEN CURRENT_DATE()-7 AND CURRENT_DATE()  and `mobile`= ?) as week, (SELECT IFNULL(sum(`amount`), 0) as month FROM `statement` WHERE date(`date`)  BETWEEN CURRENT_DATE()-30 AND CURRENT_DATE() and `mobile`= ?) as month', [req.body.mobile, req.body.mobile, req.body.mobile, req.body.mobile], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.status(200).json({
+        error: false,
+        status: true,
+        data: result,
+      });
+    }
+  })
+})
+
 app.post("/withdrawal-balace", verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query(
@@ -561,57 +588,86 @@ app.post("/add-withdrawal-request", verifytoken, (req, res) => {
       massage: "Minimum Balance withdrawal is 100.",
     });
   } else {
-    if (req.body.upi_id == '' || req.body.amount == '' || req.body.mobile == '') {
+    if (req.body.amount == '' || req.body.mobile == '') {
       res.status(302).json({
         error: true,
         status: false,
         massage: "You Must have to fill all the details.",
       });
     } else {
-      con.query("SELECT IF(`wallet_balance` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
-        [parseInt(req.body.amount), req.body.mobile],
-        (error, result) => {
-          if (error) {
-            throw error;
-          }
-          if (result[0].result === "true") {
-            con.query(
-              "UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ? WHERE `user_name` = ?",
-              [parseInt(req.body.amount), req.body.mobile],
-              (err, resultt) => {
-                if (err) throw err;
-                if (resultt) {
-                  con.query(
-                    "INSERT INTO `deposit`(`user_name`, `balance`,`upi_id`, `payment_type`) VALUES (?,?,?,'Withdrawal')",
-                    [
-                      req.body.mobile,
-                      req.body.amount,
-                      req.body.upi_id,
-                      req.body.method,
-                    ],
-                    (err, resultt) => {
-                      if (err) throw err;
-                      if (resultt) {
-                        res.status(200).json({
-                          error: false,
-                          status: true,
-                          massage: "Added withdrawal Request SuccessFully",
-                        });
-                      }
-                    }
-                  );
-                }
-              }
-            );
-          } else {
+      con.query('SELECT `bank_name`,`ifsc_code`,`ac_no`,`ac_name` FROM `user_details` WHERE `mobile` = ?',[req.body.mobile],(err1,result1)=>{
+        if(err1)throw err1;
+        if(result1){
+          if (!result1[0].bank_name){
             res.status(302).json({
               error: true,
               status: false,
-              massage: "Insufficient Balance in your Winning wallet",
+              massage: "You Must have to fill Bank Name.",
             });
+          } else if (!result1[0].ifsc_code) {
+            res.status(302).json({
+              error: true,
+              status: false,
+              massage: "You Must have to fill IFSC Code.",
+            });
+          } else if (!result1[0].ac_no) {
+            res.status(302).json({
+              error: true,
+              status: false,
+              massage: "You Must have to fill Account No.",
+            });
+          } else if (!result1[0].ac_name) {
+            res.status(302).json({
+              error: true,
+              status: false,
+              massage: "You Must have to fill Account Name.",
+            });
+          }else{
+            con.query("SELECT IF(`winning_wallet` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
+              [parseInt(req.body.amount), req.body.mobile],
+              (error, result) => {
+                if (error) {
+                  throw error;
+                }
+                if (result[0].result === "true") {
+                  con.query(
+                    "UPDATE `wallet` SET `winning_wallet` = `winning_wallet` - ? WHERE `user_name` = ?",
+                    [parseInt(req.body.amount), req.body.mobile],
+                    (err, resultt) => {
+                      if (err) throw err;
+                      if (resultt) {
+                        con.query(
+                          "INSERT INTO `deposit`(`user_name`, `balance`, `payment_type`) VALUES (?,?,'Withdrawal')",
+                          [
+                            req.body.mobile,
+                            req.body.amount
+                          ],
+                          (err, resultt) => {
+                            if (err) throw err;
+                            if (resultt) {
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                massage: "Added withdrawal Request SuccessFully",
+                              });
+                            }
+                          }
+                        );
+                      }
+                    }
+                  );
+                } else {
+                  res.status(302).json({
+                    error: true,
+                    status: false,
+                    massage: "Insufficient Balance in your Winning wallet",
+                  });
+                }
+              }
+            );
           }
         }
-      );
+      })
     }
   }
 });
@@ -639,7 +695,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
             if (err) throw err;
             if (resultt) {
               con.query(
-                "UPDATE `wallet` SET `wallet_balance` = wallet_balance + (SELECT `balance` FROM `deposit` WHERE `id` = ?) WHERE `user_name` = ?;",
+                "UPDATE `wallet` SET `winning_wallet` = winning_wallet + (SELECT `balance` FROM `deposit` WHERE `id` = ?) WHERE `user_name` = ?;",
                 [req.body.id, req.body.mobile],
                 (err, resultt) => {
                   if (err) throw err;
@@ -710,15 +766,15 @@ app.post("/update-task", verifytoken, (req, res) => {
     });
   } else {
     con.query("SELECT * FROM `assign_task` WHERE `task_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `username` = ?",
-      [req.body.id, req.body.username], (err,result) => {
-        if(err)throw err;
-        if(result.length > 0){
+      [req.body.id, req.body.username], (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
           res.status(302).json({
             error: true,
             status: false,
             massage: "This Username Is Already Used",
           });
-        }else{
+        } else {
           con.query("UPDATE `assign_task` as att SET att.`id`= ?, att.`username`= ?, att.`status`='Verifying' WHERE att.`user_id` = (select ud.id from user_details as ud where ud.mobile = ?) && att.id = ?", [req.body.id, req.body.username, req.body.mobile, req.body.id], (err, result) => {
             if (err) throw err;
             if (result) {
@@ -730,7 +786,7 @@ app.post("/update-task", verifytoken, (req, res) => {
             }
           })
         }
-       })
+      })
   }
 })
 app.post("/update-video-task", verifytoken, (req, res) => {
@@ -742,15 +798,15 @@ app.post("/update-video-task", verifytoken, (req, res) => {
     });
   } else {
     con.query("SELECT * FROM `assign_task` WHERE `url` = ?",
-      [req.body.url], (err,result) => {
-        if(err)throw err;
-        if(result.length > 0){
+      [req.body.url], (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
           res.status(302).json({
             error: true,
             status: false,
             message: "This url is Already Used",
           });
-        }else{
+        } else {
           con.query("UPDATE `assign_task` as att SET att.`id`= ?, att.`url`= ?, att.`status`='Verifying' WHERE att.`user_id` = (select ud.id from user_details as ud where ud.mobile = ?) && att.id = ?", [req.body.id, req.body.url, req.body.mobile, req.body.id], (err, result) => {
             if (err) throw err;
             if (result) {
@@ -762,7 +818,7 @@ app.post("/update-video-task", verifytoken, (req, res) => {
             }
           })
         }
-       })
+      })
   }
 })
 
@@ -820,7 +876,6 @@ app.post("/get-bankdetails", verifytoken, (req, res) => {
     }
   );
 });
-
 app.post("/delete-bankdetails", verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query(
@@ -961,24 +1016,24 @@ app.post("/delete-upidetails", verifytoken, (req, res) => {
   );
 });
 
-// statement
-app.post("/get-statement", verifytoken, (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  let limit = 10;
-  let offset = limit * req.body.page - limit;
-  con.query("SELECT s.id, s.bet_or_type, s.period, s.Select, s.bet_from, s.bet_balance, s.total_balance, (select COUNT(*) FROM `statement` WHERE `username` = ?) as count, s.date FROM `statement` s WHERE s.`username` = ? ORDER by s.id DESC LIMIT ? OFFSET ?", [req.body.mobile, req.body.mobile, limit, offset], (err, result) => {
-    if (err) {
-      throw err;
-    }
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({
-        error: false,
-        status: true,
-        data: result
-      })))
-    }
-  })
-});
+// // statement
+// app.post("/get-statement", verifytoken, (req, res) => {
+//   req.body = JSON.parse(atob(req.body.data));
+//   let limit = 10;
+//   let offset = limit * req.body.page - limit;
+//   con.query("SELECT s.id, s.bet_or_type, s.period, s.Select, s.bet_from, s.bet_balance, s.total_balance, (select COUNT(*) FROM `statement` WHERE `username` = ?) as count, s.date FROM `statement` s WHERE s.`username` = ? ORDER by s.id DESC LIMIT ? OFFSET ?", [req.body.mobile, req.body.mobile, limit, offset], (err, result) => {
+//     if (err) {
+//       throw err;
+//     }
+//     if (result) {
+//       res.status(200).json(btoa(JSON.stringify({
+//         error: false,
+//         status: true,
+//         data: result
+//       })))
+//     }
+//   })
+// });
 
 app.post('/get-shopping-details', (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
@@ -989,7 +1044,6 @@ app.post('/get-shopping-details', (req, res) => {
     }
   })
 });
-
 app.post('/get-current-offer', verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query("SELECT  COUNT(`coupan`) as count FROM `deposit` WHERE `user_name` = ? and `coupan` = 'First' and (`status` = 'Success' OR `status` = 'Pending')", [req.body.mobile], (err, result) => {
@@ -1169,21 +1223,36 @@ app.post('/check-first-deposit', verifytoken, (req, res) => {
   })
 });
 app.post("/add-contact-us", upload.single("image"), (req, res) => {
-  con.query("INSERT INTO `contact`(`email`, `subject`, `message`, `image`) VALUES (?,?,?,?)",
-    [req.body.email, req.body.subject, req.body.message,req.file.filename],
-    (errr, resultt) => {
-      if (errr) throw errr;
-      if (resultt) {
-        res.status(201).json({
-          error: false,
-          status: true,
-          massage: "Added Successfully",
-        });
+  if (req.file == undefined) {
+    con.query("INSERT INTO `contact`(`email`, `subject`, `message`) VALUES (?,?,?)",
+      [req.body.email, req.body.subject, req.body.message],
+      (errr, resultt) => {
+        if (errr) throw errr;
+        if (resultt) {
+          res.status(201).json({
+            error: false,
+            status: true,
+            massage: "Added Successfully",
+          });
+        }
       }
-    }
-  );
+    );
+  } else {
+    con.query("INSERT INTO `contact`(`email`, `subject`, `message`, `image`) VALUES (?,?,?,?)",
+      [req.body.email, req.body.subject, req.body.message, req.file.filename],
+      (errr, resultt) => {
+        if (errr) throw errr;
+        if (resultt) {
+          res.status(201).json({
+            error: false,
+            status: true,
+            massage: "Added Successfully",
+          });
+        }
+      }
+    );
+  }
 });
-
 app.post("/token-check", (req, res) => {
   const bearerHeader = req.headers["authorization"];
   if (typeof bearerHeader !== "undefined") {
@@ -1226,6 +1295,7 @@ app.post("/token-check", (req, res) => {
     res.sendStatus(403);
   }
 })
+// level("GJpQpVEO");
 function verifytoken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
   if (typeof bearerHeader !== "undefined") {
@@ -1378,5 +1448,40 @@ function agent(amount, user) {
       })
     }
   })
+}
+function level(code){ 
+  let array,array2,array3,main; 
+  con.query("SELECT *,'level_1' as level FROM `user_details` WHERE `reffer_by` =?",[code],(err,result)=>{
+    if(err)throw err;
+    if(result){
+      console.log(result);
+      for (const a of result) {
+        con.query("SELECT *,'level_2' as level FROM `user_details` WHERE `reffer_by` =?", [a.reffer_by], (err, resultt) => {
+          if(err)throw err;
+          if(resultt){
+            console.log(resultt);
+            for (const b of resultt) {
+              con.query("SELECT *,'level_3' as level FROM `user_details` WHERE `reffer_by` =?", [b.reffer_by], (err, result2) => {
+                if (err) throw err;
+                if (result2) {
+                  console.log(result2);
+                  for (const c of result2) {
+                    con.query("SELECT *,'level_4' as level FROM `user_details` WHERE `reffer_by` =?", [c.reffer_by], (err, result3) => {
+                      if (err) throw err;
+                      if (result3) {
+                        console.log(result3);
+                      }
+                    })
+                  }
+                }
+              })
+            }
+          }
+        })
+      }
+      console.log(main);
+      return main
+    }
+  } )
 }
 module.exports = app;

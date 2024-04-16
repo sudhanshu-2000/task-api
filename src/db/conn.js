@@ -13,5 +13,3 @@ con.getConnection((err) => {
   console.log("Database Connected");
 });
 module.exports = con;
-// rmnkuuby_task
-// 87@6C]m) 5e[~

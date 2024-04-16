@@ -90,7 +90,7 @@ app.post("/login", (req, res) => {
               if (match) {
                 jwt.sign(
                   { username: result[0].username },
-                  SECRET_KEY_SUPERADMIN, { expiresIn: '8h' },
+                  SECRET_KEY_SUPERADMIN, { expiresIn: '1h' },
                   (err, token) => {
                     if (err) throw err;
                     else
@@ -124,7 +124,7 @@ app.post("/login", (req, res) => {
               if (match) {
                 jwt.sign(
                   { username: result[0].username },
-                  SECRET_KEY_ADMIN, { expiresIn: '8h' },
+                  SECRET_KEY_ADMIN, { expiresIn: '1h' },
                   (err, token) => {
                     if (err) throw err;
                     else
@@ -1373,15 +1373,20 @@ app.post("/approve-assign-task", verifytoken, (req, res) => {
   con.query("UPDATE `assign_task` SET `status` = 'Completed', `approved_declined_by` = ? WHERE `id` = ?", [req.body.username, req.body.id], (error, result) => {
     if (error) throw error;
     if (result) {
-      con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `balance` from `deposit` where `id` = ?) WHERE `user_name` = ?;",
+      con.query("UPDATE `wallet` SET `winning_wallet` = ROUND(`winning_wallet` + (SELECT (select IF(twn.`type`='COMMENT', '0.75',IF(twn.`type`='LIKE','0.40','1.67')) from `tasks_with_name` as twn where twn.`id` = at.task_id) as price FROM `assign_task` as at WHERE at.`id` = ?), 2) WHERE `user_name` = ?;",
         [req.body.id, req.body.mobile], (err, resultt) => {
           if (err) throw err;
           if (resultt) {
-            res.status(200).send({
-              error: false, 
-              status: true,
-              massage: "Wallet Update SuccessFully",
-            });
+            con.query("INSERT INTO `statement`(`mobile`, `type`, `amount`, `total_balance`) VALUES (?,(SELECT (select twn.`type` from `tasks_with_name` as twn where twn.`id` = at.task_id) FROM `assign_task` as at WHERE at.`id` = ?),ROUND((SELECT (select IF(twn.`type`='COMMENT', '0.75',IF(twn.`type`='LIKE','0.40','1.66')) from `tasks_with_name` as twn where twn.`id` = at.task_id) as price FROM `assign_task` as at WHERE at.`id` = ?),2),(select w.`winning_wallet` from `wallet` as w where w.`user_name` = ?))", [req.body.mobile, req.body.id, req.body.id, req.body.mobile], (err, result3) => {
+              if (err) throw err;
+              if (result3) {
+                res.status(200).send({
+                  error: false,
+                  status: true,
+                  massage: "Wallet Update SuccessFully",
+                });
+              }
+            })
           }
         }
       );
@@ -1614,7 +1619,7 @@ app.post("/decline-bank-details", verifytoken, (req, res) => {
 app.post("/get-withdrawal-request", verifytoken, (req, res) => {
   if (req.body.status === "Pending") {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Withdrawal' and cd.status = 'Pending'",
+      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal' and cd.status = 'Pending'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1624,7 +1629,7 @@ app.post("/get-withdrawal-request", verifytoken, (req, res) => {
     );
   } else if (req.body.status === "Success") {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Withdrawal' and cd.status = 'Success'",
+      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal' and cd.status = 'Success'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1634,7 +1639,7 @@ app.post("/get-withdrawal-request", verifytoken, (req, res) => {
     );
   } else if (req.body.status === "Canceled") {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Withdrawal' and cd.status = 'Canceled'",
+      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal' and cd.status = 'Canceled'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1644,7 +1649,7 @@ app.post("/get-withdrawal-request", verifytoken, (req, res) => {
     );
   } else {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Withdrawal'",
+      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1715,7 +1720,7 @@ app.post("/add-platform", verifytoken, (req, res) => {
   );
 });
 app.post('/get-platform-details', verifytoken, (req, res) => {
-  con.query('SELECT * FROM `platforms`', (err, result) => {
+  con.query('SELECT * FROM `platforms` ', (err, result) => {
     if (err) throw err;
     if (result) {
       res.status(200).send({ error: false, status: true, data: result })
@@ -1739,8 +1744,21 @@ app.post("/update-platform-details", verifytoken, (req, res) => {
     }
   );
 });
+app.post("/del-platform", verifytoken, (req, res) => {
+  con.query("DELETE FROM `tasks_with_name` WHERE `platform_id` = ?", [req.body.id], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      con.query("DELETE FROM `platforms` WHERE `id` = ?", [req.body.id], (err, result) => {
+        if (err) throw err;
+        if (result) {
+          res.status(200).send({ error: false, status: true, massage: 'PlatFrom Deleted SuccessFully' })
+        }
+      })
+    }
+  })
+});
 app.post('/get-task-details', verifytoken, (req, res) => {
-  con.query('SELECT tn.id,tn.task_url,tn.type,p.name,p.id as p_id,tn.date FROM `tasks_with_name` as tn INNER join platforms as p on tn.platform_id = p.id', (err, result) => {
+  con.query('SELECT tn.id,tn.task_url,tn.type,p.name,p.id as p_id,tn.date FROM `tasks_with_name` as tn INNER join platforms as p on tn.platform_id = p.id order by date(tn.`date`)', (err, result) => {
     if (err) throw err;
     if (result) {
       res.status(200).send({ error: false, status: true, data: result })
