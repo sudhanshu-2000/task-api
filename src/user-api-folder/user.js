@@ -6,10 +6,10 @@ var jwt = require("jsonwebtoken");
 var atob = require('atob');
 var btoa = require('btoa');
 const cors = require("cors");
-// app.use(cors({ origin: ['http://localhost:4200'] }));
 app.use(cors());
 require("dotenv").config();
-SECRET_KEY_USER = ': 3. * 1 >.<2e_1 >& b: 5.9x_d, 86ac3b: -5 % 1$ %? 0$ * c > 4e7, 6aa < e ? 3.8 :< 8 % 28 < 801 ? 0c66d885! ?% 6@d: _2a_07 - 1! + c ? +% @4$.?> c < d &? <a$b5:*^ b9 & -& 70d - 3 & @<&& 4 ^ e ? 99$ @: 1 < fdd@9?bc, -? 5 * d4e_1f6 ?%, .5c08c6b_1_ ^,% 1.7: 4 <, 341, d % 9d - 3e4 % d6 - 9. -:f @+$bc5 & !-@24e ^ 7cac * +ee: @4> 8 - +@0!8 *& 0f < 8 <.$ ^& $b43f!d < -$@d3< +a5c_ & 19 ^ 4a2 ^ _ ? c0d : _6c1 + d * _a_: 6: 3c43.41 ^ 2: 59ae % b_e &^ -d4a$ * 4b8c +< 0@!1a % 59. < e3_: 68 - _e8 + 4 % d!4 - 360$5 % 1@+& 0! ^? d6fcf,?_.8..- f62 - +<, _!bf &> a +? f2 * 0c61! -^7__1448c: 60 *^? _!9 &: 1b7 > d ^ @2fa78 ^ 2 % 44 * --d.86a < b < 8d681 ^ bb5 * 396 & dd_6.^.^ $d2: !!<,8@5&^& +* 32506658 > !_fd8.04@&* 5 % -.6 ^ 4 > e99_0ce * @f6$ * -d ? d4 < 5 ?* cd7 - 26a %&, !4 % 4904, a!4 *12_ + 93c & +^ $24ad_8974d - !.0a$:<:> 9 & 7@& +.a! ?0_ %*< -69@a07-^ _5ce.& cb > 32a626,> @, 6_6!: 5 +: 2c_7 < bc34 % 8 - 3 ^ _4 <, 5 % 1 - @7a,^>> 0: +0: 2 & a ^ _ ^9_.b >::^& f + d + @? ded9d7, dc5 ? 3 : @1 -?? 7@c0** 47 - a2c4b:% f & 5 - !> e_ < 95d < 7.ff--_a - 9b & ac:?, 6332f!5_ >> f > 6c @1!:<< __:> 0 >.^> c@$935?+& --& -> $f % 23 < fa4 < 44 ^,> c8 - _@a @bd*: e7838 * c! > b >, !9 % b5,,, 2! *<*?029.9 - 44 % 9@70!^ .5bc % b & d4bb$@6& 9@8!69 +* 4$, 96 < 4816c & 8 + 0e4a372e,< 47 +%5_ ^ bbce - 3 ^ 409 - 0f % 44!: 2e@5+-f3,8_d.de3d_7 & a72:,* 5 - !-c255! &^ .1@&: 0e & $2!5c9 +* e - +fd * +@6 % 7 & 0 <> -0 % c$d ^ 4! -';
+SECRET_KEY_USER = ':3.*1>.<2e_1>&b:5.9x_d,86ac3b:-5%1$%?0$*c>4e7,6aa<e?3.8:<8%28<801?0c66d885!?%6@d:_2a_07-1!+c?+%@4$.?>c<d&?<a$b5:*^b9&-&70d-3&@<&&4^e?99$@:1<fdd@9?bc,-?5*d4e_1f6?%,.5c08c6b_1_^,%1.7:4<,341,d%9d-3e4%d6-9.-:f@+$bc5&!-@24e^7cac*+ee:@4>8-+@0!8*&0f<8<.$^&$b43f!d<-$@d3<+a5c_&19^4a2^_?c0d:_6c1+d*_a_:6:3c43.41^2:59ae%b_e&^-d4a$*4b8c+<0@!1a%59.<e3_:68-_e8+4%d!4-360$5%1@+&0!^?d6fcf,?_.8..-f62-+<,_!bf&>a+?f2*0c61!-^7__1448c:60*^?_!9&:1b7>d^@2fa78^2%44*--d.86a<b<8d681^bb5*396&dd_6.^.^$d2:!!<,8@5&^&+*32506658>!_fd8.04@&*5%-.6^4>e99_0ce*@f6$*-d?d4<5?*cd7-26a%&,!4%4904,a!4*12_+93c&+^$24ad_8974d-!.0a$:<:>9&7@&+.a!?0_%*<-69@a07-^_5ce.&cb>32a626,>@,6_6!:5+:2c_7<bc34%8-3^_4<,5%1-@7a,^>>0:+0:2&a^_^9_.b>::^&f+d+@?ded9d7,dc5?3:@1-??7@c0**47-a2c4b:%f&5-!>e_<95d<7.ff--_a-9b&ac:?,6332f!5_>>f>6c@1!:<<__:>0>.^>c@$935?+&--&->$f%23<fa4<44^,>c8-_@a@bd*:e7838*c!>b>,!9%b52!*<*?029.9-44%9@70!^.5bc%b&d4bb$@6&9@8!69+*4$,96<4816c&8+0e4a372e,<47+%5_^bbce-3^409-0f%44!:2e@5+-f3,8_d.de3d_7&a72:,*5-!-c255!&^.1@&:0e&$2!5c9+*e-+fd*+@6%7&0<>-0%c$d^4!-';
+SECRET_KEY_VERIFY = ':3.*1>.<2e_1>&b:5.9x_d,86ac3b:-5%1$%?0$*c>4e7,6aa<e?3.6d885!?%6@d:_2a_07-1!+c?+%@4$.?>c<d&?<a$b5:*^b9&-&wetfghjdskf3&@<&&4^e?99$@:1<fdd@9?bc,-?5*d4e_1f6?%,.5c08c6b_1_^,%1.7:4<,341,d%9d-3e4%d6-9.-:f@+$bc5&!-@24e^7cac*+ee:@4>8-+@0!8*&0f<8<.$^&$b43f!d<-$@d3<+a5c_&19^4a2^_?c0d:_6c1+d*_a_:6:3c43.41^2:59ae%b_e&^-d4a$*4b8c+<0@!1a%59.<e3_:68-_e8+4%d!4-360$5%1@+&0!^?d6fcf,?_.8..-f62-+<,_!bf&>a+?f2*0c61!-^7__1448c:60*^?_!9&:1b7>d^@2fa78^2%44*--d.86a<b<8d681^bb5*396&dd_6.^.^$d2:!!<,8@5&^&+*32506658>!_fd8.04@&*5%-.6^4>e99_0ce*@f6$*-d?d4<5?*cd7-26a%&,!4%4904,a!4*12_+93c&+^$24ad_8974d-!.0a$:<:>9&7@&+.a!?0_%*<-69@a07-^_5ce.&cb>32a626,>@,6_6!:5+:2c_7<bc34%8-3^_4<,5%1-@7a,^>>0:+0:2&a^_^9_.b>::^&f+d+@?ded9d7,dc5?3:@1-??7@c0**47-a2c4b:%f&5-!>e_<95d<7.ff--_a-9b&ac:?,6332f!5_>>f>6c@1!:<<__:>0>.^>c@$935?+&--&->$f%23<fa4<44^,>c8-_@a@bd*:e7838*c!>b>,!9%b52!*<*?029.9-44%9@70!^.5bc%b&d4bb$@6&9@8!69+*4$,96<4816c&8+0e4a372e,<47+%5_^bbce-3^409-0f%44!:2e@5+-f3,8_d.de3d_7&a72:,*5-!-c255!&^.1@&:0e&$2!5c9+*e-+fd*+@6%7&0<>-0%c$d^4!-';
 const bcrypt = require("bcrypt");
 var bodyParser = require("body-parser");
 var multer = require("multer");
@@ -29,9 +29,42 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-app.get('/get', (req, res) => {
-  res.status(200).send('Hello')
+const fs = require('fs');
+const nodemailer = require("nodemailer");
+function deleteImage(imagePath) {
+  fs.access(imagePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return;
+    }
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        return;
+      }
+    });
+  });
+}
+const transporter = nodemailer.createTransport({
+  host: "bond.herosite.pro",
+  port: 465,
+  secure: true, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: "otp@task.sparrowgames.in",
+    pass: "_D~!Sve$kS-7",
+  },
 });
+app.get('/get', (req, res) => {
+  con.query("SELECT IFNULL(ul.`level_1`,0) as level_1,IFNULL(ul.`level_2`,0) as level_2,IFNULL(ul.`level_3`,0) as level_3,IFNULL(ul.`level_4`,0) as level_4,IFNULL(ul.`level_5`,0) as level_5,IFNULL(ul.`level_6`,0) as level_6,IFNULL(ul.`level_7`,0) as level_7,IFNULL(ul.`level_8`,0) as level_8,IFNULL(ul.`level_9`,0) as level_9 FROM `user_level` as ul WHERE ul.user_reffral = ?;", ['RVGtceVg'], (err, result) => {
+    if (err) { throw err; }
+    if (result) {
+      let objectLength = Object.keys(result[0]).length;
+      for (let index = 1; index <= objectLength; index++) {
+        const element = result[0][index];
+
+      }
+    }
+  })
+});
+
 app.post("/register", (req, res) => {
   let codecode = code();
   con.query("SELECT * FROM `user_details` WHERE `email` = ?;", [req.body.email], (err, result) => {
@@ -74,8 +107,7 @@ app.post("/register", (req, res) => {
                     }
                   }
                 );
-              }
-              else {
+              } else {
                 con.query("select * from user_details where `reffer_code` = ?", [req.body.reffer_by], (err, result) => {
                   if (err) throw err;
                   if (result.length > 0) {
@@ -83,13 +115,82 @@ app.post("/register", (req, res) => {
                       [req.body.mobile, req.body.user_name, hash, req.body.email, parseInt(ides[0].id) + 1, req.body.reffer_by, codecode], (err, result) => {
                         if (err) throw err;
                         if (result) {
-                          reffer(codecode, req.body.reffer_by);
-                          con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
-                          res.status(200).json({
-                            error: false,
-                            status: true,
-                            message: "Registered Successfully",
-                          });
+                          con.query("SELECT MAX(`name`) as c FROM `level`", (err0, result0) => {
+                            if (err0) { throw err0; }
+                            if (result0[0].c == 1) {
+                              reffer(codecode, 'GJpQpVEO');
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 2) {
+                              reffer2(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 3) {
+                              reffer3(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 4) {
+                              reffer4(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 5) {
+                              reffer5(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 6) {
+                              reffer6(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 7) {
+                              reffer7(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else if (result0[0].c == 8) {
+                              reffer8(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            } else {
+                              reffer9(codecode, req.body.reffer_by);
+                              con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
+                              res.status(200).json({
+                                error: false,
+                                status: true,
+                                message: "Registered Successfully",
+                              });
+                            }
+                          })
                         }
                       }
                     );
@@ -135,18 +236,43 @@ app.post("/login", (req, res) => {
               { username: result[0].mobile },
               SECRET_KEY_USER, { expiresIn: '1d' },
             );
-            con.query("UPDATE `user_details` SET `is_active` = 'Y' WHERE `mobile` = ?", [req.body.mobile], (err, resulrt) => {
-              if (err) { throw err; }
-              if (resulrt) {
-                res.status(200).json({
-                  error: false,
-                  status: true,
-                  ID: result[0].uid,
-                  username: result[0].username,
-                  mobile: result[0].mobile,
-                  message: "Login Successfully",
-                  token,
+            con.query("SELECT * FROM `buy_plan` WHERE `user_id` = ? AND `status` = 'Active'", [req.body.mobile], (err, result32) => {
+              if (err) throw err;
+              if (result32.length == 0) {
+                con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,'1',DATE_ADD(CURDATE(), INTERVAL 10 YEAR))", [req.body.mobile], (errror, resulrtt) => {
+                  if (errror) throw errror;
+                  if (resulrtt) {
+                    con.query("UPDATE `user_details` SET `is_active` = 'Y' WHERE `mobile` = ?", [req.body.mobile], (err, resulrt) => {
+                      if (err) { throw err; }
+                      if (resulrt) {
+                        res.status(200).json({
+                          error: false,
+                          status: true,
+                          ID: result[0].uid,
+                          username: result[0].username,
+                          mobile: result[0].mobile,
+                          message: "Login Successfully",
+                          token,
+                        });
+                      }
+                    })
+                  }
                 });
+              } else {
+                con.query("UPDATE `user_details` SET `is_active` = 'Y' WHERE `mobile` = ?", [req.body.mobile], (err, resulrt) => {
+                  if (err) { throw err; }
+                  if (resulrt) {
+                    res.status(200).json({
+                      error: false,
+                      status: true,
+                      ID: result[0].uid,
+                      username: result[0].username,
+                      mobile: result[0].mobile,
+                      message: "Login Successfully",
+                      token,
+                    });
+                  }
+                })
               }
             })
           } else {
@@ -183,43 +309,69 @@ app.post('/buy-plan', verifytoken, (req, res) => {
         massage: "Invaild Plan Id",
       });
     } else {
-      con.query(
-        "SELECT IF(`wallet_balance` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
-        [parseInt(result1[0].price), req.body.mobile], (error, result) => {
-          if (error) {
-            throw error;
-          }
-          if (result[0].result === "true") {
-            con.query(
-              "UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ? WHERE `user_name` = ?",
-              [parseInt(result1[0].price), req.body.mobile], (err, resultt) => {
-                if (err) throw err;
-                if (resultt) {
-                  con.query(
-                    "INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,?,DATE_ADD(CURDATE(), INTERVAL 30 DAY))",
-                    [req.body.mobile, req.body.id], (err, result) => {
-                      if (err) throw err;
-                      if (result) {
-                        con.query("INSERT INTO `deposit`(`user_name`, `balance`,`status`, `payment_type`) VALUES (?,?,'Success','Plan Buy')", [req.body.mobile, parseInt(result1[0].price),])
-                        res.status(200).json({
-                          error: false,
-                          status: true
-                        });
+      if (req.body.id == 1) {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "You can't Purchase this Plan.",
+        });
+      } else {
+        con.query("SELECT IF(`wallet_balance` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
+          [parseInt(result1[0].price), req.body.mobile], (error, result) => {
+            if (error) {
+              throw error;
+            }
+            if (result[0].result === "true") {
+              con.query("UPDATE `wallet` SET `wallet_balance` = `wallet_balance` - ? WHERE `user_name` = ?",
+                [parseInt(result1[0].price), req.body.mobile], (err, resultt) => {
+                  if (err) throw err;
+                  if (resultt) {
+                    con.query("SELECT COUNT(*) as c FROM `buy_plan` WHERE `user_id` = ? and `plan_id` != '1'", [req.body.mobile], (err1, result2) => {
+                      if (err1) { throw err1 }
+                      if (result2[0].c == 0) {
+                        con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,?,DATE_ADD(CURDATE(), INTERVAL 30 DAY))",
+                          [req.body.mobile, req.body.id], (err, result) => {
+                            if (err) throw err;
+                            if (result) {
+                              con.query("DELETE FROM `buy_plan` WHERE `user_id` = ? AND `plan_id` = '1';", [req.body.mobile]);
+                              con.query("INSERT INTO `deposit`(`user_name`, `balance`,`status`, `payment_type`) VALUES (?,?,'Success','Plan Buy')", [req.body.mobile, parseInt(result1[0].price)]);
+                              reffer_bonus(req.body.mobile);
+                              res.status(200).json({
+                                error: false,
+                                status: true
+                              });
+                            }
+                          }
+                        );
+                      } else {
+                        con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,?,DATE_ADD(CURDATE(), INTERVAL 30 DAY))",
+                          [req.body.mobile, req.body.id], (err, result) => {
+                            if (err) throw err;
+                            if (result) {
+                              con.query("DELETE FROM `buy_plan` WHERE `user_id` = ? AND `plan_id` = '1';", [req.body.mobile]);
+                              con.query("INSERT INTO `deposit`(`user_name`, `balance`,`status`, `payment_type`) VALUES (?,?,'Success','Plan Buy')", [req.body.mobile, parseInt(result1[0].price)]);
+                              res.status(200).json({
+                                error: false,
+                                status: true
+                              });
+                            }
+                          }
+                        );
                       }
-                    }
-                  );
+                    })
+                  }
                 }
-              }
-            );
-          } else {
-            res.status(302).json({
-              error: true,
-              status: false,
-              massage: "Insufficient Balance in your Winning wallet",
-            });
+              );
+            } else {
+              res.status(302).json({
+                error: true,
+                status: false,
+                massage: "Insufficient Balance in your Winning wallet",
+              });
+            }
           }
-        }
-      );
+        );
+      }
     }
   })
 })
@@ -238,9 +390,57 @@ app.post("/get-plans", (req, res) => {
     }
   })
 })
+app.post('/check-user-existance', (req, res) => {
+  con.query("SELECT * FROM `user_details` WHERE `email` = ?;", [req.body.email], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.status(200).json({
+        error: true,
+        status: false,
+        message: "Email Id is Already Exist",
+      });
+    } else {
+      con.query("SELECT * FROM `user_details` WHERE `mobile` = ?;", [req.body.mobile], (err, result) => {
+        if (err) throw err;
+        if (result.length > 0) {
+          res.status(200).json({
+            error: true,
+            status: false,
+            message: "Mobile Number is Already Exist",
+          });
+        } else {
+          if (req.body.reffer_by == "" || JSON.stringify(req.body.reffer_by) == "null") {
+            res.status(200).json({
+              error: false,
+              status: true
+            });
+          } else {
+            con.query("select * from user_details where `reffer_code` = ?", [req.body.reffer_by], (err, result) => {
+              if (err) throw err;
+              if (result.length > 0) {
+                res.status(200).json({
+                  error: false,
+                  status: true
+                });
+              } else {
+                res.status(200).json({
+                  error: true,
+                  status: false,
+                  message: "This refferal Code is not valid.",
+                });
+              }
+            })
+          }
+        }
+      }
+      );
+    }
+  }
+  );
+})
 // get-current-plans
 app.post("/get-current-plans", (req, res) => {
-  con.query("select bp.id,p.name,p.price,p.total_video,p.total_comment,p.total_like,p.total_video_price,p.total_video_comment,p.total_video_like,p.earn_upto,bp.expire_date,bp.date from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?", [req.body.mobile], (err, result) => {
+  con.query("select bp.id,p.name,p.price,p.total_video,p.total_comment,p.total_like,p.total_video_price,bp.status,p.total_video_comment,p.total_video_like,p.earn_upto,bp.expire_date,bp.date from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?", [req.body.mobile], (err, result) => {
     if (err) {
       throw err;
     }
@@ -254,7 +454,6 @@ app.post("/get-current-plans", (req, res) => {
   })
 })
 app.post("/change-password", verifytoken, (req, res) => {
-  // req.body = JSON.parse(atob(req.body.data));
   con.query("select * from user_details where `mobile` = ?", [req.body.mobile], (err, result) => {
     if (err) throw err;
     if (result) {
@@ -267,19 +466,16 @@ app.post("/change-password", verifytoken, (req, res) => {
           req.body.new_password,
           bcrypt.genSaltSync(12)
         );
-        con.query(
-          "UPDATE `user_details` SET `password` = ? WHERE `mobile` = ?",
-          [hash, req.body.mobile],
-          (err, result) => {
-            if (err) throw err;
-            if (result) {
-              res.status(200).json({
-                error: false,
-                status: true,
-                message: "Reset Password Successfully",
-              });
-            }
+        con.query("UPDATE `user_details` SET `password` = ? WHERE `mobile` = ?", [hash, req.body.mobile], (err, result) => {
+          if (err) throw err;
+          if (result) {
+            res.status(200).json({
+              error: false,
+              status: true,
+              message: "Reset Password Successfully",
+            });
           }
+        }
         );
       } else {
         res.status(200).json({
@@ -291,9 +487,56 @@ app.post("/change-password", verifytoken, (req, res) => {
   }
   );
 });
+app.post("/forget-password", (req, res) => {
+  jwt.verify(req.body.token, SECRET_KEY_VERIFY, (err, auth) => {
+    if (err) {
+      res.status(200).json({
+        error: true,
+        status: false,
+        message: "Invaild Details.",
+      });
+    } else {
+      if (auth.email == req.body.email) {
+        con.query("select * from user_details where `email` = ?", [req.body.email], (err, result) => {
+          if (err) throw err;
+          if (result.length > 0) {
+            const hash = bcrypt.hashSync(
+              req.body.password,
+              bcrypt.genSaltSync(12)
+            );
+            con.query("UPDATE `user_details` SET `password` = ? WHERE `email` = ?", [hash, req.body.email], (err, result) => {
+              if (err) throw err;
+              if (result) {
+                res.status(200).json({
+                  error: false,
+                  status: true,
+                  message: "Forget Password Successfully",
+                });
+              }
+            }
+            );
+          } else {
+            res.status(200).json({
+              error: true,
+              message: "Email Id is Not Exist.",
+            });
+          }
+
+        }
+        );
+      } else {
+        res.status(200).json({
+          error: true,
+          status: false,
+          message: "Invaild Details.",
+        });
+      }
+    }
+  });
+});
 app.post("/user-details", verifytoken, (req, res) => {
   con.query(
-    "SELECT ud.id, ud.username as uname, ud.mobile, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.upi_id, ud.reffer_code, ud.plan_type, p.name, p.price, p.total_video, p.total_comment, p.total_like, p.total_video_price, p.total_video_comment as 'total_comment_price', p.total_video_like as 'total_like_price', p.earn_upto,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name INNER JOIN `plan` as p on ud.plan_type = p.id WHERE `mobile` = ?",
+    "SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.upi_id, ud.reffer_code, ud.plan_type, p.name, p.price, p.total_video, p.total_comment, p.total_like, p.total_video_price, p.total_video_comment as 'total_comment_price', p.total_video_like as 'total_like_price', p.earn_upto,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name INNER JOIN `plan` as p on ud.plan_type = p.id  WHERE `mobile` = ?",
     [req.body.mobile],
     (err, result) => {
       if (err) throw err;
@@ -310,7 +553,7 @@ app.post("/user-details", verifytoken, (req, res) => {
 app.post("/update-user-details", verifytoken, (req, res) => {
   const cid = req.body.mobile;
   let
-    allowedcolumns = ["username", "email", "pincode", "upi_id", "bank_name", "ifsc_code", "ac_no", "ac_name"],
+    allowedcolumns = ["username", "pincode", "upi_id", "bank_name", "ifsc_code", "ac_no", "ac_name"],
     stmts = [],
     values = [];
   for (let c of allowedcolumns) {
@@ -448,77 +691,83 @@ app.post("/withdrawal-balace", verifytoken, (req, res) => {
     }
   );
 });
+
 app.post("/get-otp", (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
   const val = Math.floor(1000 + Math.random() * 9000);
   const hash = bcrypt.hashSync(val.toString(), bcrypt.genSaltSync(12));
-  con.query(
-    "SELECT * FROM `otp` WHERE `number` = ?",
-    [req.body.number],
-    (err, result) => {
-      if (err) throw err;
-      if (result.length > 0) {
-        con.query(
-          "UPDATE `otp` SET `otp` = ? WHERE `number` = ?",
-          [hash, req.body.number],
-          (err, result) => {
-            if (err) throw err;
-            if (result) {
-              res.status(200).json(btoa(JSON.stringify({
-                number: req.body.number,
-                otp: val.toString(),
-              })));
-            }
-          }
-        );
-      } else {
-        con.query(
-          "INSERT INTO `otp`(`otp`, `number`) VALUES (?,?)",
-          [hash, req.body.number],
-          (err, result) => {
-            if (err) throw err;
-            if (result) {
-              res.status(200).json(btoa(JSON.stringify({
-                number: req.body.number,
-                otp: val.toString(),
-              })));
-            }
-          }
-        );
+  con.query("SELECT * FROM `otp` WHERE `number` = ?", [req.body.email], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      transporter.sendMail({
+        from: 'otp@task.sparrowgames.in',
+        to: req.body.email,
+        subject: "OTP Verification",
+        text: "To Create your Acoount",
+        html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
+      });
+      con.query("UPDATE `otp` SET `otp` = ? WHERE `number` = ?", [hash, req.body.email], (err, result) => {
+        if (err) throw err;
+        if (result) {
+          res.status(200).json({
+            error: false,
+            status: true,
+          });
+        }
+      });
+    } else {
+      transporter.sendMail({
+        from: 'otp@task.sparrowgames.in',
+        to: req.body.email,
+        subject: "OTP Verification",
+        text: "To Create your Acoount",
+        html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
+      });
+      con.query("INSERT INTO `otp`(`otp`, `number`) VALUES (?,?)", [hash, req.body.email], (err, result) => {
+        if (err) throw err;
+        if (result) {
+          res.status(200).json({
+            error: false,
+            status: true,
+          });
+        }
       }
+      );
     }
+  }
   );
 });
 app.post("/verify-otp", (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query(
-    "SELECT * FROM `otp` where number = ?",
-    [req.body.number],
-    (err, result) => {
-      if (err) throw err;
-      if (result.length > 0) {
-        const match = bcrypt.compareSync(req.body.otp, result[0].otp);
-        if (match == true) {
-          res.status(200).json(btoa(JSON.stringify({
-            error: false,
-            status: true,
-            msg: "Verify OTP",
-          })));
-        } else {
-          res.status(404).json(btoa(JSON.stringify({
-            error: true,
-            status: false,
-            msg: "Wrong OTP",
-          })));
-        }
+  con.query("SELECT * FROM `otp` where number = ?", [req.body.email], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      const match = bcrypt.compareSync((req.body.otp).toString(), result[0].otp);
+      if (match == true) {
+        con.query("delete from `otp` where number = ?", [req.body.email]);
+        var token = jwt.sign(
+          { email: req.body.email },
+          SECRET_KEY_VERIFY, { expiresIn: '5M' },
+        );
+        res.status(200).json({
+          error: false,
+          status: true,
+          token,
+          msg: "OTP Verifyed",
+        });
       } else {
-        res.status(200).json(btoa(JSON.stringify({
+        res.status(200).json({
           error: true,
           status: false,
-          msg: "number is not exist",
-        })));
+          msg: "Wrong OTP",
+        });
       }
+    } else {
+      res.status(200).json({
+        error: true,
+        status: false,
+        msg: "OTP Expired",
+      });
     }
+  }
   );
 });
 
@@ -595,10 +844,10 @@ app.post("/add-withdrawal-request", verifytoken, (req, res) => {
         massage: "You Must have to fill all the details.",
       });
     } else {
-      con.query('SELECT `bank_name`,`ifsc_code`,`ac_no`,`ac_name` FROM `user_details` WHERE `mobile` = ?',[req.body.mobile],(err1,result1)=>{
-        if(err1)throw err1;
-        if(result1){
-          if (!result1[0].bank_name){
+      con.query('SELECT `bank_name`,`ifsc_code`,`ac_no`,`ac_name` FROM `user_details` WHERE `mobile` = ?', [req.body.mobile], (err1, result1) => {
+        if (err1) throw err1;
+        if (result1) {
+          if (!result1[0].bank_name) {
             res.status(302).json({
               error: true,
               status: false,
@@ -622,7 +871,7 @@ app.post("/add-withdrawal-request", verifytoken, (req, res) => {
               status: false,
               massage: "You Must have to fill Account Name.",
             });
-          }else{
+          } else {
             con.query("SELECT IF(`winning_wallet` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
               [parseInt(req.body.amount), req.body.mobile],
               (error, result) => {
@@ -721,39 +970,99 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
     }
   })
 });
-app.post("/get-task-like", verifytoken, (req, res) => {
-  con.query('SELECT att.id,ud.mobile,tn.task_url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = "LIKE"', [req.body.mobile], (err, result) => {
+app.post("/get-task-like", (req, res) => {
+  let aa = [];
+  let dataArray = [];
+  let newArray = [];
+  con.query("SELECT twn.id, twn.id as 'tid',twn.task_url,twn.type,(SELECT p.name from platforms as p where p.id = twn.platform_id) as platform,'Pending' as 'status' FROM `tasks_with_name` as twn WHERE date(twn.`date`) = CURRENT_DATE() and twn.type = 'LIKE';", [req.body.mobile], (err, result) => {
     if (err) throw err;
     if (result) {
-      res.status(200).json({
-        error: false,
-        status: true,
-        data: result
-      });
+      dataArray = result;
+      con.query("SELECT att.id,att.task_id as 'tid',tn.task_url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = 'LIKE' and date(att.date) = CURRENT_DATE();", [req.body.mobile], (err, result2) => {
+        if (err) throw err;
+        if (result2) {
+          aa = dataArray.concat(result2);
+          let uniqueObject = {};
+          for (let i in aa) {
+            objTitle = aa[i]['tid'];
+            uniqueObject[objTitle] = aa[i];
+          }
+          for (i in uniqueObject) {
+            newArray.push(uniqueObject[i]);
+          }
+          res.status(200).json({
+            error: false,
+            status: true,
+            data: newArray
+          });
+        }
+      })
     }
   })
 })
 app.post("/get-task-comment", verifytoken, (req, res) => {
-  con.query('SELECT att.id,ud.mobile,tn.comment_details,tn.task_url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = "COMMENT"', [req.body.mobile], (err, result) => {
+  let aa = [];
+  let dataArray = [];
+  let newArray = [];
+  con.query("SELECT twn.id,twn.id as 'tid',twn.task_url,twn.type,(SELECT p.name from platforms as p where p.id = twn.platform_id) as platform,'Pending' as 'status' FROM `tasks_with_name` as twn WHERE date(twn.`date`) = CURRENT_DATE() and twn.type = 'COMMENT';", [req.body.mobile], (err, result) => {
     if (err) throw err;
     if (result) {
-      res.status(200).json({
-        error: false,
-        status: true,
-        data: result
-      });
+      dataArray = result;
+      con.query("SELECT att.id,att.task_id as 'tid',ud.mobile,tn.task_url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = 'COMMENT' and date(att.date) = CURRENT_DATE();", [req.body.mobile], (err, result2) => {
+        if (err) throw err;
+        if (result2) {
+          aa = dataArray.concat(result2);
+          let uniqueObject = {};
+          for (let i in aa) {
+            objTitle = aa[i]['tid'];
+            uniqueObject[objTitle] = aa[i];
+          }
+          for (i in uniqueObject) {
+            newArray.push(uniqueObject[i]);
+          }
+          let newObjects = newArray.flatMap(e =>
+            Array(e.tid).fill({ id: e.id, task_url: e.task_url, type: e.type, platform: e.platform, status: e.status })
+          );
+          res.status(200).json({
+            error: false,
+            status: true,
+            data: newArray
+          });
+        }
+      })
     }
   })
 })
 app.post("/get-video-task", verifytoken, (req, res) => {
-  con.query('SELECT att.id,ud.mobile,tn.task_url,att.url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = "VIDEO"', [req.body.mobile], (err, result) => {
+  let aa = [];
+  let dataArray = [];
+  let newArray = [];
+  con.query("SELECT twn.id,twn.id as 'tid',twn.task_url,twn.type,(SELECT p.name from platforms as p where p.id = twn.platform_id) as platform,'Pending' as 'status' FROM `tasks_with_name` as twn WHERE date(twn.`date`) = CURRENT_DATE() and twn.type = 'VIDEO';", (err, result) => {
     if (err) throw err;
     if (result) {
-      res.status(200).json({
-        error: false,
-        status: true,
-        data: result
-      });
+      dataArray = result;
+      con.query("SELECT att.id,att.task_id as 'tid',ud.mobile,tn.task_url,tn.type,(select p.name from platforms as p where p.id = tn.platform_id) as platform,att.status FROM `assign_task` as att INNER join user_details as ud on att.user_id=ud.id INNER join tasks_with_name as tn on att.task_id = tn.id where ud.mobile = ? && tn.type = 'VIDEO' and date(att.date) = CURRENT_DATE();", [req.body.mobile], (err, result2) => {
+        if (err) throw err;
+        if (result2) {
+          aa = dataArray.concat(result2);
+          let uniqueObject = {};
+          for (let i in aa) {
+            objTitle = aa[i]['tid'];
+            uniqueObject[objTitle] = aa[i];
+          }
+          for (i in uniqueObject) {
+            newArray.push(uniqueObject[i]);
+          }
+          let newObjects = newArray.flatMap(e =>
+            Array(e.tid).fill({ id: e.id, task_url: e.task_url, type: e.type, platform: e.platform, status: e.status })
+          );
+          res.status(200).json({
+            error: false,
+            status: true,
+            data: newArray
+          });
+        }
+      })
     }
   })
 })
@@ -765,28 +1074,59 @@ app.post("/update-task", verifytoken, (req, res) => {
       massage: "Username is required",
     });
   } else {
-    con.query("SELECT * FROM `assign_task` WHERE `task_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `username` = ?",
-      [req.body.id, req.body.username], (err, result) => {
-        if (err) throw err;
-        if (result.length > 0) {
-          res.status(302).json({
-            error: true,
-            status: false,
-            massage: "This Username Is Already Used",
-          });
-        } else {
-          con.query("UPDATE `assign_task` as att SET att.`id`= ?, att.`username`= ?, att.`status`='Verifying' WHERE att.`user_id` = (select ud.id from user_details as ud where ud.mobile = ?) && att.id = ?", [req.body.id, req.body.username, req.body.mobile, req.body.id], (err, result) => {
-            if (err) throw err;
-            if (result) {
-              res.status(200).json({
-                error: false,
-                status: true,
-                massage: "Update Task SuccessFully",
-              });
-            }
-          })
-        }
-      })
+    if (req.body.status == "Pending") {
+      con.query("SELECT * FROM `assign_task` WHERE `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `username` = ? AND `task_id` = ? AND date(`date`) = CURRENT_DATE();",
+        [req.body.mobile, req.body.username, req.body.id], (err1, result1) => {
+          if (err1) { throw err1 }
+          if (result1.length > 0) {
+            res.status(302).json({
+              error: true,
+              status: false,
+              massage: "This Username Is Already Used",
+            });
+          } else {
+            con.query("INSERT INTO `assign_task`(`user_id`, `task_id`, `username`, `status`) VALUES ((select ud.id from user_details as ud where ud.mobile = ?),?,?,'Verifying')",
+              [req.body.mobile, req.body.id, req.body.username], (err, result) => {
+                if (err) throw err;
+                if (result) {
+                  res.status(200).json({
+                    error: false,
+                    status: true,
+                    massage: "Update Task SuccessFully",
+                  });
+                }
+              })
+          }
+        })
+    } else {
+      con.query("SELECT * FROM `assign_task` WHERE `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `id` = ? AND date(`date`) = CURRENT_DATE();",
+        [req.body.mobile, req.body.id], (err, result) => {
+          if (err) throw err;
+          if (result.length > 0) {
+            con.query("SELECT * FROM `assign_task` WHERE `username` = ? AND `id` = ? AND date(`date`) = CURRENT_DATE();", [req.body.username, req.body.id], (err1, result1) => {
+              if (err1) { throw err1 }
+              if (result1.length > 0) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "This Username Is Already Used",
+                });
+              } else {
+                con.query("UPDATE `assign_task` SET `username`=?, `status` = ?,`approved_declined_by`= '' WHERE `id` = ? AND `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND date(date) = CURRENT_DATE()", [req.body.username, 'Verifying', req.body.id, req.body.mobile], (err2, result2) => {
+                  if (err2) { throw err2 }
+                  if (result2) {
+                    res.status(200).json({
+                      error: false,
+                      status: true,
+                      massage: "Update Task SuccessFully",
+                    });
+                  }
+                })
+              }
+            })
+          }
+        })
+    }
   }
 })
 app.post("/update-video-task", verifytoken, (req, res) => {
@@ -797,31 +1137,59 @@ app.post("/update-video-task", verifytoken, (req, res) => {
       message: "url is required",
     });
   } else {
-    con.query("SELECT * FROM `assign_task` WHERE `url` = ?",
-      [req.body.url], (err, result) => {
+    con.query("SELECT * FROM `assign_task` WHERE `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `task_id` = ? AND date(`date`) = CURRENT_DATE();",
+      [req.body.mobile, req.body.id], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
-          res.status(302).json({
-            error: true,
-            status: false,
-            message: "This url is Already Used",
-          });
-        } else {
-          con.query("UPDATE `assign_task` as att SET att.`id`= ?, att.`url`= ?, att.`status`='Verifying' WHERE att.`user_id` = (select ud.id from user_details as ud where ud.mobile = ?) && att.id = ?", [req.body.id, req.body.url, req.body.mobile, req.body.id], (err, result) => {
-            if (err) throw err;
-            if (result) {
-              res.status(200).json({
-                error: false,
-                status: true,
-                message: "Update Task SuccessFully",
+          con.query("SELECT * FROM `assign_task` WHERE `url` = ? AND `task_id` = ? AND date(`date`) = CURRENT_DATE();", [req.body.url, req.body.id], (err1, result1) => {
+            if (err1) { throw err1 }
+            if (result1.length > 0) {
+              res.status(302).json({
+                error: true,
+                status: false,
+                massage: "This Url Is Already Used",
               });
+            } else {
+              con.query("UPDATE `assign_task` SET `url`=? WHERE `task_id` = ? AND `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND date(date) = CURRENT_DATE() ", [req.body.url, req.body.id, req.body.mobile], (err2, result2) => {
+                if (err2) { throw err2 }
+                if (result2) {
+                  res.status(200).json({
+                    error: false,
+                    status: true,
+                    massage: "Update Task SuccessFully",
+                  });
+                }
+              })
             }
           })
+        } else {
+          con.query("SELECT * FROM `assign_task` WHERE `url` = ? AND `task_id` = ? AND date(`date`) = CURRENT_DATE();",
+            [req.body.username, req.body.id], (err1, result1) => {
+              if (err1) { throw err1 }
+              if (result1.length > 0) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "This Url Is Already Used",
+                });
+              } else {
+                con.query("INSERT INTO `assign_task`(`user_id`, `task_id`, `url`, `status`) VALUES ((select ud.id from user_details as ud where ud.mobile = ?),?,?,'Verifying')",
+                  [req.body.mobile, req.body.id, req.body.url], (err, result) => {
+                    if (err) throw err;
+                    if (result) {
+                      res.status(200).json({
+                        error: false,
+                        status: true,
+                        massage: "Update Task SuccessFully",
+                      });
+                    }
+                  })
+              }
+            })
         }
       })
   }
 })
-
 
 //Bank Deatils
 app.post("/add-bankdetails", verifytoken, (req, res) => {
@@ -1015,25 +1383,6 @@ app.post("/delete-upidetails", verifytoken, (req, res) => {
     }
   );
 });
-
-// // statement
-// app.post("/get-statement", verifytoken, (req, res) => {
-//   req.body = JSON.parse(atob(req.body.data));
-//   let limit = 10;
-//   let offset = limit * req.body.page - limit;
-//   con.query("SELECT s.id, s.bet_or_type, s.period, s.Select, s.bet_from, s.bet_balance, s.total_balance, (select COUNT(*) FROM `statement` WHERE `username` = ?) as count, s.date FROM `statement` s WHERE s.`username` = ? ORDER by s.id DESC LIMIT ? OFFSET ?", [req.body.mobile, req.body.mobile, limit, offset], (err, result) => {
-//     if (err) {
-//       throw err;
-//     }
-//     if (result) {
-//       res.status(200).json(btoa(JSON.stringify({
-//         error: false,
-//         status: true,
-//         data: result
-//       })))
-//     }
-//   })
-// });
 
 app.post('/get-shopping-details', (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
@@ -1294,8 +1643,70 @@ app.post("/token-check", (req, res) => {
   } else {
     res.sendStatus(403);
   }
+});
+app.post("/get-level", (req, res) => {
+  let dataArray = [];
+  con.query("SELECT ul.id,ud.uid,ud.username,'level_1' as level,(select price from `level` where `name` = '1') as amount,ul.status1 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_1` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      dataArray = dataArray.concat(result);
+      con.query("SELECT ul.id,ud.uid,ud.username,'level_2' as level,(select price from `level` where `name` = '2') as amount,ul.status2 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_2` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result2) => {
+        if (err) throw err;
+        if (result2) {
+          dataArray = dataArray.concat(result2);
+          con.query("SELECT ul.id,ud.uid,ud.username,'level_3' as level,(select price from `level` where `name` = '3') as amount,ul.status3 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_3` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result3) => {
+            if (err) throw err;
+            if (result3) {
+              dataArray = dataArray.concat(result3);
+              con.query("SELECT ul.id,ud.uid,ud.username,'level_4' as level,(select price from `level` where `name` = '4') as amount,ul.status4 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_4` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result4) => {
+                if (err) throw err;
+                if (result4) {
+                  dataArray = dataArray.concat(result4);
+                  con.query("SELECT ul.id,ud.uid,ud.username,'level_5' as level,(select price from `level` where `name` = '5') as amount,ul.status5 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_5` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result5) => {
+                    if (err) throw err;
+                    if (result5) {
+                      dataArray = dataArray.concat(result5);
+                      con.query("SELECT ul.id,ud.uid,ud.username,'level_6' as level,(select price from `level` where `name` = '6') as amount,ul.status6 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_6` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result6) => {
+                        if (err) throw err;
+                        if (result6) {
+                          dataArray = dataArray.concat(result6);
+                          con.query("SELECT ul.id,ud.uid,ud.username,'level_7' as level,(select price from `level` where `name` = '7') as amount,ul.status7 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_7` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result7) => {
+                            if (err) throw err;
+                            if (result7) {
+                              dataArray = dataArray.concat(result7);
+                              con.query("SELECT ul.id,ud.uid,ud.username,'level_8' as level,(select price from `level` where `name` = '8') as amount,ul.status8 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_8` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result8) => {
+                                if (err) throw err;
+                                if (result8) {
+                                  dataArray = dataArray.concat(result8);
+                                  con.query("SELECT ul.id,ud.uid,ud.username,'level_9' as level,(select price from `level` where `name` = '9') as amount,ul.status9 as status,ul.date FROM `user_level` as ul INNER join user_details as ud on ul.user_reffral = ud.reffer_code WHERE ul.`level_9` = (SELECT udd.reffer_code from user_details as udd WHERE udd.mobile=?)", [req.body.mobile], (err, result9) => {
+                                    if (err) throw err;
+                                    if (result9) {
+                                      dataArray = dataArray.concat(result9);
+                                      dataArray.sort((a, b) => a.date - b.date);
+                                      res.status(200).json({
+                                        error: false,
+                                        status: true,
+                                        data: dataArray.reverse()
+                                      });
+                                    }
+                                  })
+                                }
+                              })
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
 })
-// level("GJpQpVEO");
 function verifytoken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
   if (typeof bearerHeader !== "undefined") {
@@ -1346,142 +1757,346 @@ function code() {
   return a;
 }
 function reffer(ba, ab) {
+  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+}
+function reffer2(ba, ab) {
   con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
     if (err) throw err;
     if (level1[0].ref == '') {
       con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
-      con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ab, ba]);
+    } else {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+    }
+  })
+}
+function reffer3(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
     } else {
       con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
         if (err) throw err;
         if (level2[0].reff == '') {
           con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
-          con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [level1[0].ref, ab, ba]);
         } else {
           con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
-          con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [level2[0].reff, level1[0].ref, ab, ba]);
-          // con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
-          //   if (err) throw err;
-          //   if (level3[0].reff == '') {
-          //     con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
-          //     con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [level2[0].reff, level1[0].ref, ab, ba]);
-          //   } else {
-          //     con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
-          //       if (err) throw err;
-          //       if (level4[0].reff == '') {
-          //         con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
-          //         con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [level3[0].reff, level2[0].reff, level1[0].ref, ab, ba]);
-          //       } else {
-          //         con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level4[0].reff], (err, level5) => {
-          //           if (err) throw err;
-          //           if (level5[0].reff == '') {
-          //             con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
-          //             con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [level4[0].reff, level3[0].reff, level2[0].reff, level1[0].ref, ab, ba]);
-          //           } else {
-          //             con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff]);
-          //             con.query('INSERT INTO `reffal_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [level5[0].reff, level4[0].reff, level3[0].reff, level2[0].reff, level1[0].ref, ab, ba]);
-          //           }
-          //         })
-          //       }
-          //     })
-          //   }
-          // })
         }
       })
     }
   })
 }
-function agent(amount, user) {
-  con.query("SELECT `reffer_code` as rc FROM `user_details` WHERE `user_name` = ?", [user], (err, result) => {
+function reffer4(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
     if (err) throw err;
-    if (result) {
-      con.query("SELECT * FROM `user_level` WHERE `user_reffral` = ?", [result[0].rc], (err, level1) => {
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
         if (err) throw err;
-        const percentage2 = ((5 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage3 = ((3 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage4 = ((2 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage5 = ((2 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage6 = ((1 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage7 = ((1 / 100) * parseFloat(amount)).toFixed(2);
-        if (level1[0].level_1) {
-          con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage2, level1[0].level_1]);
-          con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, percentage2, 'Level 1']);
-          if (level1[0].level_2 != null) {
-            con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage3, level1[0].level_2]);
-            con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_2, percentage3, 'Level 2']);
-            if (level1[0].level_3 != null) {
-              con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage4, level1[0].level_3]);
-              con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_3, percentage4, 'Level 3']);
-              if (level1[0].level_4 != null) {
-                con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage5, level1[0].level_4]);
-                con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_4, percentage5, 'Level 4']);
-                if (level1[0].level_5 != null) {
-                  con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage6, level1[0].level_5]);
-                  con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_5, percentage6, 'Level 5']);
-                  if (level1[0].level_6 != null) {
-                    con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage7, level1[0].level_6]);
-                    con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_6, percentage7, 'Level 6']);
-                  } else {
-                    con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage7).toFixed(2), level1[0].level_1]);
-                    con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage7).toFixed(2), 'Level 1']);
-                  }
-                } else {
-                  con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage6).toFixed(2), level1[0].level_1]);
-                  con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage6).toFixed(2), 'Level 1']);
-                }
-              } else {
-                con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage5).toFixed(2), level1[0].level_1]);
-                con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage5).toFixed(2), 'Level 1']);
-              }
-            } else {
-              con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage4).toFixed(2), level1[0].level_1]);
-              con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage4).toFixed(2), 'Level 1']);
-            }
-          } else {
-            con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage3).toFixed(2), level1[0].level_1]);
-            con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage3).toFixed(2), 'Level 1']);
-          }
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
         } else {
-          con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [((parseFloat(amount)) - percentage2).toFixed(2), level1[0].level_1]);
-          con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, ((parseFloat(amount)) - percentage2).toFixed(2), 'Level 1']);
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+            }
+          })
         }
       })
     }
   })
 }
-function level(code){ 
-  let array,array2,array3,main; 
-  con.query("SELECT *,'level_1' as level FROM `user_details` WHERE `reffer_by` =?",[code],(err,result)=>{
-    if(err)throw err;
-    if(result){
-      console.log(result);
-      for (const a of result) {
-        con.query("SELECT *,'level_2' as level FROM `user_details` WHERE `reffer_by` =?", [a.reffer_by], (err, resultt) => {
-          if(err)throw err;
-          if(resultt){
-            console.log(resultt);
-            for (const b of resultt) {
-              con.query("SELECT *,'level_3' as level FROM `user_details` WHERE `reffer_by` =?", [b.reffer_by], (err, result2) => {
+function reffer5(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
+        if (err) throw err;
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+        } else {
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
                 if (err) throw err;
-                if (result2) {
-                  console.log(result2);
-                  for (const c of result2) {
-                    con.query("SELECT *,'level_4' as level FROM `user_details` WHERE `reffer_by` =?", [c.reffer_by], (err, result3) => {
-                      if (err) throw err;
-                      if (result3) {
-                        console.log(result3);
-                      }
-                    })
-                  }
+                if (level4[0].reff == '') {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+                } else {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
                 }
               })
             }
+          })
+        }
+      })
+    }
+  })
+}
+function reffer6(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
+        if (err) throw err;
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+        } else {
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
+                if (err) throw err;
+                if (level4[0].reff == '') {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+                } else {
+                  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level4[0].reff], (err, level5) => {
+                    if (err) throw err;
+                    if (level5[0].reff == '') {
+                      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
+                    } else {
+                      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff]);
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+}
+function reffer7(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
+        if (err) throw err;
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+        } else {
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
+                if (err) throw err;
+                if (level4[0].reff == '') {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+                } else {
+                  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level4[0].reff], (err, level5) => {
+                    if (err) throw err;
+                    if (level5[0].reff == '') {
+                      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
+                    } else {
+                      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level5[0].reff], (err, level6) => {
+                        if (err) throw err;
+                        if (level6[0].reff == '') {
+                          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff]);
+                        } else {
+                          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`) VALUES (?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff]);
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+}
+function reffer8(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
+        if (err) throw err;
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+        } else {
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
+                if (err) throw err;
+                if (level4[0].reff == '') {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+                } else {
+                  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level4[0].reff], (err, level5) => {
+                    if (err) throw err;
+                    if (level5[0].reff == '') {
+                      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
+                    } else {
+                      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level5[0].reff], (err, level6) => {
+                        if (err) throw err;
+                        if (level6[0].reff == '') {
+                          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff]);
+                        } else {
+                          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level6[0].reff], (err, level7) => {
+                            if (err) throw err;
+                            if (level7[0].reff == '') {
+                              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`) VALUES (?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff]);
+                            } else {
+                              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`, `lavel_8`) VALUES (?,?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff, level7[0].reff]);
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+}
+function reffer9(ba, ab) {
+  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as ref FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [ab], (err, level1) => {
+    if (err) throw err;
+    if (level1[0].ref == '') {
+      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);
+    } else {
+      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level1[0].ref], (err, level2) => {
+        if (err) throw err;
+        if (level2[0].reff == '') {
+          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`) VALUES (?,?,?)', [ba, ab, level1[0].ref]);
+        } else {
+          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level2[0].reff], (err, level3) => {
+            if (err) throw err;
+            if (level3[0].reff == '') {
+              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`) VALUES (?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff]);
+            } else {
+              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level3[0].reff], (err, level4) => {
+                if (err) throw err;
+                if (level4[0].reff == '') {
+                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`) VALUES (?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff]);
+                } else {
+                  con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level4[0].reff], (err, level5) => {
+                    if (err) throw err;
+                    if (level5[0].reff == '') {
+                      con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`) VALUES (?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff]);
+                    } else {
+                      con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level5[0].reff], (err, level6) => {
+                        if (err) throw err;
+                        if (level6[0].reff == '') {
+                          con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`) VALUES (?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff]);
+                        } else {
+                          con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level6[0].reff], (err, level7) => {
+                            if (err) throw err;
+                            if (level7[0].reff == '') {
+                              con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`) VALUES (?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff]);
+                            } else {
+                              con.query("SELECT IFNULL(ud.`reffer_by`, 0) as reff FROM `user_details` as ud WHERE ud.`reffer_code` = ?", [level7[0].reff], (err, level8) => {
+                                if (err) throw err;
+                                if (level8[0].reff == '') {
+                                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`, `lavel_8`) VALUES (?,?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff, level7[0].reff]);
+                                } else {
+                                  con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `lavel_6`, `lavel_7`, `lavel_8`, `lavel_9`) VALUES (?,?,?,?,?,?,?,?,?,?)', [ba, ab, level1[0].ref, level2[0].reff, level3[0].reff, level4[0].reff, level5[0].reff, level6[0].reff, level7[0].reff, level8[0].reff]);
+                                }
+                              })
+                            }
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+}
+function reffer_bonus(ba) {
+  let a = 0;
+  con.query("SELECT IFNULL(ul.`level_1`,0) as level_1,IFNULL(ul.`level_2`,0) as level_2,IFNULL(ul.`level_3`,0) as level_3,IFNULL(ul.`level_4`,0) as level_4,IFNULL(ul.`level_5`,0) as level_5,IFNULL(ul.`level_6`,0) as level_6,IFNULL(ul.`level_7`,0) as level_7,IFNULL(ul.`level_8`,0) as level_8,IFNULL(ul.`level_9`,0) as level_9 FROM `user_level` as ul WHERE ul.user_reffral = (SELECT ud.`reffer_code` FROM `user_details` as ud WHERE ud.`mobile` = ?);", [ba], (err1, result1) => {
+    if (err1) throw err1;
+    if(result1){
+      let a = Object.values(result1[0]);
+      for (let index = 0; index < a.length; index++) {
+        const element = a[index];
+        con.query("SELECT COUNT(*) as c FROM `buy_plan` WHERE `user_id` = (select mobile from user_details where reffer_code = ?) and `plan_id` != '1'", [element], (error1, resultt1) => {
+          if (error1) { throw error1 }
+          if (resultt1[0].c > 0) {
+            con.query(`UPDATE user_level as ul SET ul.status${index+1} = 'Success' WHERE ul.user_reffral = (SELECT reffer_code FROM user_details as ud WHERE ud.mobile = ?)`, [ba]);
+            con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [index+1, index+1, element]);
+          }else{
+
           }
         })
       }
-      console.log(main);
-      return main
+      // if (result1[0].level_1 != 0) {
+      //   con.query("SELECT COUNT(*) as c FROM `buy_plan` WHERE `user_id` = (select mobile from user_details where reffer_code = ?) and `plan_id` != '1'", [result1[0].level_1], (error1, resultt1) => {
+      //     if (error1) { throw error1 }
+      //     if (resultt1[0].c > 0) {
+      //       con.query("UPDATE `user_level` as ul SET ul.`status` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //       con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [1, 1, result1[0].level_1]);
+      //     } else {
+      //       if (result1[0].level_2 != 0) {
+      //         con.query("UPDATE `user_level` as ul SET ul.`status2` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //         con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [2, 2, result1[0].level_2]);
+      //         if (result1[0].level_3 != 0) {
+      //           con.query("UPDATE `user_level` as ul SET ul.`status3` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //           con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [3, 3, result1[0].level_3]);
+      //           if (result1[0].level_4 != 0) {
+      //             con.query("UPDATE `user_level` as ul SET ul.`status4` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //             con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [4, 4, result1[0].level_4]);
+      //             if (result1[0].level_5 != 0) {
+      //               con.query("UPDATE `user_level` as ul SET ul.`status5` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //               con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [5, 5, result1[0].level_5]);
+      //               if (result1[0].level_6 != 0) {
+      //                 con.query("UPDATE `user_level` as ul SET ul.`status6` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //                 con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [6, 6, result1[0].level_6]);
+      //                 if (result1[0].level_7 != 0) {
+      //                   con.query("UPDATE `user_level` as ul SET ul.`status7` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //                   con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [7, 7, result1[0].level_7]);
+      //                   if (result1[0].level_8 != 0) {
+      //                     con.query("UPDATE `user_level` as ul SET ul.`status8` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //                     con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [8, 8, result1[0].level_8]);
+      //                     if (result1[0].level_9 != 0) {
+      //                       con.query("UPDATE `user_level` as ul SET ul.`status9` = 'Success' WHERE ul.`user_reffral` = (SELECT reffer_code FROM `user_details` as ud WHERE ud.`mobile` = ?)", [ba]);
+      //                       con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [9, 9, result1[0].level_9]);
+      //                     }
+      //                   }
+      //                 }
+      //               }
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   })
+      // }
     }
-  } )
+  })
 }
+
 module.exports = app;

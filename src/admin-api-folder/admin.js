@@ -20,18 +20,6 @@ app.use(
 SECRET_KEY_SUPERADMIN = '5e0+&:e3%bcc4<f7:1f%.08x4-9:a8$*$&?&a9_a46c!2.:<^b&^f?4*&7a*>b!.f:_7>8:c-77@>&4*@3_e4,-f:$93?0$-,+*.&4c%1*d$<_481_,-_>4:0@&5e@*615bc54*!2.8cc679>319%.+:!b562>a4,@7$eaad?1!e!3:-c25f+d^a%$%0e7^^ef1c,5&.5d3%@b&&<?!&.4@27:>_-+$@3+911&7&0$9^,.4c,3:8d:c6a39!.?!7a$@%16*d&7187?<*0.,6%2!da9-f<81ca+>5@>_.5<+d,*_!@+<e.-8++ed&,b95-!.?2_&3$97587,:.&5$:*83045!&^23?b:89c-?6>0^f,<4fb&<2*b39?>!c4_d2!8,,d>2e!4?.&3<3e34@<4087>f3:>&08.b@%,!-!2ced9a9e.?a-$&+48<ee.e+<0d!c71?5*5.e8$605>@c!9bd<?b:5:_<_+c:*4*f83,5c4<:&0*b&e8d7fdc,bebd92f-cf?:59_+5c&1$%-<9bc_3+28+@+3&4!?8!2@<?*-d>7170-+?43b3.a9%4,+8>_?@5:+^8^2c@+1bd99aa346*c185c.9*,e36fa&0,%b>:d2!+?6624%,-6_7_8:23?4*4c&-add+26@52229+5^*b>c._0-d0*bc*_@be6a+_f8$aa854!3$a,a^.@10<f.>+@:1::.fa,68010a<f-@e60_8f9:55d>62f@+!:18!@a-,c@+9>>8?<5bd<1--8e163_156%&d_%32*,40-*02$+165_-*&.5!82_5d^a,_!96e_3*+31<&>--?c4a%a7+?>6*,<:-?e:+2$8<?%e+&*d78%_@e>2>1.!48ca$^8+%3b>6$+@-&*&,0&$c054_d7&4-!d7d._:>&81-41:<1d,f0aa2:4a?8_>?,f1_,&77+!7&!9d^@_e?02$d69^-a__3bc2,@1<%.4e0$7&f>3?&1c03e9+a-+b9*7?d$eb$>3>%c!b<.';
 SECRET_KEY_ADMIN = '%35ea7>+bc3c+b4-b42+9@!-e%5.:e3>xf$:50%>95>!4c3^$*68!6+3>@2@_b9$^1*6!0<%a6?-.5_0c,1:29d<,--!0?->ce!5ba3d!3&b_9&_3$*e_8a:%,>?&2.d_0-f2e$_:96%9429-:3c!?d4!48.4f7@-0^6-53_?f555>>a$>8e,:-c++%:d_&83&%*a9%e_130:_!98:-@-$0?2!1c9$d<9*@58e^%+e77caf?b8!1+%?%a.^9@&-&c!@c!3&_117+&%&_7<9%&.@,e_56:a1!9519%.&e.e%_@02_2^!.5882%.&a%07+f6_322?_d<4+3>@:6-_!c+e0*%cc$0-4!0a!a.,^6@1*^9a8+1fa%6%%32$@668-5a$%*.^f712*$4*^180,,3a,?ac3e69@3a*f^+^,b509*&.a6%07be:5_+$.%b1:9323^+1+^+1a:-%0ecfa7!?2?1:6:!1+44%980.!+fdce,,!^53^9+:-9fd22+0d@:^e&&d1^33387-2c2,@@<2_e@f1@65^0c_e83%?.2.b8?<7&?&-+-e$*a7.42$.?e?<fd?>*b2b%c4,8>ab5>9<e-8d!:b567!dd+3&$>&9:fe$d773%!ee<9<*@97@-&3c3%93?c5&+6^f0e,!<-<,958+d+5$,f3634.+9>%*2?b6?9+c:4%_<7!^@%5.21f26edd,5_<%c_,>17&e4>@4b&,:&_!a1a?b::!:1*>_?3-?ec+1:e!-_e6@>ec6299_6<!-$841b08^7-<a&4f?880e:%4@a$*1?f61-&3$d,e^.,%5*c7*>&a-1_@1b0@?08^,?<:+97>*4%e9d8-5>361$-c3b$-*+b,%6d7f90!6a-c?*d&a&:&+&12!2<<7ba>6&^.>:c$_,a8&e4$<e93.*a,88+b-b.>_:*+<-2?*d*_^^2d7+:@?7f!b6*.*2:a:-18b7d+d@4a5800,&_<c46:9&2d?30f:281^d,^b.@-7^a3&^c+@^%f6';
 app.use("../../image", express.static("image"));
-app.get("/del", (req, res) => {
-  fs.unlink(
-    "/image/banners-details/add_banner-1664302399008-677052225.png",
-    function (err) {
-      if (err) {
-        console.error(err);
-      } else {
-        res.send("delete")
-      }
-    }
-  );
-});
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (file.fieldname == "add_banner") {
@@ -90,7 +78,7 @@ app.post("/login", (req, res) => {
               if (match) {
                 jwt.sign(
                   { username: result[0].username },
-                  SECRET_KEY_SUPERADMIN, { expiresIn: '1h' },
+                  SECRET_KEY_SUPERADMIN, { expiresIn: '3h' },
                   (err, token) => {
                     if (err) throw err;
                     else
@@ -124,7 +112,7 @@ app.post("/login", (req, res) => {
               if (match) {
                 jwt.sign(
                   { username: result[0].username },
-                  SECRET_KEY_ADMIN, { expiresIn: '1h' },
+                  SECRET_KEY_ADMIN, { expiresIn: '3h' },
                   (err, token) => {
                     if (err) throw err;
                     else
@@ -408,13 +396,27 @@ app.post("/status-user", verifytoken, (req, res) => {
   );
 });
 app.post("/get-total-data", verifytoken, (req, res) => {
-  con.query("SELECT (select IFNULL(COUNT(*), 0) from user_details) as total_user, (select IFNULL(COUNT(*), 0) from user_details WHERE is_active = 'Y') as active_user, (SELECT IFNULL(SUM(balance), 0) FROM `withdrawal` WHERE status = 'Success') as total_w, (SELECT IFNULL(COUNT(*), 0) FROM `withdrawal` WHERE status = 'Pending') as total_wr, (SELECT IFNULL(SUM(balance), 0) FROM `deposit` WHERE status = 'Success') as total_d, (SELECT IFNULL(COUNT(*), 0) FROM `deposit` WHERE status = 'Pending') as total_dr;", (ro_err, ro_result) => {
-    if (ro_err) throw ro_err;
-    if (ro_result) {
-      res.status(200).json({
-        error: false,
-        status: true,
-        data: ro_result
+  con.query("SELECT ud.id,ud.mobile,(select SUM(p.total_video) as 'video' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as video,(select SUM(p.total_comment) as 'comment' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as 'comment',(select SUM(p.total_like) as 'like' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as 'like' FROM `user_details` as ud ", (err, result) => {
+    if (err) throw err;
+    if (result) {
+      const video = result.reduce((prev, current) => ((prev.video > current.video) ? prev : current), 0);
+      const like = result.reduce((prev, current) => ((prev.like > current.like) ? prev : current), 0);
+      const comment = result.reduce((prev, current) => ((prev.comment > current.comment) ? prev : current), 0);
+      con.query("select (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'LIKE' and date(`date`) = CURRENT_DATE()) as 'like', (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'VIDEO' and date(`date`) = CURRENT_DATE()) as video, (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'COMMENT' and date(`date`) = CURRENT_DATE()) as comment", (err, resultt) => {
+        if (err) throw err;
+        if (resultt) {
+          con.query("select (SELECT ifnull(COUNT(*),0) FROM `assign_task` WHERE `status` = 'Pending') as p_request,? as 'today_task_video',? as 'video',? as 'today_task_like',? as 'like',? as 'today_task_comment', ? as comment,(select IFNULL(COUNT(*), 0) from user_details) as total_user, (select IFNULL(COUNT(*), 0) from user_details WHERE is_active = 'Y') as active_user, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success') as total_d, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Pending') as total_d_p, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_d, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success') as total_w, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_w, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Pending') as total_w_p",
+            [resultt[0].video, video.video, resultt[0].like, like.like, resultt[0].comment, comment.comment],(errr,resulttt)=>{
+              if(errr){throw errr}
+              if(resulttt){
+                res.status(200).json({
+                  error: false,
+                  status: true,
+                  data: resulttt
+                })
+              }
+            })
+        }
       })
     }
   })
@@ -1234,8 +1236,7 @@ app.post("/update-bank-payment-details", verifytoken, (req, res) => {
 
 app.post("/get-user-details", verifytoken, (req, res) => {
   con.query(
-    "select ud.id as id, ud.mobile, ud.username,ud.email,ud.`bank_name`, ud.`ac_no`, ud.`ifsc_code`, ud.`ac_name`, ud.uid, w.id as wid, w.wallet_balance, ud.status, ud.date from user_details as ud inner join wallet as w on ud.mobile = w.user_name;",
-    [req.body.method],
+    "select ud.id as id, ud.mobile, ud.username,ud.email,ud.`bank_name`, (SELECT SUM(`amount`) FROM `statement` WHERE `mobile`  = ud.mobile) as total_earning, ud.`ac_no`, ud.`ifsc_code`, ud.`ac_name`, ud.uid,ud.reffer_by,ud.reffer_code, w.id as wid,w.winning_wallet, w.wallet_balance, ud.status, ud.date from user_details as ud inner join wallet as w on ud.mobile = w.user_name;",
     (err, result) => {
       if (err) throw err;
       else {
@@ -1394,6 +1395,22 @@ app.post("/approve-assign-task", verifytoken, (req, res) => {
   }
   );
 });
+app.post("/decline-assign-task", verifytoken, (req, res) => {
+  con.query(
+    "UPDATE `assign_task` SET `status` = 'Canceled', `Approved_declined_By` = ? WHERE `id` = ?",
+    [req.body.username, req.body.id],
+    (err, resultt) => {
+      if (err) throw err;
+      if (resultt) {
+        res.status(200).send({
+          error: false,
+          status: true,
+          massage: "Update Deatils SuccessFully",
+        });
+      }
+    }
+  );
+});
 
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   if (req.body.status === "Pending") {
@@ -1466,56 +1483,6 @@ app.post("/approve-deposit-request", verifytoken, (req, res) => {
               status: true,
               massage: "Wallet Update SuccessFully",
             });
-            // con.query("INSERT INTO `statement`(`username`,`bet_or_type`, `bet_from`, `bet_balance`, `total_balance`) VALUES (?,'Deposit Balance','Deposit Wallet',(SELECT `balance` from `deposit` where `id` = ?),(SELECT `wallet_balance` FROM `wallet` WHERE `user_name` = ?))",
-            //   [req.body.mobile, req.body.id, req.body.mobile], (errr, resu) => {
-            //     if (errr) { throw errr; }
-            //     if (resu) {
-            //       con.query("SELECT * FROM `deposit` WHERE `status` = 'Success' and `user_name` = ?", [req.body.mobile], (errors, results) => {
-            //         if (errors) { throw errors }
-            //         if (results.length == 1) {
-            //           con.query("UPDATE `wallet` SET `wallet_balance` = wallet_balance + (SELECT rb.`referral` FROM `reffer_bonus` as rb WHERE rb.`status` = 'Y') WHERE `user_name` = ?;",
-            //             [req.body.mobile], (err, result1) => {
-            //               if (err) { throw err; }
-            //               if (result1) {
-            //                 con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `bet_from`, `bet_balance`, `total_balance`) VALUES (?, 'Bonus', 'Sign Up', (SELECT `referral` FROM `reffer_bonus` WHERE `status` = 'Y'), (SELECT `wallet_balance` FROM `wallet` WHERE `user_name` = ?))",
-            //                   [req.body.mobile, req.body.mobile]);
-            //               }
-            //             })
-            //           con.query("UPDATE `wallet` SET `wallet_balance` = wallet_balance + (SELECT rb.`applier` FROM `reffer_bonus` as rb WHERE rb.`status` = 'Y') WHERE `user_name` =  (SELECT `user_name` FROM `user_details` WHERE `reffer_code`= (SELECT `reffer_by` FROM `user_details` WHERE `user_name` = ?));",
-            //             [req.body.mobile], (err, result1) => {
-            //               if (err) { throw err; }
-            //               if (result1) {
-            //                 con.query("INSERT INTO `statement`(`username`, `bet_or_type`, `bet_from`, `bet_balance`, `total_balance`) VALUES ((SELECT `mobile` FROM `user_details` WHERE `reffer_code`= (SELECT `reffer_by` FROM `user_details` WHERE `mobile` = ?)), 'Bonus', 'Reffer-Bonus', (SELECT `applier` FROM `reffer_bonus` WHERE `status` = 'Y'), (SELECT `wallet_balance` FROM `wallet` WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code`= (SELECT `reffer_by` FROM `user_details` WHERE `mobile` = ?))))",
-            //                   [req.body.mobile, req.body.mobile]);
-            //               }
-            //             })
-            //           con.query('SELECT `balance` from `deposit` where `id` = ?', [req.body.id], (err, result) => {
-            //             if (err) { throw err; }
-            //             if (result) {
-            //               agent(result[0].balance, req.body.mobile)
-            //               res.status(200).send({
-            //                 error: false,
-            //                 status: true,
-            //                 massage: "Wallet Update SuccessFully",
-            //               });
-            //             }
-            //           })
-            //         } else {
-            //           con.query('SELECT `balance` from `deposit` where `id` = ?', [req.body.id], (err, result) => {
-            //             if (err) { throw err; }
-            //             if (result) {
-            //               agent(result[0].balance, req.body.mobile)
-            //               res.status(200).send({
-            //                 error: false,
-            //                 status: true,
-            //                 massage: "Wallet Update SuccessFully",
-            //               });
-            //             }
-            //           })
-            //         }
-            //       })
-            //     }
-            //   })
           }
         }
       );
@@ -1757,11 +1724,174 @@ app.post("/del-platform", verifytoken, (req, res) => {
     }
   })
 });
-app.post('/get-task-details', verifytoken, (req, res) => {
-  con.query('SELECT tn.id,tn.task_url,tn.type,p.name,p.id as p_id,tn.date FROM `tasks_with_name` as tn INNER join platforms as p on tn.platform_id = p.id order by date(tn.`date`)', (err, result) => {
+
+app.post("/add-level", verifytoken, (req, res) => {
+  con.query("select * from `level` where `name` = ?", [req.body.name], (error, result2) => {
+    if (error) { throw error }
+    if (result2.length > 0) {
+      res.status(302).json({
+        error: false,
+        status: true,
+        massage: `Level ${req.body.name} is already Exist.`
+      })
+    } else {
+      con.query("INSERT INTO `level`(`name`, `price`) VALUES (?,?)",
+        [req.body.name, req.body.price],
+        (err, result) => {
+          if (err) {
+            throw err;
+          }
+          if (result) {
+            res.status(200).send({
+              error: false,
+              status: true,
+              massage: "Added Details SuccessFully",
+            });
+          }
+        }
+      );
+    }
+  })
+});
+app.post('/get-level-details', verifytoken, (req, res) => {
+  con.query('SELECT * FROM `level` ', (err, result) => {
     if (err) throw err;
     if (result) {
       res.status(200).send({ error: false, status: true, data: result })
+    }
+  })
+});
+app.post("/update-level-details", verifytoken, (req, res) => {
+  con.query("select * from `level` where `name` = ?", [req.body.name], (error, result2) => {
+    if (error) { throw error }
+    if (result2.length > 0) {
+      if (result2[0].id == req.body.id) {
+        con.query("UPDATE `level` SET `name` = ?, `price` = ? WHERE `id` = ?", [req.body.name, req.body.price, req.body.id],
+          (err, result) => {
+            if (err) {
+              throw err;
+            } if (result) {
+              res.status(200).send({
+                error: false,
+                status: true,
+                massage: "Update Details SuccessFully",
+              });
+            }
+          }
+        );
+      } else {
+        res.status(302).json({
+          error: false,
+          status: true,
+          massage: `Level ${req.body.name} is already Exist.`
+        })
+      }
+    } else {
+      con.query("UPDATE `level` SET `name` = ?, `price` = ? WHERE `id` = ?", [req.body.name, req.body.price, req.body.id],
+        (err, result) => {
+          if (err) {
+            throw err;
+          } if (result) {
+            res.status(200).send({
+              error: false,
+              status: true,
+              massage: "Update Details SuccessFully",
+            });
+          }
+        }
+      );
+    }
+  })
+});
+app.post("/del-level", verifytoken, (req, res) => {
+  con.query("DELETE FROM `level` WHERE `id` = ?", [req.body.id], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.status(200).send({ error: false, status: true, massage: 'Level Details Deleted SuccessFully' })
+    }
+  })
+});
+
+app.post("/add-plan", verifytoken, (req, res) => {
+  con.query(
+    "INSERT INTO `plan`(`name`, `price`, `total_video`, `total_comment`, `total_like`, `total_video_price`, `total_video_comment`, `total_video_like`, `earn_upto`) VALUES (?,?,?,?,?,?,?,?,?)",
+    [req.body.name, req.body.plan_price, req.body.video, req.body.comment, req.body.like, req.body.video_price, req.body.comment_price, req.body.like_price, req.body.monthly_income],
+    (err, result) => {
+      if (err) {
+        throw err;
+      }
+      if (result) {
+        res.status(200).send({
+          error: false,
+          status: true,
+          massage: "Added Details SuccessFully",
+        });
+      }
+    }
+  );
+});
+app.post('/get-plan-details', verifytoken, (req, res) => {
+  con.query('SELECT * FROM `plan`', (err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.status(200).send({ error: false, status: true, data: result })
+    }
+  })
+});
+app.post("/update-plan-details", verifytoken, (req, res) => {
+  con.query(
+    "UPDATE `plan` SET `name` = ?, `price` = ? , `total_video` = ? , `total_comment` = ?, `total_like` = ?, `total_video_price` = ?, `total_video_comment` = ?, `total_video_like` = ?, `earn_upto` = ? WHERE `id` = ?",
+    [req.body.name, req.body.plan_price, req.body.video, req.body.comment, req.body.like, req.body.video_price, req.body.comment_price, req.body.like_price, req.body.monthly_income, req.body.id],
+    (err, result) => {
+      if (err) {
+        throw err;
+      } if (result) {
+        res.status(200).send({
+          error: false,
+          status: true,
+          massage: "Update Details SuccessFully",
+        });
+      }
+    }
+  );
+});
+app.post("/del-plan", verifytoken, (req, res) => {
+  con.query("DELETE FROM `plan` WHERE `id` = ?", [req.body.id], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      res.status(200).send({ error: false, status: true, massage: 'Plan Deleted SuccessFully' })
+    }
+  })
+});
+
+app.post('/get-task-details', verifytoken, (req, res) => {
+  con.query('SELECT tn.id,tn.task_url,tn.type,IFNULL(tn.`comment_details`, "") as comment_details,p.name,p.id as p_id,tn.date FROM `tasks_with_name` as tn INNER join platforms as p on tn.platform_id = p.id where tn.`type` = ? order by date(tn.`date`);', [req.body.type], (err, result2) => {
+    if (err) throw err;
+    if (result2) {
+      con.query("SELECT ud.id,ud.mobile,(select SUM(p.total_video) as 'video' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as video,(select SUM(p.total_comment) as 'comment' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as 'comment',(select SUM(p.total_like) as 'like' from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.status = 'Active' and bp.user_id = ud.mobile) as 'like' FROM `user_details` as ud ", (err, result) => {
+        if (err) throw err;
+        if (result) {
+          const video = result.reduce((prev, current) => ((prev.video > current.video) ? prev : current), 0);
+          const like = result.reduce((prev, current) => ((prev.like > current.like) ? prev : current), 0);
+          const comment = result.reduce((prev, current) => ((prev.comment > current.comment) ? prev : current), 0);
+          con.query("select (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'LIKE' and date(`date`) = CURRENT_DATE()) as 'like', (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'VIDEO' and date(`date`) = CURRENT_DATE()) as video, (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'COMMENT' and date(`date`) = CURRENT_DATE()) as comment", (err, resultt) => {
+            if (err) throw err;
+            if (resultt) {
+              res.status(200).json({
+                error: false,
+                status: true,
+                data: result2,
+                today_task_video: resultt[0].video,
+                video: video.video,
+                today_task_like: resultt[0].like,
+                like: like.like,
+                today_task_comment: resultt[0].comment,
+                comment: comment.comment
+              })
+            }
+          })
+        }
+      })
     }
   })
 });
@@ -1827,13 +1957,9 @@ app.post("/add-task-details", verifytoken, (req, res) => {
   }
 });
 app.post("/update-task-details", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `tasks_with_name` SET `task_url` = ?, `type` = ?, `platform_id` = ? WHERE `id` = ?",
-    [req.body.url, req.body.type, req.body.platform, req.body.id],
-    (err, result) => {
-      if (err) {
-        throw err;
-      }
+  con.query("UPDATE `tasks_with_name` SET `task_url` = ?, `type` = ?, `platform_id` = ?, `comment_details` = ?, `date` = ? WHERE `id` = ?",
+    [req.body.url, req.body.type, req.body.platform, req.body.comment, req.body.date, req.body.id], (err, result) => {
+      if (err) { throw err; }
       if (result) {
         res.status(200).send({
           error: false,
@@ -1841,8 +1967,7 @@ app.post("/update-task-details", verifytoken, (req, res) => {
           massage: "Added Details SuccessFully",
         });
       }
-    }
-  );
+    });
 });
 app.post("/add-video-task", vupload.single("video"), verifytoken, (req, res) => {
   con.query(
@@ -1862,7 +1987,6 @@ app.post("/add-video-task", vupload.single("video"), verifytoken, (req, res) => 
     }
   )
 });
-
 app.post("/add-shopping-details", upload.single("s_image"), verifytoken, (req, res) => {
   con.query(
     "INSERT INTO `items`( `item_image`, `item_oprice`, `item_dprice`) VALUES (?,?,?)",
@@ -2107,17 +2231,17 @@ function verifytoken(req, res, next) {
   }
 }
 function agent(amount, user) {
+  const percentage2 = ((5 / 100) * parseFloat(amount)).toFixed(2);
+  const percentage3 = ((3 / 100) * parseFloat(amount)).toFixed(2);
+  const percentage4 = ((2 / 100) * parseFloat(amount)).toFixed(2);
+  const percentage5 = ((2 / 100) * parseFloat(amount)).toFixed(2);
+  const percentage6 = ((1 / 100) * parseFloat(amount)).toFixed(2);
+  const percentage7 = ((1 / 100) * parseFloat(amount)).toFixed(2);
   con.query("SELECT `reffer_code` as rc FROM `user_details` WHERE `user_name` = ?", [user], (err, result) => {
     if (err) throw err;
     if (result) {
       con.query("SELECT * FROM `user_level` WHERE `user_reffral` = ?", [result[0].rc], (err, level1) => {
         if (err) throw err;
-        const percentage2 = ((5 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage3 = ((3 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage4 = ((2 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage5 = ((2 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage6 = ((1 / 100) * parseFloat(amount)).toFixed(2);
-        const percentage7 = ((1 / 100) * parseFloat(amount)).toFixed(2);
         if (level1[0].level_1) {
           con.query("UPDATE `wallet` SET `agents_wallet` = `agents_wallet` + ? WHERE `user_name` = (SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?)", [percentage2, level1[0].level_1]);
           con.query("INSERT INTO `agents_statement`(`mobile`, `amount`, `discription`) VALUES ((SELECT `user_name` FROM `user_details` WHERE `reffer_code` = ?), ?, ?)", [level1[0].level_1, percentage2, 'Level 1']);

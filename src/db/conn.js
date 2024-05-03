@@ -6,7 +6,8 @@ const con = mysql.createPool({
   user: "root",
   password: "",
   database: "sparrow_task",
-  multipleStatements:true
+  multipleStatements:true,
+  timezone: 'utc'
 });
 con.getConnection((err) => {
   if (err) throw err;

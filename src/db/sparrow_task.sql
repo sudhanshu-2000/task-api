@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 07:44 AM
+-- Generation Time: May 03, 2024 at 09:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -71,28 +71,31 @@ INSERT INTO `assign_module` (`id`, `role`, `module`, `position`, `status`, `date
 (400, 6, 33, 158, 'Y', '2024-04-08 12:37:00'),
 (401, 6, 28, 157, 'Y', '2024-04-08 12:37:00'),
 (402, 6, 34, 159, 'Y', '2024-04-08 12:37:00'),
-(403, 3, 34, 168, 'Y', '2024-04-08 12:37:08'),
-(404, 3, 1, 160, 'Y', '2024-04-08 12:37:08'),
-(405, 3, 18, 161, 'Y', '2024-04-08 12:37:08'),
-(406, 3, 20, 162, 'Y', '2024-04-08 12:37:08'),
-(407, 3, 25, 163, 'Y', '2024-04-08 12:37:08'),
-(408, 3, 26, 164, 'Y', '2024-04-08 12:37:08'),
-(409, 3, 28, 165, 'Y', '2024-04-08 12:37:08'),
-(410, 3, 33, 167, 'Y', '2024-04-08 12:37:08'),
-(411, 3, 30, 166, 'Y', '2024-04-08 12:37:08'),
-(412, 3, 35, 169, 'Y', '2024-04-08 12:37:08'),
-(424, 5, 33, 178, 'Y', '2024-04-12 06:30:59'),
-(425, 5, 1, 170, 'Y', '2024-04-12 06:30:59'),
-(426, 5, 13, 171, 'Y', '2024-04-12 06:30:59'),
-(427, 5, 20, 173, 'Y', '2024-04-12 06:30:59'),
-(428, 5, 18, 172, 'Y', '2024-04-12 06:30:59'),
-(429, 5, 25, 174, 'Y', '2024-04-12 06:30:59'),
-(430, 5, 35, 180, 'Y', '2024-04-12 06:30:59'),
-(431, 5, 34, 179, 'Y', '2024-04-12 06:30:59'),
-(432, 5, 26, 175, 'Y', '2024-04-12 06:30:59'),
-(433, 5, 28, 176, 'Y', '2024-04-12 06:30:59'),
-(434, 5, 36, 181, 'Y', '2024-04-12 06:30:59'),
-(435, 5, 30, 177, 'Y', '2024-04-12 06:30:59');
+(459, 3, 1, 182, 'Y', '2024-04-24 05:12:04'),
+(460, 3, 18, 185, 'Y', '2024-04-24 05:12:04'),
+(461, 3, 20, 184, 'Y', '2024-04-24 05:12:04'),
+(462, 3, 25, 186, 'Y', '2024-04-24 05:12:04'),
+(463, 3, 28, 183, 'Y', '2024-04-24 05:12:04'),
+(464, 3, 26, 187, 'Y', '2024-04-24 05:12:04'),
+(465, 3, 30, 188, 'Y', '2024-04-24 05:12:04'),
+(466, 3, 34, 190, 'Y', '2024-04-24 05:12:04'),
+(467, 3, 33, 189, 'Y', '2024-04-24 05:12:04'),
+(468, 3, 35, 192, 'Y', '2024-04-24 05:12:04'),
+(469, 3, 36, 193, 'Y', '2024-04-24 05:12:04'),
+(470, 3, 37, 191, 'Y', '2024-04-24 05:12:04'),
+(471, 5, 1, 194, 'Y', '2024-04-30 07:33:19'),
+(472, 5, 13, 195, 'Y', '2024-04-30 07:33:19'),
+(473, 5, 33, 202, 'Y', '2024-04-30 07:33:19'),
+(474, 5, 18, 196, 'Y', '2024-04-30 07:33:19'),
+(475, 5, 20, 197, 'Y', '2024-04-30 07:33:19'),
+(476, 5, 25, 198, 'Y', '2024-04-30 07:33:19'),
+(477, 5, 26, 199, 'Y', '2024-04-30 07:33:19'),
+(478, 5, 28, 200, 'Y', '2024-04-30 07:33:19'),
+(479, 5, 35, 204, 'Y', '2024-04-30 07:33:19'),
+(480, 5, 30, 201, 'Y', '2024-04-30 07:33:19'),
+(481, 5, 34, 203, 'Y', '2024-04-30 07:33:19'),
+(482, 5, 36, 205, 'Y', '2024-04-30 07:33:19'),
+(483, 5, 38, 206, 'Y', '2024-04-30 07:33:19');
 
 -- --------------------------------------------------------
 
@@ -111,25 +114,6 @@ CREATE TABLE `assign_task` (
   `expire_date` timestamp NULL DEFAULT current_timestamp(),
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `assign_task`
---
-
-INSERT INTO `assign_task` (`id`, `user_id`, `task_id`, `username`, `url`, `status`, `approved_declined_by`, `expire_date`, `date`) VALUES
-(1, 75, 1, 'tarun9742', NULL, 'Completed', 'test', '2024-04-10 12:01:57', '2024-04-10 12:01:57'),
-(2, 75, 3, 'thats_tarun.soni', NULL, 'Completed', 'test', '2024-04-10 12:01:57', '2024-04-10 12:01:57'),
-(3, 75, 5, 'thats_tarun.soni', NULL, 'Completed', 'test', '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(4, 75, 7, '_official_sudhanshu', NULL, 'Verifying', NULL, '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(5, 75, 2, 'thats_tarun.soni', NULL, 'Completed', 'test', '2024-04-10 12:01:57', '2024-04-10 12:01:57'),
-(6, 75, 4, 'thats_tarun.soni', NULL, 'Pending', NULL, '2024-04-10 12:01:57', '2024-04-10 12:01:57'),
-(7, 75, 6, 'thats_tarun.soni', NULL, 'Pending', NULL, '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(8, 75, 8, 'thats_tarun.soni', NULL, 'Pending', NULL, '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(9, 75, 27, NULL, 'https://youtu.be/FoVNS7WWjdU?si=-9c9D5SLBg_36B4q', 'Completed', 'test', '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(10, 75, 28, NULL, 'https://sparrowsports.com/image/file_example_MP4_480_1_5MG.mp4', 'Completed', 'test', '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(11, 75, 29, NULL, 'https://sparrowsports.com/image/file_emple_MP4_480_1_5MG.mp4', 'Completed', 'test', '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(12, 75, 30, NULL, 'https://sparrowsports.com/image/file_example_MP4_0_1_5MG.mp4', 'Completed', 'test', '2024-04-10 12:02:14', '2024-04-10 12:02:14'),
-(13, 76, 1, NULL, NULL, 'Pending', NULL, '2024-04-10 12:01:57', '2024-04-10 12:01:57');
 
 -- --------------------------------------------------------
 
@@ -158,40 +142,10 @@ CREATE TABLE `buy_plan` (
   `id` int(11) NOT NULL,
   `user_id` varchar(100) NOT NULL,
   `plan_id` int(11) NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'Active',
   `expire_date` datetime NOT NULL,
   `date` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `buy_plan`
---
-
-INSERT INTO `buy_plan` (`id`, `user_id`, `plan_id`, `expire_date`, `date`) VALUES
-(1, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 10:59:29'),
-(2, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 10:59:39'),
-(3, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 10:59:42'),
-(4, '8690708302', 3, '2024-05-11 00:00:00', '2024-04-11 11:04:43'),
-(5, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 12:00:09'),
-(6, '8690708302', 3, '2024-05-11 00:00:00', '2024-04-11 12:07:55'),
-(7, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 12:08:14'),
-(8, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 12:08:19'),
-(9, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 12:08:25'),
-(10, '8690708302', 4, '2024-05-11 00:00:00', '2024-04-11 12:08:31'),
-(11, '8690708302', 3, '2024-05-11 00:00:00', '2024-04-11 12:09:18'),
-(12, '8690708302', 4, '2024-05-12 00:00:00', '2024-04-12 07:01:56'),
-(13, '8690708302', 3, '2024-05-12 00:00:00', '2024-04-12 07:04:01'),
-(14, '8690708302', 3, '2024-05-12 00:00:00', '2024-04-12 07:04:23'),
-(15, '8690708302', 4, '2024-05-12 00:00:00', '2024-04-12 07:05:18'),
-(16, '8690708302', 3, '2024-05-12 00:00:00', '2024-04-12 10:31:43'),
-(17, '8690708302', 4, '2024-05-13 00:00:00', '2024-04-13 04:46:08'),
-(18, '8690708302', 4, '2024-05-13 00:00:00', '2024-04-13 06:46:58'),
-(19, '8690708302', 4, '2024-05-13 00:00:00', '2024-04-13 06:47:00'),
-(20, '8690708302', 4, '2024-05-13 00:00:00', '2024-04-13 06:47:03'),
-(21, '8690708302', 4, '2024-05-13 00:00:00', '2024-04-13 06:47:05'),
-(22, '8690708302', 2, '2024-05-13 00:00:00', '2024-04-13 07:53:45'),
-(23, '8690708301', 2, '2024-05-15 00:00:00', '2024-04-15 11:15:53'),
-(24, '8690708301', 4, '2024-05-15 00:00:00', '2024-04-15 11:16:06'),
-(25, '8690708301', 2, '2024-05-15 00:00:00', '2024-04-15 11:20:12');
 
 -- --------------------------------------------------------
 
@@ -247,7 +201,8 @@ INSERT INTO `contact` (`id`, `email`, `subject`, `message`, `image`, `status`, `
 (5, 'tarun@gmail', 'sdfds', 'jjjj', 'image-1712920080524-662859443.png', 'Pending', '2024-04-12 11:08:00'),
 (6, 'tarun@gmail', 'Deposit', 'hii', 'image-1712985346040-123610529.png', 'Pending', '2024-04-13 05:15:46'),
 (7, 'sudhamshumairua@gmail.com', 'abcd', 'Jello', NULL, 'Pending', '2024-04-13 05:21:00'),
-(8, 'tarun@gmail', 'Deposit', 'hii', NULL, 'Pending', '2024-04-13 05:21:19');
+(8, 'tarun@gmail', 'Deposit', 'hii', NULL, 'Pending', '2024-04-13 05:21:19'),
+(9, 'tejpal@frensysinfotech.com', 'Deposit', 'Pending h mera deposit', NULL, 'Pending', '2024-04-30 11:11:11');
 
 -- --------------------------------------------------------
 
@@ -272,92 +227,27 @@ CREATE TABLE `deposit` (
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `deposit`
+-- Table structure for table `level`
 --
 
-INSERT INTO `deposit` (`id`, `user_name`, `balance`, `image`, `image_path`, `transaction_id`, `payment_type`, `upi_id`, `status`, `reason`, `Approved_declined_By`, `paymethod_id`, `coupan`, `date`) VALUES
-(107, '8690708302', '2999', 'd_image-1712405628046-546214406.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Canceled', '.', 'test', 1, NULL, '2024-04-06 12:13:48'),
-(108, '8690708302', '3000', 'd_image-1712405654644-405950513.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Success', NULL, 'Superadmin', 1, NULL, '2024-04-06 12:14:14'),
-(109, '8690708302', '500', NULL, NULL, NULL, 'Withdrawal', '8690708302152@paytm', 'Canceled', '.', 'Superadmin', NULL, NULL, '2024-04-08 05:55:59'),
-(110, '8690708302', '500', NULL, NULL, NULL, 'Withdrawal', '8690708302152@paytm', 'Canceled', '.', 'Superadmin', NULL, NULL, '2024-04-08 05:56:11'),
-(111, '9794368090', '2500', 'd_image-1712574016486-876854279.png', 'image/deposit/', 'Tanjsske4kszjdhsjf', 'Deposit', NULL, 'Success', NULL, 'Superadmin', 1, NULL, '2024-04-08 11:00:16'),
-(112, '9794368090', '500', NULL, NULL, NULL, 'Withdrawal', NULL, 'Success', NULL, 'Superadmin', NULL, NULL, '2024-04-08 11:01:24'),
-(113, '9794368090', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-08 11:04:42'),
-(114, '8690708302', '3000', 'd_image-1712574326628-124700872.png', 'image/deposit/', '4753675863', 'Deposit', NULL, 'Success', NULL, 'Superadmin', 1, NULL, '2024-04-08 11:05:26'),
-(115, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-08 11:06:04'),
-(116, '8690708302', '400', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-10 12:24:28'),
-(117, '8690708302', '2000', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-10 12:26:42'),
-(118, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-10 12:27:51'),
-(119, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-10 12:31:37'),
-(120, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 07:31:16'),
-(121, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 07:31:45'),
-(122, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 07:35:45'),
-(123, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 07:35:59'),
-(124, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-11 09:28:59'),
-(125, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 09:35:29'),
-(126, '8690708302', '49998', 'd_image-1712829820219-736113548.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Success', NULL, 'test', 1, NULL, '2024-04-11 10:03:40'),
-(127, '8690708302', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:13:08'),
-(128, '8690708302', '20000', 'd_image-1712831141237-868813195.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Canceled', '.', 'test', 1, NULL, '2024-04-11 10:25:41'),
-(129, '8690708302', '50000', 'd_image-1712831163655-261201278.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Canceled', '.', 'test', 0, NULL, '2024-04-11 10:26:03'),
-(130, '8690708302', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:39:33'),
-(131, '8690708302', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:40:50'),
-(132, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:40:57'),
-(133, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:46:05'),
-(134, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:46:23'),
-(135, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:46:34'),
-(136, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:59:29'),
-(137, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:59:39'),
-(138, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 10:59:42'),
-(139, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-11 11:02:05'),
-(140, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-11 11:02:35'),
-(141, '8690708302', '12000', 'd_image-1712833428700-808010259.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Canceled', '.', 'test', 1, NULL, '2024-04-11 11:03:48'),
-(142, '8690708302', '1000', 'd_image-1712833455236-326792825.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Canceled', '.', 'test', 1, NULL, '2024-04-11 11:04:15'),
-(143, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 11:04:43'),
-(144, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:00:09'),
-(145, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:07:55'),
-(146, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:08:14'),
-(147, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:08:19'),
-(148, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:08:25'),
-(149, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:08:31'),
-(150, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-11 12:09:18'),
-(151, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-12 04:46:26'),
-(152, '8690708302', '5000', 'd_image-1712904392836-609073636.png', 'image/deposit/', 'Guhjlhj', 'Deposit', NULL, 'Success', NULL, 'test', 1, NULL, '2024-04-12 06:46:33'),
-(153, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-12 06:51:59'),
-(154, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-12 07:01:56'),
-(155, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-12 07:04:01'),
-(156, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-12 07:04:23'),
-(157, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-12 07:05:18'),
-(158, '8690708302', '200', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-12 10:31:43'),
-(159, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-12 10:34:26'),
-(160, '8690708302', '2000', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-12 11:03:07'),
-(161, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-12 11:22:59'),
-(162, '8690708302', '10000', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Canceled', '.', 'By User', NULL, NULL, '2024-04-12 12:44:04'),
-(163, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 04:46:08'),
-(164, '8690708302', '100', NULL, NULL, NULL, 'Withdrawal', '8690708302@ipl', 'Success', NULL, 'test', NULL, NULL, '2024-04-13 05:32:10'),
-(165, '8690708302', '50000000', 'd_image-1712990688298-552288447.png', 'image/deposit/', '2145852645', 'Deposit', NULL, 'Success', NULL, 'test', 1, NULL, '2024-04-13 06:44:48'),
-(166, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 06:46:58'),
-(167, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 06:47:00'),
-(168, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 06:47:03'),
-(169, '8690708302', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 06:47:05'),
-(170, '8690708302', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-13 07:53:45'),
-(171, '8690708302', '100', 'd_image-1713157402943-433657326.png', 'image/deposit/', '85853821832', 'Deposit', NULL, 'Pending', NULL, 'Not Approved', 1, NULL, '2024-04-15 05:03:24'),
-(172, '8690708301', '1000', 'd_image-1713179723484-167981690.png', 'image/deposit/', '85665295385', 'Deposit', NULL, 'Success', NULL, 'Superadmin', 1, NULL, '2024-04-15 11:15:23'),
-(173, '8690708301', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-15 11:15:53'),
-(174, '8690708301', '500', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-15 11:16:06'),
-(175, '8690708301', '100', NULL, NULL, NULL, 'Plan Buy', NULL, 'Success', NULL, 'Not Approved', NULL, NULL, '2024-04-15 11:20:12'),
-(176, '8690708301', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-15 11:51:27'),
-(177, '8690708301', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-15 11:51:38'),
-(178, '8690708301', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Canceled', '.', 'By User', NULL, NULL, '2024-04-15 11:52:07'),
-(179, '8690708301', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-15 12:04:08'),
-(180, '9794368090', '101', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-16 05:09:49'),
-(181, '9794368090', '101', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-16 05:09:52'),
-(182, '9794368090', '101', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-16 05:09:54'),
-(183, '8690708301', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Pending', NULL, 'Not Approved', NULL, NULL, '2024-04-16 05:11:31'),
-(184, '8690708303', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Canceled', '.', 'By User', NULL, NULL, '2024-04-16 05:33:57'),
-(185, '8690708303', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Canceled', '.', 'By User', NULL, NULL, '2024-04-16 05:35:37'),
-(186, '8690708303', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Canceled', '.', 'By User', NULL, NULL, '2024-04-16 05:37:18'),
-(187, '8690708303', '100', NULL, NULL, NULL, 'Withdrawal', NULL, 'Canceled', '.', 'By User', NULL, NULL, '2024-04-16 05:37:38');
+CREATE TABLE `level` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `level`
+--
+
+INSERT INTO `level` (`id`, `name`, `price`, `date`) VALUES
+(4, '1', '30', '2024-04-30 09:40:54'),
+(5, '2', '20', '2024-04-30 09:41:04'),
+(6, '3', '10', '2024-04-30 09:41:18');
 
 -- --------------------------------------------------------
 
@@ -380,8 +270,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `name`, `username`, `password`, `is_active`, `status`, `date`) VALUES
-(14, 'Kumar Ji', 'Superadmin', '$2b$12$JZZL/FuFOD.ibnxlComhVuWe7YzDq1zswgezphrzLk.Auq1wLuqGW', 'Y', 'Y', '2022-07-29 00:02:44'),
-(15, 'testing', 'test', '$2b$10$mh/WZV1LwVEnxzoTa5rKiuUOZT2urb81itGLIV73yiJ/rAgmwSHDi', 'N', 'Y', '2023-03-03 06:05:15');
+(14, 'Kumar Ji', 'Superadmin', '$2b$12$JZZL/FuFOD.ibnxlComhVuWe7YzDq1zswgezphrzLk.Auq1wLuqGW', 'N', 'Y', '2022-07-29 00:02:44'),
+(15, 'testing', 'test', '$2b$10$mh/WZV1LwVEnxzoTa5rKiuUOZT2urb81itGLIV73yiJ/rAgmwSHDi', 'N', 'Y', '2023-03-03 06:05:15'),
+(16, 'tehss', 'jsdhdfs', '$2b$10$M0LQPLeaHOuD2WAhadVhEOPquvsA08DZZhb/erVO1GDfBb4mQ9/b6', 'N', 'Y', '2024-04-16 07:37:27');
 
 -- --------------------------------------------------------
 
@@ -413,7 +304,9 @@ INSERT INTO `module` (`id`, `module_name`, `url`, `status`, `date`) VALUES
 (33, 'Bonus-tables', '/home/bonus-tables', 'Y', '2023-10-02 11:44:42'),
 (34, 'Platform', '/home/platform', 'Y', '2024-04-08 11:27:31'),
 (35, 'Task', '/home/task', 'Y', '2024-04-08 12:31:15'),
-(36, 'Assign-Task', '/home/assign-task', 'Y', '2024-04-12 06:29:59');
+(36, 'Assign-Task', '/home/assign-task', 'Y', '2024-04-12 06:29:59'),
+(37, 'Plan', '/home/plan', 'Y', '2024-04-24 05:11:49'),
+(38, 'Level and Price', '/home/level-price', 'Y', '2024-04-30 07:33:08');
 
 -- --------------------------------------------------------
 
@@ -449,14 +342,6 @@ CREATE TABLE `otp` (
   `number` varchar(200) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `otp`
---
-
-INSERT INTO `otp` (`id`, `otp`, `number`, `date`) VALUES
-(1, '$2b$12$TglLt6z92f96hdA9GIyLjek8Qbj40NBSrh0ddm3WIVH07kodGEXxO', '763048935345', '2022-09-03 04:15:02'),
-(2, '$2b$12$ckXI902TvWih/CapMTjfFOXu0jRFP.U3YdnKzIXatM5UnzKOCNHC2', '855485896365', '2022-09-20 00:16:24');
 
 -- --------------------------------------------------------
 
@@ -542,39 +427,7 @@ INSERT INTO `platforms` (`id`, `name`, `status`, `date`) VALUES
 (1, 'Instagram', 'Y', '2024-04-08 11:41:32'),
 (2, 'Facebook', 'Y', '2024-04-08 12:06:41'),
 (3, 'Twitter', 'Y', '2024-04-08 12:06:49'),
-(4, 'Linkdin', 'Y', '2024-04-08 12:06:59'),
-(5, 'Youtube', 'Y', '2024-04-08 12:07:07');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reffal_level`
---
-
-CREATE TABLE `reffal_level` (
-  `id` int(11) NOT NULL,
-  `user_reffral` varchar(100) NOT NULL,
-  `level_1` varchar(100) DEFAULT NULL,
-  `level_2` varchar(100) DEFAULT NULL,
-  `level_3` varchar(100) DEFAULT NULL,
-  `level_4` varchar(100) DEFAULT NULL,
-  `level_5` varchar(100) DEFAULT NULL,
-  `level_6` varchar(100) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `reffal_level`
---
-
-INSERT INTO `reffal_level` (`id`, `user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `level_6`, `date`) VALUES
-(10, 'GJpQpVEO', 'vxnr5WJu', NULL, NULL, NULL, NULL, NULL, '2024-04-08 09:14:43'),
-(11, 'GJpQpVEO', 'pEByfmbr', NULL, NULL, NULL, NULL, NULL, '2024-04-08 09:14:47'),
-(17, 'GJpQpVEO', 'uaAff0Ui', NULL, NULL, NULL, NULL, NULL, '2024-04-15 11:14:23'),
-(18, 'GJpQpVEO', 'uaAff0Ui', 'u7Y6Ytg5', NULL, NULL, NULL, NULL, '2024-04-15 11:38:56'),
-(19, 'GJpQpVEO', 'pEByfmbr', 'dAN3DEbk', NULL, NULL, NULL, NULL, '2024-04-15 11:39:36'),
-(20, 'GJpQpVEO', 'pEByfmbr', 'dAN3DEbk', 'M6jmDUZz', NULL, NULL, NULL, '2024-04-15 11:40:12'),
-(21, 'GJpQpVEO', 'OQqajbb3', NULL, NULL, NULL, NULL, NULL, '2024-04-16 05:12:07');
+(4, 'Linkdin', 'Y', '2024-04-08 12:06:59');
 
 -- --------------------------------------------------------
 
@@ -645,7 +498,8 @@ CREATE TABLE `role_assign` (
 
 INSERT INTO `role_assign` (`id`, `user_id`, `role_id`, `status`, `date`) VALUES
 (4, 14, 3, 'Y', '2023-02-16 09:07:07'),
-(5, 15, 5, 'Y', '2023-03-03 06:05:15');
+(5, 15, 5, 'Y', '2023-03-03 06:05:15'),
+(6, 16, 5, 'Y', '2024-04-16 07:37:27');
 
 -- --------------------------------------------------------
 
@@ -662,20 +516,6 @@ CREATE TABLE `statement` (
   `status` varchar(50) NOT NULL DEFAULT 'Y',
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `statement`
---
-
-INSERT INTO `statement` (`id`, `mobile`, `type`, `amount`, `total_balance`, `status`, `date`) VALUES
-(1289, '8690708302', 'LIKE', '0.40', '0.4', 'Y', '2024-04-12 06:15:37'),
-(1290, '8690708302', 'VIDEO', '1.66', '2.07', 'Y', '2024-04-10 06:32:04'),
-(1291, '8690708302', 'LIKE', '0.40', '2.47', 'Y', '2024-04-13 06:32:25'),
-(1292, '8690708302', 'LIKE', '0.40', '2.87', 'Y', '2024-04-13 06:32:28'),
-(1293, '8690708302', 'VIDEO', '1.66', '4.54', 'Y', '2024-04-01 06:32:34'),
-(1294, '8690708302', 'VIDEO', '1.66', '6.21', 'Y', '2024-04-13 06:32:38'),
-(1295, '8690708302', 'VIDEO', '1.66', '7.88', 'Y', '2024-04-13 06:41:35'),
-(1296, '8690708302', 'COMMENT', '0.75', '8.63', 'Y', '2024-04-13 07:25:02');
 
 -- --------------------------------------------------------
 
@@ -697,28 +537,27 @@ CREATE TABLE `tasks_with_name` (
 --
 
 INSERT INTO `tasks_with_name` (`id`, `task_url`, `type`, `platform_id`, `comment_details`, `date`) VALUES
-(1, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 09:51:17'),
-(2, 'https://fb.watch/rmfAgR-0sI/', 'COMMENT', 2, NULL, '2024-04-10 11:06:11'),
-(3, 'https://www.instagram.com/p/CqLrMMFytHe/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 11:25:05'),
+(1, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, '', '2024-04-28 18:30:00'),
+(2, 'https://fb.watch/rmfAgR-0sI/', 'COMMENT', 2, 'Hello, Buddy', '2024-04-26 18:30:00'),
+(3, 'https://www.instagram.com/p/CqLrMMFytHe/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, '', '2024-04-27 06:51:13'),
 (4, 'https://www.instagram.com/p/CqLrMMFytHe/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, NULL, '2024-04-10 11:25:45'),
 (5, 'https://www.instagram.com/reel/C5inGM1vPj0/?utm_source=ig_web_copy_link', 'LIKE', 1, NULL, '2024-04-10 11:26:24'),
-(6, 'https://www.instagram.com/reel/C5inGM1vPj0/?utm_source=ig_web_copy_link', 'COMMENT', 1, NULL, '2024-04-10 11:26:37'),
-(7, 'https://www.instagram.com/reel/C5gCOKyPTRC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 11:27:01'),
+(6, 'https://www.instagram.com/reel/C5inGM1vPj0/?utm_source=ig_web_copy_link', 'COMMENT', 1, '', '2024-04-27 06:51:36'),
+(7, 'https://www.instagram.com/reel/C5gCOKyPTRC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, '', '2024-04-27 18:30:00'),
 (8, 'https://www.instagram.com/reel/C5gCOKyPTRC/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, NULL, '2024-04-10 11:27:09'),
-(9, 'https://www.instagram.com/reel/C5a5gQ8xbQb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 11:27:43'),
+(9, 'https://www.instagram.com/reel/C5a5gQ8xbQb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-26 11:27:43'),
 (10, 'https://www.instagram.com/reel/C5a5gQ8xbQb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, NULL, '2024-04-10 11:27:57'),
-(11, 'https://www.instagram.com/reel/C5TKTMmxWK8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 11:28:31'),
+(11, 'https://www.instagram.com/reel/C5TKTMmxWK8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, '', '2024-04-28 18:30:00'),
 (12, 'https://www.instagram.com/reel/C5TKTMmxWK8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, NULL, '2024-04-10 11:28:40'),
 (13, 'https://www.instagram.com/reel/C5OABgCx_ld/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 1, NULL, '2024-04-10 11:28:59'),
 (14, 'https://www.instagram.com/reel/C5OABgCx_ld/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, NULL, '2024-04-10 11:29:09'),
 (15, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, 'Hello, testing Person', '2024-04-11 06:57:31'),
-(16, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 2, NULL, '2024-04-11 07:06:07'),
+(16, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'LIKE', 2, '', '2024-04-28 18:30:00'),
 (25, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, 'The colors in this picture are so vibrant and alive. It\'s like a burst of joy', '2024-04-11 07:17:06'),
 (26, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 2, NULL, '2024-04-11 07:17:32'),
 (27, 'image/video/video-1712820427897-429632752.mp4', 'VIDEO', 1, NULL, '2024-04-11 07:27:07'),
-(28, 'image/video/video-1712820584291-173642796.mp4', 'VIDEO', 1, NULL, '2024-04-11 07:29:44'),
+(28, 'image/video/video-1712820584291-173642796.mp4', 'VIDEO', 1, '', '2024-04-26 18:30:00'),
 (29, 'image/video/video-1712820631986-473334909.mp4', 'VIDEO', 4, NULL, '2024-04-11 07:30:31'),
-(30, 'image/video/video-1712820651211-738930095.mp4', 'VIDEO', 5, NULL, '2024-04-11 07:30:51'),
 (31, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, 'The colors in this picture are so vibrant and alive. It\'s like a burst of joy', '2024-04-11 07:55:44'),
 (32, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, 'Hello, Testing Gays', '2024-04-11 07:56:17'),
 (33, 'https://www.instagram.com/p/Cx0h2Zzx_6l/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==', 'COMMENT', 1, 'Hello, Testing Gays', '2024-04-13 10:09:02');
@@ -757,14 +596,7 @@ CREATE TABLE `user_details` (
 --
 
 INSERT INTO `user_details` (`id`, `username`, `mobile`, `password`, `email`, `pincode`, `uid`, `is_active`, `reffer_by`, `reffer_code`, `plan_type`, `upi_id`, `bank_name`, `ifsc_code`, `ac_no`, `ac_name`, `date`, `purchase_date`, `plan_expire`, `status`) VALUES
-(62, 'admin', '8898765437', '$2b$12$3XdC4y9AeVqqs7Sfyboiy.NvROr9SCZO01uKQ.jqDherUH2PD6U7q', 'admin@gmail.com', '302029', '100001', 'Y', '', 'GJpQpVEO', 4, NULL, NULL, NULL, NULL, NULL, '2024-04-05 05:43:24', '2024-04-08 00:00:00', '2024-05-07 18:30:00', 'Y'),
-(75, 'Tarun', '8690708302', '$2b$12$XwG0KViaHPXr68devrGr4OOgt0R44OeJ29keQ2T90hFmOgPxWWH7W', 'tarun@gmail', '302029', '100002', 'Y', 'GJpQpVEO', 'vxnr5WJu', 3, '8690708302@ipl', 'SBI', 'SBIN000000', '9874563214', 'TEJPAL SONI', '2024-04-08 09:14:43', '2024-04-11 00:00:00', '2024-05-10 18:30:00', 'Y'),
-(76, 'Sudhanshu Maurya', '9794368090', '$2b$12$81neqeylB0UdzdScKYv4jeic4IKweN4vaeCkepMZPTCJs5CoPvuF.', 'sudhanshumaurya@gmail.com', NULL, '100003', 'Y', 'GJpQpVEO', 'pEByfmbr', 4, ' ', 'IOB', 'IOBA0002801', '280101000000185', 'Sudhanshu maurya', '2024-04-08 09:14:47', '2024-04-08 00:00:00', '2024-05-07 18:30:00', 'Y'),
-(82, 'Tarun.soni.0007', '8690708301', '$2b$12$MfYIGnfDIzhGxjG5JIXd0uIbY3RffktDMwsrkvN8I7c9DE8IqpZmO', 'tsoni9742@gmail.com', NULL, '100004', 'Y', 'GJpQpVEO', 'uaAff0Ui', 1, NULL, 'SBI', 'SBIN0031118', '41289341774', 'TEJPAL SONI', '2024-04-15 11:14:23', '2024-04-15 16:44:23', '2024-04-15 11:14:23', 'Y'),
-(83, 'superadmin', '8724725464', '$2b$12$6woLGmEianuwKPoy2pOpA.ddSQHLDfSlZfZPDi9OyMhg.YoON5d8y', 'admin2@gmail.com', NULL, '100005', 'N', 'uaAff0Ui', 'u7Y6Ytg5', 1, NULL, NULL, NULL, NULL, NULL, '2024-04-15 11:38:56', '2024-04-15 17:08:56', '2024-04-15 11:38:56', 'Y'),
-(84, 'superadmin1', '9794368091', '$2b$12$1nD8fd/Lx/hSl60enQQD7OlELuRPj/6.q1CrIlzAwRRvtaSE53ExG', 'sudhanshumaurya2000@gmail.com', NULL, '100006', 'N', 'pEByfmbr', 'dAN3DEbk', 1, NULL, NULL, NULL, NULL, NULL, '2024-04-15 11:39:36', '2024-04-15 17:09:36', '2024-04-15 11:39:36', 'Y'),
-(85, 'raj1', '8920529661', '$2b$12$yW68IwHj7v.2adVRHfbGoOCV8GEZvieUahZ1ydRSLfSpBV2vhZFzW', 'sudhanshumauryaspn@gmail.com', NULL, '100007', 'N', 'dAN3DEbk', 'M6jmDUZz', 1, NULL, NULL, NULL, NULL, NULL, '2024-04-15 11:40:12', '2024-04-15 17:10:12', '2024-04-15 11:40:12', 'Y'),
-(86, 'Tarun', '8690708303', '$2b$12$Bl5XOED/ZYuaaCrMaj.40u7m8awkzIToquneTDqqUY65ALSYZrlja', 'tarunddd@gmail', NULL, '100008', 'Y', 'GJpQpVEO', 'OQqajbb3', 1, NULL, 'SBI', 'SBIN0031118', '41289341774', 'TEJPAL SONI', '2024-04-16 05:12:07', '2024-04-16 10:42:07', '2024-04-16 05:12:07', 'Y');
+(96, 'Tarun', '8690708302', '$2b$12$mVkfHwCkF1wiGUuL6v/nqOKi4JrMC6dLMXMXS8qxhMDslh9Ai6Hxe', 'tsoni9742@gmail.com', NULL, '100002', 'Y', 'GJpQpVEO', '5Zw8gbwv', 1, NULL, NULL, NULL, NULL, NULL, '2024-05-02 12:47:00', '2024-05-02 18:17:00', '2024-05-02 12:47:00', 'Y');
 
 -- --------------------------------------------------------
 
@@ -781,6 +613,18 @@ CREATE TABLE `user_level` (
   `level_4` varchar(100) DEFAULT NULL,
   `level_5` varchar(100) DEFAULT NULL,
   `level_6` varchar(100) DEFAULT NULL,
+  `level_7` varchar(100) DEFAULT NULL,
+  `level_8` varchar(100) DEFAULT NULL,
+  `level_9` varchar(100) DEFAULT NULL,
+  `status1` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status2` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status3` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status4` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status5` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status6` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status7` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status8` varchar(100) NOT NULL DEFAULT 'Pending',
+  `status9` varchar(100) NOT NULL DEFAULT 'Pending',
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -788,15 +632,8 @@ CREATE TABLE `user_level` (
 -- Dumping data for table `user_level`
 --
 
-INSERT INTO `user_level` (`id`, `user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `level_6`, `date`) VALUES
-(14, 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, NULL, '2024-04-08 06:29:59'),
-(25, 'vxnr5WJu', 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, '2024-04-08 09:14:43'),
-(26, 'pEByfmbr', 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, '2024-04-08 09:14:47'),
-(32, 'uaAff0Ui', 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, '2024-04-15 11:14:23'),
-(33, 'u7Y6Ytg5', 'uaAff0Ui', 'GJpQpVEO', NULL, NULL, NULL, NULL, '2024-04-15 11:38:56'),
-(34, 'dAN3DEbk', 'pEByfmbr', 'GJpQpVEO', NULL, NULL, NULL, NULL, '2024-04-15 11:39:36'),
-(35, 'M6jmDUZz', 'dAN3DEbk', 'pEByfmbr', 'GJpQpVEO', NULL, NULL, NULL, '2024-04-15 11:40:12'),
-(36, 'OQqajbb3', 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, '2024-04-16 05:12:07');
+INSERT INTO `user_level` (`id`, `user_reffral`, `level_1`, `level_2`, `level_3`, `level_4`, `level_5`, `level_6`, `level_7`, `level_8`, `level_9`, `status1`, `status2`, `status3`, `status4`, `status5`, `status6`, `status7`, `status8`, `status9`, `date`) VALUES
+(14, 'GJpQpVEO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Pending', 'Pending', 'Pending', 'Pending', 'Pending', 'Pending', 'Pending', 'Pending', 'Pending', '2024-04-08 06:29:59');
 
 -- --------------------------------------------------------
 
@@ -818,19 +655,14 @@ CREATE TABLE `wallet` (
 --
 
 INSERT INTO `wallet` (`id`, `user_name`, `wallet_balance`, `winning_wallet`, `status`, `date`) VALUES
-(46, '8898765437', '800', '0', 'Y', '2024-04-05 05:43:24'),
-(67, '8690708302', '50042798', '8.63', 'Y', '2024-04-08 09:14:43'),
-(68, '9794368090', '1500', '97', 'Y', '2024-04-08 09:14:47'),
-(69, '92745724271', '0', '0', 'Y', '2024-04-08 09:17:45'),
-(70, '765434567890', '0', '0', 'Y', '2024-04-08 09:33:40'),
-(71, '7643234567234', '0', '0', 'Y', '2024-04-08 09:38:29'),
-(72, '5555522222', '0', '0', 'Y', '2024-04-11 10:57:47'),
-(73, '8521478525', '0', '0', 'Y', '2024-04-11 10:58:19'),
-(74, '8690708301', '0', '900', 'Y', '2024-04-15 11:14:23'),
-(75, '8724725464', '0', '0', 'Y', '2024-04-15 11:38:56'),
-(76, '9794368091', '0', '0', 'Y', '2024-04-15 11:39:36'),
-(77, '8920529661', '0', '0', 'Y', '2024-04-15 11:40:12'),
-(78, '8690708303', '200', '800', 'Y', '2024-04-16 05:12:07');
+(46, '8898765437', '1800', '60', 'Y', '2024-04-05 05:43:24'),
+(88, '8690708302', '0', '0', 'Y', '2024-05-02 12:47:00'),
+(89, '9794368090', '600', '50', 'Y', '2024-05-02 12:47:36'),
+(90, '8690708301', '900', '0', 'Y', '2024-05-02 12:48:13'),
+(91, '9794368091', '1800', '40', 'Y', '2024-05-02 12:49:00'),
+(92, '9794368092', '1800', '20', 'Y', '2024-05-03 05:02:13'),
+(93, '9794368093', '1000', '0', 'Y', '2024-05-03 07:01:49'),
+(94, '9794368094', '900', '0', 'Y', '2024-05-03 07:17:56');
 
 -- --------------------------------------------------------
 
@@ -906,6 +738,13 @@ ALTER TABLE `deposit`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `level`
+--
+ALTER TABLE `level`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -952,12 +791,6 @@ ALTER TABLE `plan`
 -- Indexes for table `platforms`
 --
 ALTER TABLE `platforms`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `reffal_level`
---
-ALTER TABLE `reffal_level`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1037,13 +870,13 @@ ALTER TABLE `agents_statement`
 -- AUTO_INCREMENT for table `assign_module`
 --
 ALTER TABLE `assign_module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=436;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=484;
 
 --
 -- AUTO_INCREMENT for table `assign_task`
 --
 ALTER TABLE `assign_task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `bank_details`
@@ -1055,7 +888,7 @@ ALTER TABLE `bank_details`
 -- AUTO_INCREMENT for table `buy_plan`
 --
 ALTER TABLE `buy_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `commets`
@@ -1067,25 +900,31 @@ ALTER TABLE `commets`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `deposit`
 --
 ALTER TABLE `deposit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=281;
+
+--
+-- AUTO_INCREMENT for table `level`
+--
+ALTER TABLE `level`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `module`
 --
 ALTER TABLE `module`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `new_payment_details`
@@ -1097,7 +936,7 @@ ALTER TABLE `new_payment_details`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `payment_bonus`
@@ -1109,19 +948,13 @@ ALTER TABLE `payment_bonus`
 -- AUTO_INCREMENT for table `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `platforms`
 --
 ALTER TABLE `platforms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `reffal_level`
---
-ALTER TABLE `reffal_level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `reffer_bonus`
@@ -1139,13 +972,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `role_assign`
 --
 ALTER TABLE `role_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `statement`
 --
 ALTER TABLE `statement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1297;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1302;
 
 --
 -- AUTO_INCREMENT for table `tasks_with_name`
@@ -1157,19 +990,19 @@ ALTER TABLE `tasks_with_name`
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `user_level`
 --
 ALTER TABLE `user_level`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `withdrawal`
@@ -1201,11 +1034,15 @@ ALTER TABLE `role_assign`
 ALTER TABLE `tasks_with_name`
   ADD CONSTRAINT `platform_id` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`id`);
 
+DELIMITER $$
 --
--- Constraints for table `user_details`
+-- Events
 --
-ALTER TABLE `user_details`
-  ADD CONSTRAINT `plan_type` FOREIGN KEY (`plan_type`) REFERENCES `plan` (`id`);
+CREATE DEFINER=`root`@`localhost` EVENT `otp_delete` ON SCHEDULE EVERY 1 SECOND STARTS '2024-04-30 12:21:45' ENDS '2034-04-30 12:21:45' ON COMPLETION NOT PRESERVE ENABLE DO delete from `otp` where DATE_ADD(`date`, INTERVAL 10 MINUTE) < CURRENT_TIMESTAMP()$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `buy_plan` ON SCHEDULE EVERY 1 SECOND STARTS '2024-04-30 12:26:26' ENDS '2034-04-30 12:26:26' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE `buy_plan` SET `status`='Expired' WHERE date(`expire_date`) < CURRENT_TIMESTAMP()$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
