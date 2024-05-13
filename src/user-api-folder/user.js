@@ -44,6 +44,7 @@ function deleteImage(imagePath) {
   });
 }
 const transporter = nodemailer.createTransport({
+  name: "mail.earnkrobharat.com",
   host: "mail.earnkrobharat.com",
   port: 465,
   secure: true,
@@ -698,12 +699,20 @@ app.post("/get-otp", (req, res) => {
   con.query("SELECT * FROM `otp` WHERE `number` = ?", [req.body.email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
+      console.log("sd");
       transporter.sendMail({
         from: 'otp@earnkrobharat.com',
         to: req.body.email,
         subject: "OTP Verification",
         text: "To Create your Acoount",
         html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
+      }, function (error, info) {
+        if (error) {
+          console.log('Email failed to send:', error);
+        } else {
+          console.log('Email sent:', info.response);
+          console.log(info);
+        }
       });
       con.query("UPDATE `otp` SET `otp` = ? WHERE `number` = ?", [hash, req.body.email], (err, result) => {
         if (err) throw err;
@@ -715,12 +724,19 @@ app.post("/get-otp", (req, res) => {
         }
       });
     } else {
+      console.log("d");
       transporter.sendMail({
         from: 'otp@earnkrobharat.com',
         to: req.body.email,
         subject: "OTP Verification",
         text: "To Create your Acoount",
         html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
+      }, function (error, info) {
+        if (error) {
+          console.log('Email failed to send:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
       });
       con.query("INSERT INTO `otp`(`otp`, `number`) VALUES (?,?)", [hash, req.body.email], (err, result) => {
         if (err) throw err;
@@ -1722,7 +1738,7 @@ app.post("/get-increase-user",(req,res)=>{
   })
 })
 app.post("/update-increase-user",(req,res)=>{
-  con.query("UPDATE `increase` SET `count`=`count` + 1 WHERE id = 1",(err,result)=>{
+  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50],(err,result)=>{
     if(err){throw err;}
     if(result){
       res.status(200).json({
