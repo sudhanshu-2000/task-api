@@ -1739,7 +1739,7 @@ app.post("/get-increase-user",(req,res)=>{
   })
 })
 app.post("/update-increase-user",(req,res)=>{
-  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50],(err,result)=>{
+  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = `widthrawal` + ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50],(err,result)=>{
     if(err){throw err;}
     if(result){
       res.status(200).json({
