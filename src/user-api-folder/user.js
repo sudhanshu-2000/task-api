@@ -44,12 +44,12 @@ function deleteImage(imagePath) {
   });
 }
 const transporter = nodemailer.createTransport({
-  host: "bond.herosite.pro",
+  host: "mail.earnkrobharat.com",
   port: 465,
-  secure: true, // Use `true` for port 465, `false` for all other ports
+  secure: true,
   auth: {
-    user: "otp@task.sparrowgames.in",
-    pass: "_D~!Sve$kS-7",
+    user: "otp@earnkrobharat.com",
+    pass: "BXk)79NHb6si",
   },
 });
 app.get('/get', (req, res) => {
@@ -699,7 +699,7 @@ app.post("/get-otp", (req, res) => {
     if (err) throw err;
     if (result.length > 0) {
       transporter.sendMail({
-        from: 'otp@task.sparrowgames.in',
+        from: 'otp@earnkrobharat.com',
         to: req.body.email,
         subject: "OTP Verification",
         text: "To Create your Acoount",
@@ -716,7 +716,7 @@ app.post("/get-otp", (req, res) => {
       });
     } else {
       transporter.sendMail({
-        from: 'otp@task.sparrowgames.in',
+        from: 'otp@earnkrobharat.com',
         to: req.body.email,
         subject: "OTP Verification",
         text: "To Create your Acoount",
@@ -1707,6 +1707,33 @@ app.post("/get-level", (req, res) => {
     }
   })
 })
+
+// increase user refresh
+app.post("/get-increase-user",(req,res)=>{
+  con.query("SELECT  `count` as a FROM `increase` WHERE id = 1",(err,result)=>{
+    if(err){throw err;}
+    if(result){
+      res.status(200).json({
+        error: false,
+        status: true,
+        total: result[0].a
+      })
+    }
+  })
+})
+app.post("/update-increase-user",(req,res)=>{
+  con.query("UPDATE `increase` SET `count`=`count` + 1 WHERE id = 1",(err,result)=>{
+    if(err){throw err;}
+    if(result){
+      res.status(200).json({
+        error: false,
+        status: true,
+      })
+    }
+  })
+})
+
+
 function verifytoken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
   if (typeof bearerHeader !== "undefined") {
