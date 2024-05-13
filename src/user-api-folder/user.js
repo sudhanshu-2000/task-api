@@ -1726,13 +1726,14 @@ app.post("/get-level", (req, res) => {
 
 // increase user refresh
 app.post("/get-increase-user",(req,res)=>{
-  con.query("SELECT  `count` as a FROM `increase` WHERE id = 1",(err,result)=>{
+  con.query("SELECT  `count` as a,`widthrawal` as b FROM `increase` WHERE id = 1",(err,result)=>{
     if(err){throw err;}
     if(result){
       res.status(200).json({
         error: false,
         status: true,
-        total: result[0].a
+        total: result[0].a,
+        widthrawal: result[0].b
       })
     }
   })
