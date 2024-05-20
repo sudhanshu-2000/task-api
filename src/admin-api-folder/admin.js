@@ -935,7 +935,7 @@ app.post("/get-game-number", verifytoken, (req, res) => {
 });
 
 app.post("/get-pay-method", verifytoken, (req, res) => {
-  con.query("select * from payment_method", (err, result) => {
+  con.query("select * from `new_payment_details`", (err, result) => {
     if (err) throw err;
     if (result) {
       res.status(200).send({
@@ -948,130 +948,65 @@ app.post("/get-pay-method", verifytoken, (req, res) => {
 });
 app.post("/add-payment-details-upi", upload.single("qr_code"), verifytoken, (req, res) => {
   var body = req.body;
-  con.query(
-    "select * from payment_details where UPI_id = ?",
-    [body.upi_id],
-    (err, result) => {
-      if (err) throw err;
-      if (result.length > 0) {
-        res.status(302).json({
-          error: true,
-          status: false,
-          massage: "UPI Id is Already exist",
-        });
-      } else {
-        if (req.body.payment_method === "Google Pay") {
-          con.query(
-            "INSERT INTO `payment_details`(`paymethod_id`, `name`, `UPI_id`, `QR_code`, `icons`) VALUES (?,?,?,?,?)",
-            [
-              body.payment_method,
-              body.name,
-              body.upi_id,
-              req.file.filename,
-              "googlepay.png",
-            ],
-            (err, result) => {
-              if (err) throw err;
-              if (result) {
-                res.status(200).json({
-                  error: false,
-                  status: true,
-                  massage: "Insert Google Pay Details SuccessFully",
-                });
-              }
-            }
-          );
-        } else if (req.body.payment_method === "Phone Pe") {
-          con.query(
-            "INSERT INTO `payment_details`(`paymethod_id`, `name`, `UPI_id`, `QR_code`, `icons`) VALUES (?,?,?,?,?)",
-            [
-              body.payment_method,
-              body.name,
-              body.upi_id,
-              req.file.filename,
-              "phonepe.png",
-            ],
-            (err, result) => {
-              if (err) throw err;
-              if (result) {
-                res.status(200).json({
-                  error: false,
-                  status: true,
-                  massage: "Insert Phone pe Details SuccessFully",
-                });
-              }
-            }
-          );
-        } else {
-          con.query(
-            "INSERT INTO `payment_details`(`paymethod_id`, `name`, `UPI_id`, `QR_code`, `icons`, `mobile_no`) VALUES (?,?,?,?,?,?)",
-            [
-              body.payment_method,
-              body.name,
-              body.upi_id,
-              req.file.filename,
-              "paytm.png",
-              body.upinumber,
-            ],
-            (err, result) => {
-              if (err) throw err;
-              if (result) {
-                res.status(200).json({
-                  error: false,
-                  status: true,
-                  massage: "Insert Paytm Details SuccessFully",
-                });
-              }
-            }
-          );
+  con.query("select * from `new_payment_details` where UPI_id = ?", [body.upi_id], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.status(302).json({
+        error: true,
+        status: false,
+        massage: "UPI Id is Already exist",
+      });
+    } else {
+      con.query("INSERT INTO ``new_payment_details``(`paymethod_id`, `name`, `UPI_id`, `QR_code`, `icons`, `mobile_no`) VALUES (?,?,?,?,?,?)",
+        [body.payment_method, body.name, body.upi_id, req.file.filename, "paytm.png", body.upinumber], (err, result) => {
+          if (err) throw err;
+          if (result) {
+            res.status(200).json({
+              error: false,
+              status: true,
+              massage: "Paytm Details SuccessFully",
+            });
+          }
         }
-      }
+      );
     }
+  }
   );
 });
 app.post("/add-payment-detail-upi", verifytoken, (req, res) => {
   var body = req.body;
-  con.query(
-    "select * from payment_details where UPI_id = ?",
-    [body.upi_id],
-    (err, result) => {
-      if (err) throw err;
-      if (result.length > 0) {
-        res.status(302).json({
-          error: true,
-          status: false,
-          massage: "UPI Id is Already exist",
-        });
-      } else {
-        {
-          con.query(
-            "INSERT INTO `payment_details`(`paymethod_id`, `name`, `UPI_id`, `icons`) VALUES (?,?,?,?)",
-            [
-              body.payment_method,
-              body.name,
-              body.upi_id,
-              "upi.png",
-            ],
-            (err, result) => {
-              if (err) throw err;
-              if (result) {
-                res.status(200).json({
-                  error: false,
-                  status: true,
-                  massage: "Insert Paytm Details SuccessFully",
-                });
-              }
+  con.query("select * from `new_payment_details` where UPI_id = ?", [body.upi_id], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      res.status(302).json({
+        error: true,
+        status: false,
+        massage: "UPI Id is Already exist",
+      });
+    } else {
+      {
+        con.query(
+          "INSERT INTO `new_payment_details`(`paymethod_id`, `name`, `UPI_id`, `icons`) VALUES (?,?,?,?)",
+          [body.payment_method, body.name, body.upi_id, "upi.png"], (err, result) => {
+            if (err) throw err;
+            if (result) {
+              res.status(200).json({
+                error: false,
+                status: true,
+                massage: "Paytm Details SuccessFully",
+              });
             }
-          );
-        }
+          }
+        );
       }
     }
+  }
   );
 });
 app.post("/add-payment-details-bank", verifytoken, (req, res) => {
   var body = req.body;
   con.query(
-    "select * from payment_details where account_no = ?",
+    "select * from `new_payment_details` where account_no = ?",
     [body.account_no],
     (err, result) => {
       if (err) throw err;
@@ -1108,20 +1043,22 @@ app.post("/add-payment-details-bank", verifytoken, (req, res) => {
   );
 });
 app.post("/get-payment-details", verifytoken, (req, res) => {
-  con.query(
-    "select pd.id, pm.id as pm_id, pm.name as payment_method, pd.name,pd.mobile_no, pd.UPI_id, pd.QR_code, pd.bank_name, pd.account_no, pd.ifsc_code, pd.account_type, pm.icon, pd.status from payment_details as pd inner Join payment_method as pm on pd.paymethod_id = pm.id where pm.name = ?;",
-    [req.body.method],
-    (err, result) => {
+  con.query("select * from `new_payment_details`;",
+    [req.body.method], (err, result) => {
       if (err) throw err;
-      else {
-        res.status(200).send({ data: result });
+      if (result) {
+        res.status(200).send({
+          error: true,
+          status: false,
+          data: result
+        });
       }
     }
   );
 });
 app.post("/status-payment-details", verifytoken, (req, res) => {
   con.query(
-    "UPDATE `payment_details` SET `status` = ? WHERE `id` = ?",
+    "UPDATE `new_payment_details` SET `status` = ? WHERE `id` = ?",
     [req.body.method, req.body.id],
     (err, result) => {
       if (err) throw err;

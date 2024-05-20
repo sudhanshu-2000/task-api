@@ -777,7 +777,6 @@ app.post("/verify-otp", (req, res) => {
   );
 });
 
-
 app.post("/get-pay-deatils", verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query(
@@ -1715,7 +1714,7 @@ app.post("/get-increase-user",(req,res)=>{
       });
     }
   })
-})
+});
 app.post("/update-increase-user",(req,res)=>{
   con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = `widthrawal` + ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50],(err,result)=>{
     if(err){throw err;}
@@ -1726,7 +1725,7 @@ app.post("/update-increase-user",(req,res)=>{
       })
     }
   })
-})
+});
 
 
 function verifytoken(req, res, next) {
