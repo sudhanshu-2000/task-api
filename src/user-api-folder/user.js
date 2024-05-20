@@ -54,16 +54,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 app.get('/get', (req, res) => {
-  con.query("SELECT IFNULL(ul.`level_1`,0) as level_1,IFNULL(ul.`level_2`,0) as level_2,IFNULL(ul.`level_3`,0) as level_3,IFNULL(ul.`level_4`,0) as level_4,IFNULL(ul.`level_5`,0) as level_5,IFNULL(ul.`level_6`,0) as level_6,IFNULL(ul.`level_7`,0) as level_7,IFNULL(ul.`level_8`,0) as level_8,IFNULL(ul.`level_9`,0) as level_9 FROM `user_level` as ul WHERE ul.user_reffral = ?;", ['RVGtceVg'], (err, result) => {
-    if (err) { throw err; }
-    if (result) {
-      let objectLength = Object.keys(result[0]).length;
-      for (let index = 1; index <= objectLength; index++) {
-        const element = result[0][index];
-
-      }
-    }
-  })
+ res.status(200).send("Hello");
 });
 
 app.post("/register", (req, res) => {
