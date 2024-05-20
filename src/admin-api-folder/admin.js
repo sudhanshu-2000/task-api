@@ -406,9 +406,9 @@ app.post("/get-total-data", verifytoken, (req, res) => {
         if (err) throw err;
         if (resultt) {
           con.query("select (SELECT ifnull(COUNT(*),0) FROM `assign_task` WHERE `status` = 'Pending') as p_request,? as 'today_task_video',? as 'video',? as 'today_task_like',? as 'like',? as 'today_task_comment', ? as comment,(select IFNULL(COUNT(*), 0) from user_details) as total_user, (select IFNULL(COUNT(*), 0) from user_details WHERE is_active = 'Y') as active_user, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success') as total_d, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Pending') as total_d_p, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_d, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success') as total_w, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_w, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Pending') as total_w_p",
-            [resultt[0].video, video.video, resultt[0].like, like.like, resultt[0].comment, comment.comment],(errr,resulttt)=>{
-              if(errr){throw errr}
-              if(resulttt){
+            [resultt[0].video, video.video, resultt[0].like, like.like, resultt[0].comment, comment.comment], (errr, resulttt) => {
+              if (errr) { throw errr }
+              if (resulttt) {
                 res.status(200).json({
                   error: false,
                   status: true,
@@ -1266,28 +1266,25 @@ app.post("/status-user-details", verifytoken, (req, res) => {
   );
 });
 app.post("/del-user-details", verifytoken, (req, res) => {
-  con.query(
-    "DELETE FROM `user_details` where id = ?",
-    [req.body.id],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        con.query(
-          "DELETE FROM `wallet` where id=?",
-          [req.body.wid],
-          (err, result) => {
-            if (err) throw err;
-            else {
-              res.status(200).json({
-                error: false,
-                status: true,
-                massage: "Your Details has been deleted.",
-              });
-            }
+  con.query("DELETE FROM `user_details` where id = ?", [req.body.id], (err, result) => {
+    if (err) throw err;
+    if (result) {
+      con.query(
+        "DELETE FROM `wallet` where id=?",
+        [req.body.wid],
+        (err, result) => {
+          if (err) throw err;
+          if (result) {
+            res.status(200).json({
+              error: false,
+              status: true,
+              massage: "Your Details has been deleted.",
+            });
           }
-        );
-      }
+        }
+      );
     }
+  }
   );
 });
 app.post("/update-user-details", verifytoken, (req, res) => {
@@ -1643,29 +1640,44 @@ app.post("/approve-withdrawal-request", verifytoken, (req, res) => {
   );
 });
 app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ?",
-    [req.body.reason, req.body.username, req.body.id],
-    (err, resultt) => {
-      if (err) throw err;
-      if (resultt) {
-        con.query(
-          "UPDATE `wallet` SET `wallet_balance` = wallet_balance + (SELECT `balance` FROM `deposit` WHERE `id` = ?) WHERE `user_name` = (SELECT `user_name` FROM `deposit` WHERE `id` = ?);",
-          [req.body.id, req.body.id],
-          (err, resultt) => {
+  con.query("SELECT * FROM `deposit` WHERE `payment_type` = 'Withdrawal' AND `id` = ?;", [req.body.id], (err, result) => {
+    if (err) throw err;
+    if (result.length > 0) {
+      if (result[0].status == 'Canceled') {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Already Declined Withdrawal Request",
+        });
+      } if (result[0].status == 'Success') {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Already SuccessFully Withdrawal",
+        });
+      } else {
+        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ?",
+          [req.body.reason, req.body.username, req.body.id], (err, resultt) => {
             if (err) throw err;
             if (resultt) {
-              res.status(200).send({
-                error: false,
-                status: true,
-                massage: "Wallet Update SuccessFully",
-              });
+              con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `balance` FROM `deposit` WHERE `id` = ?) WHERE `user_name` = (SELECT `user_name` FROM `deposit` WHERE `id` = ?);",
+                [req.body.id, req.body.id], (err, resultt) => {
+                  if (err) throw err;
+                  if (resultt) {
+                    res.status(200).send({
+                      error: false,
+                      status: true,
+                      massage: "Wallet Update SuccessFully",
+                    });
+                  }
+                }
+              );
             }
           }
         );
       }
     }
-  );
+  });
 });
 
 app.post("/add-platform", verifytoken, (req, res) => {

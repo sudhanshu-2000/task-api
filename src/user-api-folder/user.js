@@ -943,16 +943,13 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
           massage: "Already SuccessFully Withdrawal",
         });
       } else {
-        con.query(
-          "UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ? AND `user_name` = ?",
-          ['.', 'By User', req.body.id, req.body.mobile],
-          (err, resultt) => {
+        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ? AND `user_name` = ?",
+          ['.', 'By User', req.body.id, req.body.mobile], (err, resultt) => {
             if (err) throw err;
             if (resultt) {
               con.query(
                 "UPDATE `wallet` SET `winning_wallet` = winning_wallet + (SELECT `balance` FROM `deposit` WHERE `id` = ?) WHERE `user_name` = ?;",
-                [req.body.id, req.body.mobile],
-                (err, resultt) => {
+                [req.body.id, req.body.mobile], (err, resultt) => {
                   if (err) throw err;
                   if (resultt) {
                     res.status(200).json({
@@ -1715,7 +1712,7 @@ app.post("/get-increase-user",(req,res)=>{
         status: true,
         total: result[0].a,
         widthrawal: result[0].b
-      })
+      });
     }
   })
 })
