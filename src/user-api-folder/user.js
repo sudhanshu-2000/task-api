@@ -699,7 +699,6 @@ app.post("/get-otp", (req, res) => {
   con.query("SELECT * FROM `otp` WHERE `number` = ?", [req.body.email], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      console.log("sd");
       transporter.sendMail({
         from: 'otp@earnkrobharat.com',
         to: req.body.email,
@@ -831,7 +830,7 @@ app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) =
 });
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   con.query(
-    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.transaction_id,cd.payment_type,cd.status,cd.date FROM `deposit` as cd where cd.`user_name` = ?;",
+    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.reason,cd.transaction_id,cd.payment_type,cd.status,cd.date FROM `deposit` as cd where cd.`user_name` = ?;",
     [req.body.mobile],
     (err, result) => {
       if (err) throw err;
@@ -986,7 +985,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
     }
   })
 });
-app.post("/get-task-like", (req, res) => {
+app.post("/get-task-like",verifytoken, (req, res) => {
   let aa = [];
   let dataArray = [];
   let newArray = [];
@@ -1400,15 +1399,6 @@ app.post("/delete-upidetails", verifytoken, (req, res) => {
   );
 });
 
-app.post('/get-shopping-details', (req, res) => {
-  req.body = JSON.parse(atob(req.body.data));
-  con.query("SELECT * FROM `items` where `status` = 'Y'", (err, result) => {
-    if (err) throw err;
-    if (result) {
-      res.status(200).json(btoa(JSON.stringify({ error: false, status: true, data: result })));
-    }
-  })
-});
 app.post('/get-current-offer', verifytoken, (req, res) => {
   req.body = JSON.parse(atob(req.body.data));
   con.query("SELECT  COUNT(`coupan`) as count FROM `deposit` WHERE `user_name` = ? and `coupan` = 'First' and (`status` = 'Success' OR `status` = 'Pending')", [req.body.mobile], (err, result) => {
