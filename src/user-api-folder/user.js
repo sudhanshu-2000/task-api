@@ -54,7 +54,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 app.get('/get', (req, res) => {
- res.status(200).send("Hello");
+  res.status(200).send("Hello");
 });
 
 app.post("/register", (req, res) => {
@@ -230,27 +230,7 @@ app.post("/login", (req, res) => {
             );
             con.query("SELECT * FROM `buy_plan` WHERE `user_id` = ? AND `status` = 'Active'", [req.body.mobile], (err, result32) => {
               if (err) throw err;
-              if (result32.length == 0) {
-                con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,'1',DATE_ADD(CURDATE(), INTERVAL 10 YEAR))", [req.body.mobile], (errror, resulrtt) => {
-                  if (errror) throw errror;
-                  if (resulrtt) {
-                    con.query("UPDATE `user_details` SET `is_active` = 'Y' WHERE `mobile` = ?", [req.body.mobile], (err, resulrt) => {
-                      if (err) { throw err; }
-                      if (resulrt) {
-                        res.status(200).json({
-                          error: false,
-                          status: true,
-                          ID: result[0].uid,
-                          username: result[0].username,
-                          mobile: result[0].mobile,
-                          message: "Login Successfully",
-                          token,
-                        });
-                      }
-                    })
-                  }
-                });
-              } else {
+              if (result32) {
                 con.query("UPDATE `user_details` SET `is_active` = 'Y' WHERE `mobile` = ?", [req.body.mobile], (err, resulrt) => {
                   if (err) { throw err; }
                   if (resulrt) {
@@ -264,7 +244,7 @@ app.post("/login", (req, res) => {
                       token,
                     });
                   }
-                })
+                });
               }
             })
           } else {
@@ -527,10 +507,8 @@ app.post("/forget-password", (req, res) => {
   });
 });
 app.post("/user-details", verifytoken, (req, res) => {
-  con.query(
-    "SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name  WHERE `mobile` = ?",
-    [req.body.mobile],
-    (err, result) => {
+  con.query("SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name  WHERE `mobile` = ?",
+    [req.body.mobile],(err, result) => {
       if (err) throw err;
       if (result) {
         res.status(200).json({
@@ -591,15 +569,15 @@ app.post("/update-user-details", verifytoken, (req, res) => {
 
 });
 app.post("/get-pay-method", verifytoken, (req, res) => {
-  con.query("SELECT * FROM `new_payment_details` WHERE status = 'Y'",(err, result) => {
-      if (err) throw err;
-      if (result)
-        res.status(200).json({
-          error: false,
-          status: true,
-          data: result,
-        });
-    }
+  con.query("SELECT * FROM `new_payment_details` WHERE status = 'Y'", (err, result) => {
+    if (err) throw err;
+    if (result)
+      res.status(200).json({
+        error: false,
+        status: true,
+        data: result,
+      });
+  }
   );
 });
 app.post("/wallet-balance", verifytoken, (req, res) => {
@@ -970,7 +948,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
     }
   })
 });
-app.post("/get-task-like",verifytoken, (req, res) => {
+app.post("/get-task-like", verifytoken, (req, res) => {
   let aa = [];
   let dataArray = [];
   let newArray = [];
@@ -1700,10 +1678,10 @@ app.post("/get-level", (req, res) => {
 })
 
 // increase user refresh
-app.post("/get-increase-user",(req,res)=>{
-  con.query("SELECT  `count` as a,`widthrawal` as b FROM `increase` WHERE id = 1",(err,result)=>{
-    if(err){throw err;}
-    if(result){
+app.post("/get-increase-user", (req, res) => {
+  con.query("SELECT  `count` as a,`widthrawal` as b FROM `increase` WHERE id = 1", (err, result) => {
+    if (err) { throw err; }
+    if (result) {
       res.status(200).json({
         error: false,
         status: true,
@@ -1713,10 +1691,10 @@ app.post("/get-increase-user",(req,res)=>{
     }
   })
 });
-app.post("/update-increase-user",(req,res)=>{
-  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = `widthrawal` + ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50],(err,result)=>{
-    if(err){throw err;}
-    if(result){
+app.post("/update-increase-user", (req, res) => {
+  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = `widthrawal` + ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50], (err, result) => {
+    if (err) { throw err; }
+    if (result) {
       res.status(200).json({
         error: false,
         status: true,
@@ -2058,16 +2036,16 @@ function reffer_bonus(ba) {
   let a = 0;
   con.query("SELECT IFNULL(ul.`level_1`,0) as level_1,IFNULL(ul.`level_2`,0) as level_2,IFNULL(ul.`level_3`,0) as level_3,IFNULL(ul.`level_4`,0) as level_4,IFNULL(ul.`level_5`,0) as level_5,IFNULL(ul.`level_6`,0) as level_6,IFNULL(ul.`level_7`,0) as level_7,IFNULL(ul.`level_8`,0) as level_8,IFNULL(ul.`level_9`,0) as level_9 FROM `user_level` as ul WHERE ul.user_reffral = (SELECT ud.`reffer_code` FROM `user_details` as ud WHERE ud.`mobile` = ?);", [ba], (err1, result1) => {
     if (err1) throw err1;
-    if(result1){
+    if (result1) {
       let a = Object.values(result1[0]);
       for (let index = 0; index < a.length; index++) {
         const element = a[index];
         con.query("SELECT COUNT(*) as c FROM `buy_plan` WHERE `user_id` = (select mobile from user_details where reffer_code = ?) and `plan_id` != '1'", [element], (error1, resultt1) => {
           if (error1) { throw error1 }
           if (resultt1[0].c > 0) {
-            con.query(`UPDATE user_level as ul SET ul.status${index+1} = 'Success' WHERE ul.user_reffral = (SELECT reffer_code FROM user_details as ud WHERE ud.mobile = ?)`, [ba]);
-            con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [index+1, index+1, element]);
-          }else{
+            con.query(`UPDATE user_level as ul SET ul.status${index + 1} = 'Success' WHERE ul.user_reffral = (SELECT reffer_code FROM user_details as ud WHERE ud.mobile = ?)`, [ba]);
+            con.query("UPDATE `wallet` SET `winning_wallet` = `winning_wallet` + (SELECT `price` FROM `level` WHERE `name` = ? UNION ALL SELECT 0 FROM DUAL WHERE NOT EXISTS(SELECT`price` FROM`level` WHERE`name` = ?)) WHERE `user_name` = (SELECT `mobile` FROM `user_details` WHERE `reffer_code` = ?)", [index + 1, index + 1, element]);
+          } else {
 
           }
         })

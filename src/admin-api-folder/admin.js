@@ -977,9 +977,7 @@ app.post("/get-payment-details", verifytoken, (req, res) => {
   );
 });
 app.post("/status-payment-details", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `new_payment_details` SET `status` = ? WHERE `id` = ?",
-    [req.body.method, req.body.id],
+  con.query("UPDATE `new_payment_details` SET `status` = ? WHERE `id` = ?", [req.body.method, req.body.id],
     (err, result) => {
       if (err) throw err;
       if (result) {
@@ -996,10 +994,10 @@ app.post("/del-payment-details", verifytoken, (req, res) => {
   con.query("DELETE FROM `new_payment_details` where id = ?", [req.body.id], (err, result) => {
     if (err) {
       if (true == (err.sqlMessage == "Cannot delete or update a parent row: a foreign key constraint fails (`sparrow_task`.`deposit`, CONSTRAINT `paymethod_id` FOREIGN KEY (`paymethod_id`) REFERENCES `payment_details` (`id`))")) {
-        res.status(405).json({
+        res.status(409).json({
           error: true,
           status: false,
-          massage: "This payment method is already Used",
+          massage: "This payment method is already Used.",
         });
       } else {
         throw err;
@@ -1015,46 +1013,60 @@ app.post("/del-payment-details", verifytoken, (req, res) => {
   }
   );
 });
-app.post("/update-payment-details", upload.single("qr_code"), verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `payment_details` SET `name` = ?, `UPI_id` = ?, `QR_code` = ? WHERE `id` = ?",
-    [req.body.name, req.body.upi_id, req.file.filename, req.body.id],
-    (err, result) => {
+app.post("/update-payment-details-with-image", upload.single("image"), verifytoken, (req, res) => {
+  con.query("UPDATE `new_payment_details` SET `name` = ?, `upi_id` = ?, `qr_code` = ?, `number` = ? WHERE `id` = ?",
+    [req.body.name, req.body.upi, req.file.filename, req.body.number, req.body.id], (err, result) => {
       if (err) {
         if (err.code == "ER_DUP_ENTRY") {
-          res.status(403).send("UPI Id is already exist");
+          res.status(302).send({
+            error: true,
+            status: false,
+            messsage: "UPI Id is already exist."
+          });
         }
       }
       if (result) {
         res.status(200).send({
           error: false,
           status: true,
-          massage: "Update Details SuccessFully",
+          massage: "Update Details SuccessFully.",
         });
       }
     }
   );
 });
+app.post("/update-payment-details", verifytoken, (req, res) => {
+  con.query("UPDATE `new_payment_details` SET `name` = ?, `upi_id` = ?, `number` = ? WHERE `id` = ?",
+    [req.body.name, req.body.upi, req.body.number, req.body.id], (err, result) => {
+      if (err) {
+        if (err.code == "ER_DUP_ENTRY") {
+          res.status(302).send({
+            error: true,
+            status: false,
+            messsage: "UPI Id is already exist."
+          });
+        }
+      }
+      if (result) {
+        res.status(200).send({
+          error: false,
+          status: true,
+          massage: "Update Details SuccessFully.",
+        });
+      }
+    }
+  );
+});
+
 app.post("/update-bank-payment-details", verifytoken, (req, res) => {
   var body = req.body;
-  con.query("select id from `payment_details` where `account_no` = ?", [body.account_no], (errror, ressult) => {
+  con.query("select id from `new_payment_details` where `ac_no` = ?", [body.account_no], (errror, ressult) => {
     if (errror) throw errror;
     if (ressult.length > 0) {
       if (ressult[0].id == body.id) {
-        con.query(
-          "UPDATE `payment_details` SET `name` = ?, `bank_name` = ?, `account_no` = ?, `ifsc_code` = ?, `account_type` = ? WHERE `id` = ?",
-          [
-            body.name,
-            body.bank_name,
-            body.account_no,
-            body.ifsc_code,
-            body.account_type,
-            body.id,
-          ],
-          (err, result) => {
-            if (err) {
-              throw err;
-            }
+        con.query("UPDATE `new_payment_details` SET `ac_holder_name` = ?, `ac_no` = ?, `ac_type` = ?, `ifsc_code` = ?, `bank_name` = ?, `type` = ? WHERE `id` = ?",
+          [body.account_holder_name, body.account_no, body.account_type, body.ifsc_code, body.bank_name, body.type, body.id], (err, result) => {
+            if (err) { throw err; }
             if (result) {
               res.status(200).send({ error: false, status: true, massage: "Details Updated SuccessFully" });
             }
@@ -1064,20 +1076,9 @@ app.post("/update-bank-payment-details", verifytoken, (req, res) => {
         res.status(302).send({ error: true, status: false, massage: "Account No is already exist" });
       }
     } else {
-      con.query(
-        "UPDATE `payment_details` SET `name` = ?, `bank_name` = ?, `account_no` = ?, `ifsc_code` = ?, `account_type` = ? WHERE `id` = ?",
-        [
-          body.name,
-          body.bank_name,
-          body.account_no,
-          body.ifsc_code,
-          body.account_type,
-          body.id,
-        ],
-        (err, result) => {
-          if (err) {
-            throw err;
-          }
+      con.query("UPDATE `new_payment_details` SET `ac_holder_name` = ?, `ac_no` = ?, `ac_type` = ?, `ifsc_code` = ?, `bank_name` = ?, `type` = ? WHERE `id` = ?",
+        [body.account_holder_name, body.account_no, body.account_type, body.ifsc_code, body.bank_name, body.type, body.id], (err, result) => {
+          if (err) { throw err; }
           if (result) {
             res.status(200).send({ error: false, status: true, massage: "Details Updated SuccessFully" });
           }
@@ -1085,7 +1086,6 @@ app.post("/update-bank-payment-details", verifytoken, (req, res) => {
       );
     }
   })
-
 });
 
 app.post("/get-user-details", verifytoken, (req, res) => {
@@ -1265,8 +1265,7 @@ app.post("/decline-assign-task", verifytoken, (req, res) => {
 
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   if (req.body.status === "Pending") {
-    con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit' and cd.`status` = 'Pending';",
+    con.query("SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit' and cd.`status` = 'Pending';",
       (err, result) => {
         if (err) throw err;
         if (result) {
