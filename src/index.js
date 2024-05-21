@@ -3,6 +3,7 @@ const app = express();
 const admin = require('./admin-api-folder/admin');
 const user = require('./user-api-folder/user');
 app.use("/image",express.static('image'));
+app.use("/assets",express.static('assets'));
 PORT= 4895;
 
 app.use('/admin', admin);
