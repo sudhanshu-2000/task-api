@@ -528,7 +528,7 @@ app.post("/forget-password", (req, res) => {
 });
 app.post("/user-details", verifytoken, (req, res) => {
   con.query(
-    "SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type, p.name, p.price, p.total_video, p.total_comment, p.total_like, p.total_video_price, p.total_video_comment as 'total_comment_price', p.total_video_like as 'total_like_price', p.earn_upto,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name INNER JOIN `plan` as p on ud.plan_type = p.id  WHERE `mobile` = ?",
+    "SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name  WHERE `mobile` = ?",
     [req.body.mobile],
     (err, result) => {
       if (err) throw err;
@@ -591,9 +591,7 @@ app.post("/update-user-details", verifytoken, (req, res) => {
 
 });
 app.post("/get-pay-method", verifytoken, (req, res) => {
-  con.query(
-    "SELECT * FROM `new_payment_details` WHERE status = 'Y'",
-    (err, result) => {
+  con.query("SELECT * FROM `new_payment_details` WHERE status = 'Y'",(err, result) => {
       if (err) throw err;
       if (result)
         res.status(200).json({

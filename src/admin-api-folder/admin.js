@@ -963,7 +963,7 @@ app.post("/add-payment-details-bank", verifytoken, (req, res) => {
   );
 });
 app.post("/get-payment-details", verifytoken, (req, res) => {
-  con.query("SELECT * FROM `new_payment_details` WHERE `type` = ?;",
+  con.query("SELECT * FROM `new_payment_details` WHERE `type` = ? and status = 'Y';",
     [req.body.type], (err, result) => {
       if (err) throw err;
       if (result) {
