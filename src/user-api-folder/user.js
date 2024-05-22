@@ -651,6 +651,7 @@ app.post("/get-otp", (req, res) => {
         text: "To Create your Acoount",
         html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
       });
+      con.query("DELETE FROM `otp` WHERE `date` < DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -10 MINUTE)");
       con.query("UPDATE `otp` SET `otp` = ? WHERE `number` = ?", [hash, req.body.email], (err, result) => {
         if (err) throw err;
         if (result) {
@@ -661,6 +662,7 @@ app.post("/get-otp", (req, res) => {
         }
       });
     } else {
+      con.query("DELETE FROM `otp` WHERE `date` < DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -10 MINUTE)");
       transporter.sendMail({
         from: 'otp@earnkrobharat.com',
         to: req.body.email,
