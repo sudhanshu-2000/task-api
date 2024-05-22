@@ -86,11 +86,11 @@ app.post("/register", (req, res) => {
               );
               if (req.body.reffer_by == "" || JSON.stringify(req.body.reffer_by) == "null") {
                 con.query("INSERT INTO `user_details`(`mobile`, `username`, `password`,`email`, `uid`, `reffer_by`, `reffer_code`) VALUES (?,?,?,?,?,?,?)",
-                  [req.body.mobile, req.body.user_name, hash, req.body.email, parseInt(ides[0].id) + 1, 'GJpQpVEO', codecode], (err, result) => {
+                  [req.body.mobile, req.body.user_name, hash, req.body.email, parseInt(ides[0].id) + 1, '5Zw8gbwv', codecode], (err, result) => {
                     if (err) throw err;
                     if (result) {
                       con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
-                      reffer(codecode, 'GJpQpVEO');
+                      reffer(codecode, '5Zw8gbwv');
                       res.status(200).json({
                         error: false,
                         status: true,
@@ -110,7 +110,7 @@ app.post("/register", (req, res) => {
                           con.query("SELECT MAX(`name`) as c FROM `level`", (err0, result0) => {
                             if (err0) { throw err0; }
                             if (result0[0].c == 1) {
-                              reffer(codecode, 'GJpQpVEO');
+                              reffer(codecode, '5Zw8gbwv');
                               con.query("INSERT INTO `wallet`(`user_name`, `wallet_balance`) VALUES (?,?)", [req.body.mobile, 0]);
                               res.status(200).json({
                                 error: false,
@@ -298,39 +298,17 @@ app.post('/buy-plan', verifytoken, (req, res) => {
                 [parseInt(result1[0].price), req.body.mobile], (err, resultt) => {
                   if (err) throw err;
                   if (resultt) {
-                    con.query("SELECT COUNT(*) as c FROM `buy_plan` WHERE `user_id` = ? and `plan_id` != '1'", [req.body.mobile], (err1, result2) => {
-                      if (err1) { throw err1 }
-                      if (result2[0].c == 0) {
-                        con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,?,DATE_ADD(CURDATE(), INTERVAL 30 DAY))",
-                          [req.body.mobile, req.body.id], (err, result) => {
-                            if (err) throw err;
-                            if (result) {
-                              con.query("DELETE FROM `buy_plan` WHERE `user_id` = ? AND `plan_id` = '1';", [req.body.mobile]);
-                              con.query("INSERT INTO `deposit`(`user_name`, `balance`,`status`, `payment_type`) VALUES (?,?,'Success','Plan Buy')", [req.body.mobile, parseInt(result1[0].price)]);
-                              reffer_bonus(req.body.mobile);
-                              res.status(200).json({
-                                error: false,
-                                status: true
-                              });
-                            }
-                          }
-                        );
-                      } else {
-                        con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?,?,DATE_ADD(CURDATE(), INTERVAL 30 DAY))",
-                          [req.body.mobile, req.body.id], (err, result) => {
-                            if (err) throw err;
-                            if (result) {
-                              con.query("DELETE FROM `buy_plan` WHERE `user_id` = ? AND `plan_id` = '1';", [req.body.mobile]);
-                              con.query("INSERT INTO `deposit`(`user_name`, `balance`,`status`, `payment_type`) VALUES (?,?,'Success','Plan Buy')", [req.body.mobile, parseInt(result1[0].price)]);
-                              res.status(200).json({
-                                error: false,
-                                status: true
-                              });
-                            }
-                          }
-                        );
+                    con.query("INSERT INTO `buy_plan`(`user_id`, `plan_id`, `expire_date`) VALUES (?, ?, DATE_ADD(CURDATE(), INTERVAL 30 DAY))", [req.body.mobile, req.body.id], (err, result) => {
+                      if (err) throw err;
+                      if (result) {
+                        con.query("INSERT INTO `deposit`(`user_name`, `balance`, `status`, `payment_type`, `Approved_declined_By`) VALUES (?, ?, 'Success', 'Plan Buy', 'By User')", [req.body.mobile, parseInt(result1[0].price)]);
+                        reffer_bonus(req.body.mobile);
+                        res.status(200).json({
+                          error: false,
+                          status: true
+                        });
                       }
-                    })
+                    });
                   }
                 }
               );
@@ -507,8 +485,8 @@ app.post("/forget-password", (req, res) => {
   });
 });
 app.post("/user-details", verifytoken, (req, res) => {
-  con.query("SELECT ud.id, ud.username as uname, ud.mobile,(SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance,w.winning_wallet as winning_balance, ud.email,ud.bank_name,ud.ifsc_code,ud.ac_no,ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type,ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name  WHERE `mobile` = ?",
-    [req.body.mobile],(err, result) => {
+  con.query("SELECT ud.id, ud.username as uname, ud.mobile,(SELECT IF(COUNT(*) = 0 , 'false', 'true') FROM `buy_plan` WHERE `user_id` = ud.mobile AND `status` = 'Active') as pstatus, (SELECT sum(amount) FROM `statement` WHERE `mobile` = ud.mobile) as total_earnning, w.wallet_balance, w.winning_wallet as winning_balance, ud.email, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, ud.pincode, ud.uid, ud.reffer_code, ud.plan_type, (select SUM(p.total_video) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_video,(select SUM(p.total_comment) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_comment, (select SUM(p.total_like) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_like,(select SUM(p.total_video_price) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_video_price,(select SUM(p.total_video_comment) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_comment_price,(select SUM(p.total_video_like) from `buy_plan` as bp INNER join plan as p on bp.plan_id = p.id where bp.user_id = ?) as total_like_price, ud.date FROM `user_details` as ud INNER join `wallet` as w on ud.`mobile` = w.user_name WHERE `mobile` = ?",
+    [req.body.mobile, req.body.mobile, req.body.mobile, req.body.mobile, req.body.mobile, req.body.mobile, req.body.mobile,], (err, result) => {
       if (err) throw err;
       if (result) {
         res.status(200).json({
@@ -672,13 +650,6 @@ app.post("/get-otp", (req, res) => {
         subject: "OTP Verification",
         text: "To Create your Acoount",
         html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
-      }, function (error, info) {
-        if (error) {
-          console.log('Email failed to send:', error);
-        } else {
-          console.log('Email sent:', info.response);
-          console.log(info);
-        }
       });
       con.query("UPDATE `otp` SET `otp` = ? WHERE `number` = ?", [hash, req.body.email], (err, result) => {
         if (err) throw err;
@@ -690,19 +661,12 @@ app.post("/get-otp", (req, res) => {
         }
       });
     } else {
-      console.log("d");
       transporter.sendMail({
         from: 'otp@earnkrobharat.com',
         to: req.body.email,
         subject: "OTP Verification",
         text: "To Create your Acoount",
         html: `Your OTP is <b>${val.toString()}</b>, valid for 10 min`,
-      }, function (error, info) {
-        if (error) {
-          console.log('Email failed to send:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
       });
       con.query("INSERT INTO `otp`(`otp`, `number`) VALUES (?,?)", [hash, req.body.email], (err, result) => {
         if (err) throw err;
@@ -771,17 +735,8 @@ app.post("/get-pay-deatils", verifytoken, (req, res) => {
 });
 
 app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) => {
-  con.query(
-    "INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
-    [
-      req.body.mobile,
-      req.body.amount,
-      req.file.filename,
-      req.file.destination + '/',
-      'Deposit',
-      req.body.id,
-      req.body.transection_id
-    ],
+  con.query("INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
+    [req.body.mobile, req.body.amount, req.file.filename, req.file.destination + '/', 'Deposit', req.body.deposit_id, req.body.transection_id],
     (err, result) => {
       if (err) throw err;
       if (result) {
@@ -796,7 +751,7 @@ app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) =
 });
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   con.query(
-    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.reason,cd.transaction_id,cd.payment_type,cd.status,cd.date FROM `deposit` as cd where cd.`user_name` = ?;",
+    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.reason,cd.transaction_id,cd.payment_type,cd.status,pd.name,pd.upi_id,pd.qr_code,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type,cd.date FROM `deposit` as cd INNER JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.`user_name` = ?;",
     [req.body.mobile],
     (err, result) => {
       if (err) throw err;
@@ -905,7 +860,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
   con.query("SELECT * FROM `deposit` WHERE `payment_type` = 'Withdrawal' AND `id` = ?;", [req.body.id], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      if (result[0].status == 'Canceled') {
+      if (result[0].status == 'Cancelled') {
         res.status(302).json({
           error: true,
           status: false,
@@ -918,7 +873,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
           massage: "Already SuccessFully Withdrawal",
         });
       } else {
-        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ? AND `user_name` = ?",
+        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Cancelled' WHERE `id` = ? AND `user_name` = ?",
           ['.', 'By User', req.body.id, req.body.mobile], (err, resultt) => {
             if (err) throw err;
             if (resultt) {
@@ -1051,7 +1006,26 @@ app.post("/update-task", verifytoken, (req, res) => {
       status: false,
       massage: "Username is required",
     });
-  } else {
+  } else if (req.body.status == "") {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Status is required",
+    });
+  } else if (req.body.mobile == "") {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Mobile Number is required",
+    });
+  } else if (req.body.id == "") {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Id is required",
+    });
+  } 
+   else {
     if (req.body.status == "Pending") {
       con.query("SELECT * FROM `assign_task` WHERE `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `username` = ? AND `task_id` = ? AND date(`date`) = CURRENT_DATE();",
         [req.body.mobile, req.body.username, req.body.id], (err1, result1) => {
@@ -1692,15 +1666,15 @@ app.post("/get-increase-user", (req, res) => {
   })
 });
 app.post("/update-increase-user", (req, res) => {
-  con.query("UPDATE `increase` SET `count`=`count` + 1, `widthrawal` = `widthrawal` + ? WHERE id = 1", [Math.floor(Math.random() * 31) + 50], (err, result) => {
+  con.query("UPDATE `increase` SET `count` = `count` + 1, `widthrawal` = `widthrawal` + ?;", [Math.floor(Math.random() * 31) + 50], (err, result) => {
     if (err) { throw err; }
     if (result) {
       res.status(200).json({
         error: false,
         status: true,
-      })
+      });
     }
-  })
+  });
 });
 
 

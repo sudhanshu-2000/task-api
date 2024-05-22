@@ -384,7 +384,7 @@ app.post("/get-total-data", verifytoken, (req, res) => {
       con.query("select (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'LIKE' and date(`date`) = CURRENT_DATE()) as 'like', (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'VIDEO' and date(`date`) = CURRENT_DATE()) as video, (SELECT COUNT(*) FROM `tasks_with_name` WHERE `type` = 'COMMENT' and date(`date`) = CURRENT_DATE()) as comment", (err, resultt) => {
         if (err) throw err;
         if (resultt) {
-          con.query("select (SELECT ifnull(COUNT(*),0) FROM `assign_task` WHERE `status` = 'Pending') as p_request,? as 'today_task_video',? as 'video',? as 'today_task_like',? as 'like',? as 'today_task_comment', ? as comment,(select IFNULL(COUNT(*), 0) from user_details) as total_user, (select IFNULL(COUNT(*), 0) from user_details WHERE is_active = 'Y') as active_user, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success') as total_d, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Pending') as total_d_p, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_d, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success') as total_w, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_w, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Pending') as total_w_p",
+          con.query("select (SELECT ifnull(COUNT(*),0) FROM `assign_task` WHERE `status` = 'Verifying') as p_request, ? as 'today_task_video', ? as 'video', ? as 'today_task_like', ? as 'like', ? as 'today_task_comment', ? as comment, (select IFNULL(COUNT(*), 0) from user_details) as total_user, (SELECT Count(*) active_user FROM(SELECT * ,COUNT(`user_id`) FROM buy_plan WHERE `status` = 'Active' GROUP BY `user_id` HAVING COUNT(`user_id`) > 0)x) as active_user, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success') as total_d, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Pending') as total_d_p, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Deposit' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_d, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success') as total_w, (SELECT ifnull(SUM(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Success' AND date(`date`) = CURRENT_DATE()) as today_w, (SELECT ifnull(COUNT(`balance`), 0) FROM `deposit` WHERE `payment_type` = 'Withdrawal' and `status` = 'Pending') as total_w_p",
             [resultt[0].video, video.video, resultt[0].like, like.like, resultt[0].comment, comment.comment], (errr, resulttt) => {
               if (errr) { throw errr }
               if (resulttt) {
@@ -1090,7 +1090,7 @@ app.post("/update-bank-payment-details", verifytoken, (req, res) => {
 
 app.post("/get-user-details", verifytoken, (req, res) => {
   con.query(
-    "select ud.id as id, ud.mobile, ud.username,ud.email,ud.`bank_name`, (SELECT SUM(`amount`) FROM `statement` WHERE `mobile`  = ud.mobile) as total_earning, ud.`ac_no`, ud.`ifsc_code`, ud.`ac_name`, ud.uid,ud.reffer_by,ud.reffer_code, w.id as wid,w.winning_wallet, w.wallet_balance, ud.status, ud.date from user_details as ud inner join wallet as w on ud.mobile = w.user_name;",
+    "select ud.id as id, ud.mobile, ud.username,ud.email,ud.`bank_name`, (SELECT SUM(`amount`) FROM `statement` WHERE `mobile`  = ud.mobile) as total_earning, ud.`ac_no`, ud.`ifsc_code`, ud.`ac_name`,(SELECT IF(COUNT(*) = 0 , 'N', 'Y') FROM `buy_plan` WHERE `user_id` = ud.mobile AND `status` = 'Active') as pstatus, ud.uid,ud.reffer_by,ud.reffer_code, w.id as wid,w.winning_wallet, w.wallet_balance, ud.status, ud.date from user_details as ud inner join wallet as w on ud.mobile = w.user_name;",
     (err, result) => {
       if (err) throw err;
       else {
@@ -1164,11 +1164,10 @@ app.post("/update-user-details", verifytoken, (req, res) => {
 
 app.post("/get-assign-task", verifytoken, (req, res) => {
   if (req.body.status == 'Completed') {
-    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Completed'",
-      [req.body.method],
-      (err, result) => {
+    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.reason,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Completed'",
+      [req.body.method], (err, result) => {
         if (err) throw err;
-        else {
+        if(result) {
           res.status(200).send({
             error: false,
             status: true,
@@ -1178,11 +1177,10 @@ app.post("/get-assign-task", verifytoken, (req, res) => {
       }
     );
   } else if (req.body.status == 'Verifying') {
-    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Verifying'",
-      [req.body.method],
-      (err, result) => {
+    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.reason,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Verifying'",
+      [req.body.method], (err, result) => {
         if (err) throw err;
-        else {
+        if (result) {
           res.status(200).send({
             error: false,
             status: true,
@@ -1192,11 +1190,11 @@ app.post("/get-assign-task", verifytoken, (req, res) => {
       }
     );
   } else if (req.body.status == 'Failed') {
-    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Failed'",
+    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.reason,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Failed'",
       [req.body.method],
       (err, result) => {
         if (err) throw err;
-        else {
+        if (result) {
           res.status(200).send({
             error: false,
             status: true,
@@ -1206,11 +1204,11 @@ app.post("/get-assign-task", verifytoken, (req, res) => {
       }
     );
   } else {
-    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id WHERE ast.status != 'Pending'",
+    con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.reason,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id WHERE ast.status != 'Pending'",
       [req.body.method],
       (err, result) => {
         if (err) throw err;
-        else {
+        if (result) {
           res.status(200).send({
             error: false,
             status: true,
@@ -1247,9 +1245,7 @@ app.post("/approve-assign-task", verifytoken, (req, res) => {
   );
 });
 app.post("/decline-assign-task", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `assign_task` SET `status` = 'Canceled', `Approved_declined_By` = ? WHERE `id` = ?",
-    [req.body.username, req.body.id],
+  con.query("UPDATE `assign_task` SET `status` = 'Cancelled', `Approved_declined_By` = ?,`reason` = ? WHERE `id` = ?", [req.body.username, req.body.reason, req.body.id],
     (err, resultt) => {
       if (err) throw err;
       if (resultt) {
@@ -1265,7 +1261,7 @@ app.post("/decline-assign-task", verifytoken, (req, res) => {
 
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   if (req.body.status === "Pending") {
-    con.query("SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit' and cd.`status` = 'Pending';",
+    con.query("SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By,pd.name,pd.upi_id,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type, cd.date FROM `deposit` as cd INNER JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.payment_type = 'Deposit' and cd.`status` = 'Pending';",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1279,7 +1275,7 @@ app.post("/get-deposit-request", verifytoken, (req, res) => {
     );
   } else if (req.body.status === "Success") {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit' and cd.`status` = 'Success';",
+      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By,pd.name,pd.upi_id,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type, cd.date FROM `deposit` as cd INNER JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.payment_type = 'Deposit' and cd.`status` = 'Success';",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1291,9 +1287,9 @@ app.post("/get-deposit-request", verifytoken, (req, res) => {
         }
       }
     );
-  } else if (req.body.status === "Canceled") {
+  } else if (req.body.status === "Cancelled") {
     con.query(
-      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit' and cd.`status` = 'Canceled';",
+      "SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By,pd.name,pd.upi_id,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type, cd.date FROM `deposit` as cd INNER JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.payment_type = 'Deposit' and cd.`status` = 'Cancelled';",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1306,7 +1302,7 @@ app.post("/get-deposit-request", verifytoken, (req, res) => {
       }
     );
   } else {
-    con.query("SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd where cd.payment_type = 'Deposit'",
+    con.query("SELECT cd.id, cd.user_name, cd.image, cd.transaction_id, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By,pd.name,pd.upi_id,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type, cd.date FROM `deposit` as cd INNER JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.payment_type = 'Deposit'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1341,9 +1337,7 @@ app.post("/approve-deposit-request", verifytoken, (req, res) => {
   );
 });
 app.post("/decline-deposit-request", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `deposit` SET `status` = ?, `reason` = ?, `Approved_declined_By` = ? WHERE `id` = ?",
-    ["Canceled", req.body.reason, req.body.username, req.body.id],
+  con.query("UPDATE `deposit` SET `status` = ?, `reason` = ?, `Approved_declined_By` = ? WHERE `id` = ?", ["Cancelled", req.body.reason, req.body.username, req.body.id],
     (err, resultt) => {
       if (err) throw err;
       if (resultt) {
@@ -1380,7 +1374,7 @@ app.post("/get-bank-details", verifytoken, (req, res) => {
         }
       }
     );
-  } else if (req.body.status === "Canceled") {
+  } else if (req.body.status === "Cancelled") {
     con.query(
       "SELECT * FROM `userbankdeatils` where `status` = ?",
       [req.body.status],
@@ -1417,9 +1411,8 @@ app.post("/approve-bank-details", verifytoken, (req, res) => {
   );
 });
 app.post("/decline-bank-details", verifytoken, (req, res) => {
-  con.query(
-    "UPDATE `userbankdeatils` SET `status` = ?, `reason` = ?,`approved_or_denied_by` = ? WHERE `id` = ?",
-    ["Canceled", req.body.reason, req.body.username, req.body.id],
+  con.query("UPDATE `userbankdeatils` SET `status` = ?, `reason` = ?,`approved_or_denied_by` = ? WHERE `id` = ?",
+    ["Cancelled", req.body.reason, req.body.username, req.body.id],
     (err, resultt) => {
       if (err) throw err;
       if (resultt) {
@@ -1454,9 +1447,9 @@ app.post("/get-withdrawal-request", verifytoken, (req, res) => {
         }
       }
     );
-  } else if (req.body.status === "Canceled") {
+  } else if (req.body.status === "Cancelled") {
     con.query(
-      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal' and cd.status = 'Canceled'",
+      "SELECT cd.id, cd.user_name, ud.bank_name, ud.ifsc_code, ud.ac_no, ud.ac_name, cd.reason, cd.payment_type, cd.balance, cd.status, cd.Approved_declined_By, cd.date FROM `deposit` as cd INNER join user_details as ud on cd.user_name = ud.mobile where cd.payment_type = 'Withdrawal' and cd.status = 'Cancelled'",
       (err, result) => {
         if (err) throw err;
         if (result) {
@@ -1496,7 +1489,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
   con.query("SELECT * FROM `deposit` WHERE `payment_type` = 'Withdrawal' AND `id` = ?;", [req.body.id], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      if (result[0].status == 'Canceled') {
+      if (result[0].status == 'Cancelled') {
         res.status(302).json({
           error: true,
           status: false,
@@ -1509,7 +1502,7 @@ app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
           massage: "Already SuccessFully Withdrawal",
         });
       } else {
-        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Canceled' WHERE `id` = ?",
+        con.query("UPDATE `deposit` SET `reason` = ?, `Approved_declined_By` = ?, `status` = 'Cancelled' WHERE `id` = ?",
           [req.body.reason, req.body.username, req.body.id], (err, resultt) => {
             if (err) throw err;
             if (resultt) {
