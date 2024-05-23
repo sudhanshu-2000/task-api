@@ -737,19 +737,30 @@ app.post("/get-pay-deatils", verifytoken, (req, res) => {
 });
 
 app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) => {
-  con.query("INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
-    [req.body.mobile, req.body.amount, req.file.filename, req.file.destination + '/', 'Deposit', req.body.deposit_id, req.body.transection_id],
-    (err, result) => {
-      if (err) throw err;
-      if (result) {
-        res.status(201).json({
-          error: false,
-          status: true,
-          massage: "Add Deposit Request",
-        });
-      }
+  con.query("SELECT * FROM `deposit` WHERE `user_name` = ? and `payment_type` = 'Deposit' and `status`= 'Pending'", [req.body.mobile], (err, result) => {
+    if (err) { throw err; }
+    if (result.length == 0) {
+      con.query("INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
+        [req.body.mobile, req.body.amount, req.file.filename, req.file.destination + '/', 'Deposit', req.body.deposit_id, req.body.transection_id],
+        (err, result) => {
+          if (err) throw err;
+          if (result) {
+            res.status(201).json({
+              error: false,
+              status: true,
+              massage: "Add Deposit Request",
+            });
+          }
+        }
+      );
+    } else {
+      res.status(302).json({
+        error: true,
+        status: false,
+        massage: "Already Added Deposit Request.",
+      });
     }
-  );
+  })
 });
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   con.query(
@@ -768,95 +779,106 @@ app.post("/get-deposit-request", verifytoken, (req, res) => {
   );
 });
 app.post("/add-withdrawal-request", verifytoken, (req, res) => {
-  if (99 > parseInt(req.body.amount)) {
-    res.status(302).json({
-      error: true,
-      status: false,
-      massage: "Minimum Balance withdrawal is 100.",
-    });
-  } else {
-    if (req.body.amount == '' || req.body.mobile == '') {
+  con.query("SELECT * FROM `deposit` WHERE `user_name` = ? and `payment_type` = 'Withdrawal' and `status`= 'Pending'", [req.body.mobile], (err, result) => {
+    if (err) { throw err; }
+    if (result.length == 0) {
+      if (99 > parseInt(req.body.amount)) {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Minimum Balance withdrawal is 100.",
+        });
+      } else {
+        if (req.body.amount == '' || req.body.mobile == '') {
+          res.status(302).json({
+            error: true,
+            status: false,
+            massage: "You Must have to fill all the details.",
+          });
+        } else {
+          con.query('SELECT `bank_name`,`ifsc_code`,`ac_no`,`ac_name` FROM `user_details` WHERE `mobile` = ?', [req.body.mobile], (err1, result1) => {
+            if (err1) throw err1;
+            if (result1) {
+              if (!result1[0].bank_name) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "You Must have to fill Bank Name.",
+                });
+              } else if (!result1[0].ifsc_code) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "You Must have to fill IFSC Code.",
+                });
+              } else if (!result1[0].ac_no) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "You Must have to fill Account No.",
+                });
+              } else if (!result1[0].ac_name) {
+                res.status(302).json({
+                  error: true,
+                  status: false,
+                  massage: "You Must have to fill Account Name.",
+                });
+              } else {
+                con.query("SELECT IF(`winning_wallet` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
+                  [parseInt(req.body.amount), req.body.mobile],
+                  (error, result) => {
+                    if (error) {
+                      throw error;
+                    }
+                    if (result[0].result === "true") {
+                      con.query(
+                        "UPDATE `wallet` SET `winning_wallet` = `winning_wallet` - ? WHERE `user_name` = ?",
+                        [parseInt(req.body.amount), req.body.mobile],
+                        (err, resultt) => {
+                          if (err) throw err;
+                          if (resultt) {
+                            con.query(
+                              "INSERT INTO `deposit`(`user_name`, `balance`, `payment_type`) VALUES (?,?,'Withdrawal')",
+                              [
+                                req.body.mobile,
+                                req.body.amount
+                              ],
+                              (err, resultt) => {
+                                if (err) throw err;
+                                if (resultt) {
+                                  res.status(200).json({
+                                    error: false,
+                                    status: true,
+                                    massage: "Added withdrawal Request SuccessFully",
+                                  });
+                                }
+                              }
+                            );
+                          }
+                        }
+                      );
+                    } else {
+                      res.status(302).json({
+                        error: true,
+                        status: false,
+                        massage: "Insufficient Balance in your Winning wallet",
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          })
+        }
+      }
+    } else {
       res.status(302).json({
         error: true,
         status: false,
-        massage: "You Must have to fill all the details.",
+        massage: "Already Added Withdrawal Request.",
       });
-    } else {
-      con.query('SELECT `bank_name`,`ifsc_code`,`ac_no`,`ac_name` FROM `user_details` WHERE `mobile` = ?', [req.body.mobile], (err1, result1) => {
-        if (err1) throw err1;
-        if (result1) {
-          if (!result1[0].bank_name) {
-            res.status(302).json({
-              error: true,
-              status: false,
-              massage: "You Must have to fill Bank Name.",
-            });
-          } else if (!result1[0].ifsc_code) {
-            res.status(302).json({
-              error: true,
-              status: false,
-              massage: "You Must have to fill IFSC Code.",
-            });
-          } else if (!result1[0].ac_no) {
-            res.status(302).json({
-              error: true,
-              status: false,
-              massage: "You Must have to fill Account No.",
-            });
-          } else if (!result1[0].ac_name) {
-            res.status(302).json({
-              error: true,
-              status: false,
-              massage: "You Must have to fill Account Name.",
-            });
-          } else {
-            con.query("SELECT IF(`winning_wallet` >= ?, 'true', 'false') as result FROM wallet WHERE `user_name` = ?;",
-              [parseInt(req.body.amount), req.body.mobile],
-              (error, result) => {
-                if (error) {
-                  throw error;
-                }
-                if (result[0].result === "true") {
-                  con.query(
-                    "UPDATE `wallet` SET `winning_wallet` = `winning_wallet` - ? WHERE `user_name` = ?",
-                    [parseInt(req.body.amount), req.body.mobile],
-                    (err, resultt) => {
-                      if (err) throw err;
-                      if (resultt) {
-                        con.query(
-                          "INSERT INTO `deposit`(`user_name`, `balance`, `payment_type`) VALUES (?,?,'Withdrawal')",
-                          [
-                            req.body.mobile,
-                            req.body.amount
-                          ],
-                          (err, resultt) => {
-                            if (err) throw err;
-                            if (resultt) {
-                              res.status(200).json({
-                                error: false,
-                                status: true,
-                                massage: "Added withdrawal Request SuccessFully",
-                              });
-                            }
-                          }
-                        );
-                      }
-                    }
-                  );
-                } else {
-                  res.status(302).json({
-                    error: true,
-                    status: false,
-                    massage: "Insufficient Balance in your Winning wallet",
-                  });
-                }
-              }
-            );
-          }
-        }
-      })
     }
-  }
+  })
 });
 app.post("/decline-withdrawal-request", verifytoken, (req, res) => {
   con.query("SELECT * FROM `deposit` WHERE `payment_type` = 'Withdrawal' AND `id` = ?;", [req.body.id], (err, result) => {
@@ -1026,8 +1048,8 @@ app.post("/update-task", verifytoken, (req, res) => {
       status: false,
       massage: "Id is required",
     });
-  } 
-   else {
+  }
+  else {
     if (req.body.status == "Pending") {
       con.query("SELECT * FROM `assign_task` WHERE `user_id` = (select ud.id from user_details as ud where ud.mobile = ?) AND `username` = ? AND `task_id` = ? AND date(`date`) = CURRENT_DATE();",
         [req.body.mobile, req.body.username, req.body.id], (err1, result1) => {
