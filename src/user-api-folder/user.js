@@ -31,18 +31,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const fs = require('fs');
 const nodemailer = require("nodemailer");
-function deleteImage(imagePath) {
-  fs.access(imagePath, fs.constants.F_OK, (err) => {
-    if (err) {
-      return;
-    }
-    fs.unlink(imagePath, (err) => {
-      if (err) {
-        return;
-      }
-    });
-  });
-}
 const transporter = nodemailer.createTransport({
   name: "mail.earnkrobharat.com",
   host: "mail.earnkrobharat.com",
@@ -740,26 +728,42 @@ app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) =
   con.query("SELECT * FROM `deposit` WHERE `user_name` = ? and `payment_type` = 'Deposit' and `status`= 'Pending'", [req.body.mobile], (err, result) => {
     if (err) { throw err; }
     if (result.length == 0) {
-      con.query("INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
-        [req.body.mobile, req.body.amount, req.file.filename, req.file.destination + '/', 'Deposit', req.body.deposit_id, req.body.transection_id],
-        (err, result) => {
-          if (err) throw err;
-          if (result) {
-            res.status(201).json({
-              error: false,
-              status: true,
-              massage: "Add Deposit Request",
-            });
+      if (req.file == undefined) {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Image Required",
+        });
+      } else {
+        con.query("INSERT INTO `deposit`(`user_name`, `balance`, `image`,`image_path`, `payment_type`, `paymethod_id`,`transaction_id`) VALUES (?,?,?,?,?,?,?)",
+          [req.body.mobile, req.body.amount, req.file.filename, req.file.destination + '/', 'Deposit', req.body.deposit_id, req.body.transection_id],
+          (err, result) => {
+            if (err) throw err;
+            if (result) {
+              res.status(201).json({
+                error: false,
+                status: true,
+                massage: "Add Deposit Request",
+              });
+            }
           }
-        }
-      );
+        );
+      }
     } else {
-      deleteImage(req.file.destination + '/' + req.file.filename);
-      res.status(302).json({
-        error: true,
-        status: false,
-        massage: "Already Added Deposit Request.",
-      });
+      if (req.file == undefined) {
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Already Added Deposit Request.",
+        });
+      } else {
+        deleteImage(req.file.destination + '/' + req.file.filename);
+        res.status(302).json({
+          error: true,
+          status: false,
+          massage: "Already Added Deposit Request.",
+        });
+      }
     }
   })
 });
@@ -1751,6 +1755,18 @@ function code() {
       }
     })
   return a;
+}
+function deleteImage(imagePath) {
+  fs.access(imagePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return;
+    }
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        return;
+      }
+    });
+  });
 }
 function reffer(ba, ab) {
   con.query('INSERT INTO `user_level`(`user_reffral`, `level_1`) VALUES (?,?)', [ba, ab]);

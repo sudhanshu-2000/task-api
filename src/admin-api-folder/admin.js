@@ -748,7 +748,8 @@ app.post("/add-game-type", upload.single("game_type"), verifytoken, (req, res) =
   con.query("select * from `game_type` where `nickname` = ?", [req.body.nickname], (err, result) => {
     if (err) throw err;
     if (result.length > 0) {
-      res.send("Nickname is already exist");
+      deleteImage(req.file.destination + '/' + req.file.filename);
+      res.status(302).send("Nickname is already exist");
     } else {
       con.query("INSERT INTO `game_type`(`name`, `nickname`, `img`, `timer`) VALUES (?,?,?,?)", [req.body.name, req.body.nickname, req.file.filename, 2], (err, result) => {
         if (err) throw err;
@@ -914,26 +915,35 @@ app.post("/get-game-number", verifytoken, (req, res) => {
 });
 
 app.post("/add-payment-details-upi", upload.single("image"), verifytoken, (req, res) => {
-  var body = req.body;
-  con.query("select * from `new_payment_details` where UPI_id = ?", [body.upi], (err, result) => {
-    if (err) throw err;
-    if (result.length > 0) {
-      res.status(302).json({ error: true, status: false, massage: "UPI Id is Already exist" });
-    } else {
-      con.query("INSERT INTO `new_payment_details`(`name`,`upi_id`, `qr_code`, `number`, `type`) VALUES (?,?,?,?,?)",
-        [body.name, body.upi, req.file.filename, body.number, body.type], (err, result) => {
-          if (err) throw err;
-          if (result) {
-            res.status(200).json({
-              error: false,
-              status: true,
-              massage: "UPI Details SuccessFully",
-            });
+  if (req.file == undefined) {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Image Required",
+    });
+  } else {
+    var body = req.body;
+    con.query("select * from `new_payment_details` where UPI_id = ?", [body.upi], (err, result) => {
+      if (err) throw err;
+      if (result.length > 0) {
+        deleteImage(req.file.destination + '/' + req.file.filename);
+        res.status(302).json({ error: true, status: false, massage: "UPI Id is Already exist" });
+      } else {
+        con.query("INSERT INTO `new_payment_details`(`name`,`upi_id`, `qr_code`, `number`, `type`) VALUES (?,?,?,?,?)",
+          [body.name, body.upi, req.file.filename, body.number, body.type], (err, result) => {
+            if (err) throw err;
+            if (result) {
+              res.status(200).json({
+                error: false,
+                status: true,
+                massage: "UPI Details SuccessFully",
+              });
+            }
           }
-        }
-      );
-    }
-  });
+        );
+      }
+    });
+  }
 });
 app.post("/add-payment-details-bank", verifytoken, (req, res) => {
   var body = req.body;
@@ -1014,26 +1024,35 @@ app.post("/del-payment-details", verifytoken, (req, res) => {
   );
 });
 app.post("/update-payment-details-with-image", upload.single("image"), verifytoken, (req, res) => {
-  con.query("UPDATE `new_payment_details` SET `name` = ?, `upi_id` = ?, `qr_code` = ?, `number` = ? WHERE `id` = ?",
-    [req.body.name, req.body.upi, req.file.filename, req.body.number, req.body.id], (err, result) => {
-      if (err) {
-        if (err.code == "ER_DUP_ENTRY") {
-          res.status(302).send({
-            error: true,
-            status: false,
-            messsage: "UPI Id is already exist."
+  if (req.file == undefined) {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Image Required",
+    });
+  } else {
+    con.query("UPDATE `new_payment_details` SET `name` = ?, `upi_id` = ?, `qr_code` = ?, `number` = ? WHERE `id` = ?",
+      [req.body.name, req.body.upi, req.file.filename, req.body.number, req.body.id], (err, result) => {
+        if (err) {
+          if (err.code == "ER_DUP_ENTRY") {
+            deleteImage(req.file.destination + '/' + req.file.filename);
+            res.status(302).send({
+              error: true,
+              status: false,
+              messsage: "UPI Id is already exist."
+            });
+          }
+        }
+        if (result) {
+          res.status(200).send({
+            error: false,
+            status: true,
+            massage: "Update Details SuccessFully.",
           });
         }
       }
-      if (result) {
-        res.status(200).send({
-          error: false,
-          status: true,
-          massage: "Update Details SuccessFully.",
-        });
-      }
-    }
-  );
+    );
+  }
 });
 app.post("/update-payment-details", verifytoken, (req, res) => {
   con.query("UPDATE `new_payment_details` SET `name` = ?, `upi_id` = ?, `number` = ? WHERE `id` = ?",
@@ -1167,7 +1186,7 @@ app.post("/get-assign-task", verifytoken, (req, res) => {
     con.query("SELECT ast.id,ud.username as name,ud.mobile,ast.username,ast.url,twn.task_url,twn.type,(select p.`name` from `platforms` as p WHERE p.id = twn.platform_id) as platform,twn.comment_details,ast.status,ast.approved_declined_by,ast.reason,ast.date FROM `assign_task` as ast INNER join tasks_with_name as twn on ast.task_id = twn.id INNER join `user_details` as ud on ast.user_id = ud.id where ast.status = 'Completed'",
       [req.body.method], (err, result) => {
         if (err) throw err;
-        if(result) {
+        if (result) {
           res.status(200).send({
             error: false,
             status: true,
@@ -1828,40 +1847,56 @@ app.post("/update-task-details", verifytoken, (req, res) => {
     });
 });
 app.post("/add-video-task", vupload.single("video"), verifytoken, (req, res) => {
-  con.query(
-    "INSERT INTO `tasks_with_name`(`task_url`, `type`, `platform_id`) VALUES (?,?,?)",
-    [req.file.destination + '/' + req.file.filename, req.body.type, req.body.platform],
-    (err, result) => {
-      if (err) {
-        throw err;
+  if (req.file == undefined) {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Image Required",
+    });
+  } else {
+    con.query(
+      "INSERT INTO `tasks_with_name`(`task_url`, `type`, `platform_id`) VALUES (?,?,?)",
+      [req.file.destination + '/' + req.file.filename, req.body.type, req.body.platform],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        if (result) {
+          res.status(200).send({
+            error: false,
+            status: true,
+            massage: "Added Details SuccessFully",
+          });
+        }
       }
-      if (result) {
-        res.status(200).send({
-          error: false,
-          status: true,
-          massage: "Added Details SuccessFully",
-        });
-      }
-    }
-  )
+    )
+  }
 });
 app.post("/add-shopping-details", upload.single("s_image"), verifytoken, (req, res) => {
-  con.query(
-    "INSERT INTO `items`( `item_image`, `item_oprice`, `item_dprice`) VALUES (?,?,?)",
-    [req.file.filename, req.body.oprice, req.body.dprice],
-    (err, result) => {
-      if (err) {
-        throw err;
+  if (req.file == undefined) {
+    res.status(302).json({
+      error: true,
+      status: false,
+      massage: "Image Required",
+    });
+  } else {
+    con.query(
+      "INSERT INTO `items`( `item_image`, `item_oprice`, `item_dprice`) VALUES (?,?,?)",
+      [req.file.filename, req.body.oprice, req.body.dprice],
+      (err, result) => {
+        if (err) {
+          throw err;
+        }
+        if (result) {
+          res.status(200).send({
+            error: false,
+            status: true,
+            massage: "Added Details SuccessFully",
+          });
+        }
       }
-      if (result) {
-        res.status(200).send({
-          error: false,
-          status: true,
-          massage: "Added Details SuccessFully",
-        });
-      }
-    }
-  );
+    );
+  }
 });
 app.post('/get-shopping-details', verifytoken, (req, res) => {
   con.query('SELECT * FROM `items`', (err, result) => {
@@ -2087,6 +2122,18 @@ function verifytoken(req, res, next) {
   } else {
     res.sendStatus(403);
   }
+}
+function deleteImage(imagePath) {
+  fs.access(imagePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return;
+    }
+    fs.unlink(imagePath, (err) => {
+      if (err) {
+        return;
+      }
+    });
+  });
 }
 function agent(amount, user) {
   const percentage2 = ((5 / 100) * parseFloat(amount)).toFixed(2);
