@@ -754,6 +754,7 @@ app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) =
         }
       );
     } else {
+      deleteImage(req.file.destination + '/' + req.file.filename);
       res.status(302).json({
         error: true,
         status: false,
