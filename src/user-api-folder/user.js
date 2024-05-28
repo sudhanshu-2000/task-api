@@ -769,7 +769,7 @@ app.post("/deposit-request", upload.single("d_image"), verifytoken, (req, res) =
 });
 app.post("/get-deposit-request", verifytoken, (req, res) => {
   con.query(
-    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.reason,cd.transaction_id,cd.payment_type,cd.status,pd.name,pd.upi_id,pd.qr_code,pd.number,pd.ac_holder_name,pd.ac_no,pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type,cd.date FROM `deposit` as cd LEFT JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.`user_name` = ?;",
+    "SELECT cd.id,cd.user_name,cd.balance as amount,cd.image,cd.upi_id,cd.image_path,cd.reason,cd.transaction_id,cd.payment_type, cd.status,pd.name,pd.upi_id,pd.qr_code,pd.number,pd.ac_holder_name,pd.ac_no,cd.bank_name as ubank_details, cd.ifsc_code as uifsc_code, cd.ac_no as uac_no, cd.ac_name as uac_holder_name, pd.ac_type,pd.ifsc_code,pd.bank_name,pd.type,cd.date FROM `deposit` as cd LEFT JOIN `new_payment_details` as pd on cd.paymethod_id = pd.id where cd.`user_name` = ?;",
     [req.body.mobile],
     (err, result) => {
       if (err) throw err;
@@ -843,10 +843,14 @@ app.post("/add-withdrawal-request", verifytoken, (req, res) => {
                           if (err) throw err;
                           if (resultt) {
                             con.query(
-                              "INSERT INTO `deposit`(`user_name`, `balance`, `payment_type`) VALUES (?,?,'Withdrawal')",
+                              "INSERT INTO `deposit`(`user_name`, `balance`, `payment_type`,`bank_name`,`ifsc_code`,`ac_no`,`ac_name`) VALUES (?,?,'Withdrawal',?,?,?,?)",
                               [
                                 req.body.mobile,
-                                req.body.amount
+                                req.body.amount,
+                                result1[0].bank_name,
+                                result1[0].ifsc_code,
+                                result1[0].ac_no,
+                                result1[0].ac_name
                               ],
                               (err, resultt) => {
                                 if (err) throw err;
